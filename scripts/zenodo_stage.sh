@@ -80,10 +80,6 @@ print('  ok   bucket present' if d.get('links',{}).get('bucket') else '  FAIL no
 for f in d.get('files',[]): print('  --   existing: %s md5:%s' % (f['filename'], f['checksum']))
 "
 BUCKET=$(printf '%s' "$DEP" | jq_py "print(d['links']['bucket'])")
-# Record exactly which file ids we intend to remove. Later we delete these ids
-# and nothing else, so a file added by someone in the meantime is never touched.
-OLD_IDS=$(printf '%s' "$DEP" | jq_py "print(' '.join(f['id'] for f in d.get('files',[])))")
-note "will remove file ids: ${OLD_IDS:-<none>}"
 
 if [ "$DRY" = 1 ]; then
   echo; echo "DRY RUN — read-only. Nothing uploaded, deleted, or modified."; exit 0
@@ -97,26 +93,48 @@ for f in "$PDF" "$ZIP"; do
   ok "uploaded and verified $n  md5 $got"
 done
 
-echo "== 3. re-read before any destructive step =="
+echo "== 3. re-read, and prove the new bytes are actually on the record =="
+# Identity, not names. The PDF is uploaded under the SAME bucket key as the file
+# already there, so a name check cannot tell the new bytes from the old ones —
+# and deleting by an id recorded before the upload can delete the replacement
+# itself, if Zenodo keeps the id across a same-key overwrite. Everything below
+# keys off checksums, which is true regardless of how ids behave.
+DESIRED="$(basename "$PDF"):$PDF_MD5 $(basename "$ZIP"):$ZIP_MD5"
 DEP2=$(api GET "$API/deposit/depositions/$DEP_ID")
-printf '%s' "$DEP2" | jq_py "
-assert not d.get('submitted'), 'record was PUBLISHED mid-run — stopping before deleting anything'
-names={f['filename'] for f in d.get('files',[])}
-for n in ['Vinci_Technical_Report_No_2.pdf','Vinci-TR2-Character-Transfer-v1.0-public.zip']:
-    assert n in names, 'expected %s on the draft after upload, not found' % n
-print('  ok   still unsubmitted, both new files present')
-"
+printf '%s' "$DEP2" | DESIRED="$DESIRED" python3 -c "
+import json,os,sys
+d=json.load(sys.stdin)
+if d.get('submitted'): sys.exit('  FAIL: published mid-run — stopping before deleting anything')
+want=dict(x.split(':',1) for x in os.environ['DESIRED'].split())
+have={f['filename']: f['checksum'].replace('md5:','') for f in d.get('files',[])}
+bad=[n for n,c in want.items() if have.get(n)!=c]
+if bad: sys.exit('  FAIL: not on the record with the expected checksum: %s' % bad)
+print('  ok   still unsubmitted; both files present with the exact local checksums')
+" || exit 1
 
-echo "== 4. remove only the file ids recorded in step 1 =="
-for fid in $OLD_IDS; do
-  still=$(printf '%s' "$DEP2" | jq_py "print('yes' if any(f['id']=='$fid' for f in d.get('files',[])) else 'no')")
-  if [ "$still" != "yes" ]; then note "file id $fid already gone, skipping"; continue; fi
-  api DELETE "$API/deposit/depositions/$DEP_ID/files/$fid" >/dev/null
-  ok "deleted file id $fid"
-done
+echo "== 4. delete only files that are NOT one of the two we just verified =="
+# Never delete by a pre-recorded id. Delete only what does not belong on the
+# final record, identified by name-and-checksum at this moment.
+DOOMED=$(printf '%s' "$DEP2" | DESIRED="$DESIRED" python3 -c "
+import json,os,sys
+d=json.load(sys.stdin)
+want=dict(x.split(':',1) for x in os.environ['DESIRED'].split())
+for f in d.get('files',[]):
+    c=f['checksum'].replace('md5:','')
+    if want.get(f['filename'])!=c: print(f['id'], f['filename'])
+")
+if [ -z "$DOOMED" ]; then
+  ok "nothing to delete — the same-key upload already replaced the old file"
+else
+  printf '%s\n' "$DOOMED" | while read -r fid fname; do
+    [ -n "$fid" ] || continue
+    api DELETE "$API/deposit/depositions/$DEP_ID/files/$fid" >/dev/null || exit 1
+    ok "deleted stale $fname (id $fid)"
+  done || fail "a delete failed"
+fi
 
 echo "== 5. metadata =="
-python3 - "$URL" > "$BODY.meta" <<'PY'
+python3 - "$URL" > "$BODY.meta" <<'PYMETA'
 import json,sys
 url=sys.argv[1]
 scope=("Development-tier validation evidence only. Refusal adjustment is Judge-B-only. "
@@ -142,23 +160,32 @@ print(json.dumps({"metadata":{
              "evaluation reliability","negative result"],
  "related_identifiers":[{"identifier":url,"relation":"isIdenticalTo","scheme":"url"}],
  "notes":scope}},indent=2))
-PY
+PYMETA
 api PUT "$API/deposit/depositions/$DEP_ID" -H "Content-Type: application/json" -d @"$BODY.meta" >/dev/null
 rm -f "$BODY.meta"; ok "metadata written"
 
-echo "== 6. verify the end state =="
-api GET "$API/deposit/depositions/$DEP_ID" | jq_py "
-m=d['metadata']; files={f['filename']:f['checksum'] for f in d.get('files',[])}
-print('  state    :', d.get('state'), ' submitted:', d.get('submitted'))
-print('  version  :', m.get('version'), ' licence:', m.get('license'))
-for k,v in files.items(): print('  file     :', k, v)
-ok = (not d.get('submitted')
-      and m.get('version')=='1.0'
-      and 'No model checkpoint is recommended for release' in (m.get('description') or '')
-      and len(files)==2)
-print('  scope line in description:', 'No model checkpoint is recommended for release' in (m.get('description') or ''))
-print('  >>>', 'STAGED CORRECTLY' if ok else 'CHECK THE ABOVE — something is off')
-"
+echo "== 6. assert the end state (non-zero exit if anything is wrong) =="
+api GET "$API/deposit/depositions/$DEP_ID" | DESIRED="$DESIRED" python3 -c "
+import json,os,sys
+d=json.load(sys.stdin); m=d.get('metadata',{})
+want=dict(x.split(':',1) for x in os.environ['DESIRED'].split())
+have={f['filename']: f['checksum'].replace('md5:','') for f in d.get('files',[])}
+errs=[]
+if d.get('submitted'):          errs.append('record is submitted/published')
+if m.get('version')!='1.0':     errs.append('version is %r, expected 1.0' % m.get('version'))
+if m.get('license')!='cc-by-4.0': errs.append('licence is %r' % m.get('license'))
+if 'No model checkpoint is recommended for release' not in (m.get('description') or ''):
+    errs.append('scope line missing from description')
+if set(have)!=set(want):        errs.append('files are %s, expected %s' % (sorted(have), sorted(want)))
+for n,c in want.items():
+    if have.get(n)!=c: errs.append('%s checksum %s, expected %s' % (n, have.get(n), c))
+for n,c in sorted(have.items()): print('  file     :', n, c)
+print('  version  :', m.get('version'), ' licence:', m.get('license'), ' submitted:', d.get('submitted'))
+if errs:
+    print('  >>> NOT STAGED CORRECTLY'); [print('      -',e) for e in errs]; sys.exit(1)
+print('  >>> STAGED CORRECTLY')
+" || fail "end-state assertion failed — inspect the draft before doing anything else"
+
 echo
 echo "Staged, NOT published. Review then publish by hand:"
 echo "  https://zenodo.org/uploads/$DEP_ID"
