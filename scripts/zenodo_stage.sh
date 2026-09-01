@@ -33,7 +33,7 @@ TOKEN_FILE="${ZENODO_TOKEN_FILE:-$HOME/.zenodo-token}"
 if [ -z "${ZENODO_TOKEN:-}" ] && [ -r "$TOKEN_FILE" ]; then
   ZENODO_TOKEN="$(tr -d '\r\n' < "$TOKEN_FILE")"
   perms=$(stat -f '%A' "$TOKEN_FILE" 2>/dev/null || stat -c '%a' "$TOKEN_FILE" 2>/dev/null || echo unknown)
-  [ "$perms" = "600" ] || echo "  WARN $TOKEN_FILE is mode $perms; chmod 600 it"
+  [ "$perms" = "600" ] || fail "$TOKEN_FILE is mode $perms. Refusing to read a token from a\n        world- or group-readable file. Run: chmod 600 $TOKEN_FILE"
 fi
 : "${ZENODO_TOKEN:?no token. Write it to ~/.zenodo-token (chmod 600) or export ZENODO_TOKEN. Never paste it into a chat or a command line.}"
 
@@ -79,6 +79,22 @@ print('  ok   state=%s submitted=%s' % (d.get('state'), d.get('submitted')))
 print('  ok   bucket present' if d.get('links',{}).get('bucket') else '  FAIL no bucket link')
 for f in d.get('files',[]): print('  --   existing: %s md5:%s' % (f['filename'], f['checksum']))
 "
+# Identity gate. Everything after this point writes. If API or DEP_ID were
+# ever wrong, or a bucket link pointed elsewhere, uploads would land on someone
+# else's record and every later check would pass against the wrong target.
+printf '%s' "$DEP" | DEP_ID="$DEP_ID" python3 -c "
+import json,os,sys
+d=json.load(sys.stdin)
+want_id=os.environ['DEP_ID']; want_doi='10.5281/zenodo.22236690'
+got_id=str(d.get('id') or d.get('record_id') or '')
+if got_id != want_id: sys.exit('  FAIL: deposition id is %r, expected %r' % (got_id, want_id))
+m=d.get('metadata',{})
+doi=(m.get('prereserve_doi') or {}).get('doi') or m.get('doi') or d.get('doi') or ''
+if doi != want_doi: sys.exit('  FAIL: reserved DOI is %r, expected %r' % (doi, want_doi))
+b=d.get('links',{}).get('bucket','')
+if want_id not in b and 'bucket' not in b: sys.exit('  FAIL: bucket link %r does not belong to this deposition' % b)
+print('  ok   identity: deposition %s, DOI %s' % (got_id, doi))
+" || exit 1
 BUCKET=$(printf '%s' "$DEP" | jq_py "print(d['links']['bucket'])")
 
 if [ "$DRY" = 1 ]; then

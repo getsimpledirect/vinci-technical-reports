@@ -47,6 +47,25 @@ check "current: published mid-run refuses"   "$(invoke "$ROOT/scripts/zenodo_sta
 start_mock --corrupt-upload
 check "current: corrupted upload refuses"    "$(invoke "$ROOT/scripts/zenodo_stage.sh")" "1"
 
+
+# --- wrong deposition: identity gate must stop it before ANY write ---
+start_mock --dep-id 99999999
+rc=$(invoke "$ROOT/scripts/zenodo_stage.sh")
+check "wrong deposition id refuses" "$rc" "1"
+check "  ...and uploaded nothing"   "$(files_now)" "$PDF_NAME"
+
+start_mock --doi 10.5281/zenodo.00000000
+rc=$(invoke "$ROOT/scripts/zenodo_stage.sh")
+check "wrong reserved DOI refuses"  "$rc" "1"
+check "  ...and uploaded nothing"   "$(files_now)" "$PDF_NAME"
+
+# --- a file we did not put there: must refuse, and must not DELETE ---
+start_mock --extra-file
+rc=$(invoke "$ROOT/scripts/zenodo_stage.sh")
+check "unexpected third file refuses" "$rc" "1"
+check "  ...stranger file untouched"  "$(files_now | tr ',' '\n' | grep -c someone_elses_notes.txt)" "1"
+check "  ...zero DELETE verbs issued" "$(grep -c 'api DELETE' "$ROOT/scripts/zenodo_stage.sh")" "0"
+
 # Regression control: the old script must LOSE the PDF here. If this stops
 # failing, the harness has stopped reproducing the defect and proves nothing.
 if git -C "$ROOT" cat-file -e 23187b7:scripts/zenodo_stage.sh 2>/dev/null; then

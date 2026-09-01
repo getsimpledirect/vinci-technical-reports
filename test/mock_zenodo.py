@@ -16,19 +16,28 @@ ap.add_argument('--port', type=int, default=8899)
 ap.add_argument('--id-stable', action='store_true')
 ap.add_argument('--publish-midrun', action='store_true')
 ap.add_argument('--corrupt-upload', action='store_true')
+ap.add_argument('--extra-file', action='store_true')
+ap.add_argument('--dep-id', default='22236690')
+ap.add_argument('--doi', default='10.5281/zenodo.22236690')
 A = ap.parse_args()
 
 STATE = {
     'submitted': False,
-    'metadata': {'prereserve_doi': {'doi': '10.5281/zenodo.22236690'}},
+    'metadata': {'prereserve_doi': {'doi': A.doi}},
     'files': [{'id': 'old-pdf-id', 'filename': 'Vinci_Technical_Report_No_2.pdf',
                'checksum': 'fc68060eea31eda44fc54d1631144af4', 'filesize': 230283}],
     'gets': 0,
 }
+if A.extra_file:
+    STATE['files'].append({'id': 'stranger', 'filename': 'someone_elses_notes.txt',
+                           'checksum': '9'*32, 'filesize': 11})
 NEXT = [1]
+DELETES = []
 
 def dep(port):
-    return {'state': 'unsubmitted' if not STATE['submitted'] else 'done',
+    return {'id': A.dep_id, 'record_id': A.dep_id,
+            'doi': A.doi,
+            'state': 'unsubmitted' if not STATE['submitted'] else 'done',
             'submitted': STATE['submitted'],
             'metadata': STATE['metadata'],
             'files': STATE['files'],
@@ -69,10 +78,14 @@ class H(BaseHTTPRequestHandler):
         return self._send(200, dep(A.port))
 
     def do_DELETE(self):
+        DELETES.append(self.path)
         fid = self.path.rsplit('/', 1)[-1]
         before = len(STATE['files'])
         STATE['files'] = [f for f in STATE['files'] if f['id'] != fid]
         return self._send(204 if len(STATE['files']) < before else 404, {})
+
+    def do_POST(self):
+        self._send(403, {'message': 'publish not permitted for this token'})
 
 srv = HTTPServer(('127.0.0.1', A.port), H)
 threading.Thread(target=srv.serve_forever, daemon=True).start()
