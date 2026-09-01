@@ -5,7 +5,7 @@
   "evidence_tier": "development",
   "claim_tier": "internal-review-only",
   "primary_test_holdout": "untouched",
-  "generated_at_utc": "2026-09-01T19:30:01+00:00",
+  "generated_at_utc": "2026-09-01T19:37:24+00:00",
   "file_count": 70,
   "files": [
     {
@@ -165,18 +165,18 @@
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.docx",
-      "bytes": 766208,
-      "sha256": "919c6e74ca6b59b3d516c6bbf94bb740d6ad2ecd603ba5c7da7ab74c8ee0c7b5"
+      "bytes": 766196,
+      "sha256": "81d81061f67ad1c7e0719f90bf55fa440acb2e756fd2c2ffc08951433538bdc5"
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.html",
-      "bytes": 69139,
-      "sha256": "3dadad8e9607cbc715b25a760d5daa79e0ab233b36f708201efe127d0e148d73"
+      "bytes": 69108,
+      "sha256": "eb22e432f73423f5d221c1e2ae183a4270e2694bbb5228d4ac0c73ae6fbaf18a"
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.md",
-      "bytes": 46021,
-      "sha256": "1b7ed2b35db2be5cb8f9d3ab48b1f1107036374359c0330d5d50e05d8c8a7f8c"
+      "bytes": 45990,
+      "sha256": "039926de74912d4dad3e6d8952d2c31eba788db58b142bc244ecd057e7bd7521"
     },
     {
       "path": "source/BUILD.md",
@@ -185,13 +185,13 @@
     },
     {
       "path": "source/Vinci_Technical_Report_No_2_docx.md",
-      "bytes": 45573,
-      "sha256": "69c118b0870389474d2d79236e1fa53595431b4c905aaba33b380a75d676774b"
+      "bytes": 45542,
+      "sha256": "f3922167e419051db47da50815f0c69cd5d04d47031b9a90db6d1aa03098fe48"
     },
     {
       "path": "source/Vinci_Technical_Report_No_2_html.md",
-      "bytes": 45882,
-      "sha256": "e5d7944d935880d4e6339f24129fd8fef4c8002fd1630095362751f3a6790b79"
+      "bytes": 45851,
+      "sha256": "61f8bd8479ec32dfd093b802d696f8fd8beb46696ab7da74056a2f07a4e69a19"
     },
     {
       "path": "source/build_figures_and_tables.py",
@@ -210,8 +210,8 @@
     },
     {
       "path": "source/latex/Vinci_Technical_Report_No_2_pdf.md",
-      "bytes": 37360,
-      "sha256": "b4eca3a07922b44035b8b2368bc1887716b251dc4f2dd7d407daf75733b5bb18"
+      "bytes": 37329,
+      "sha256": "2aed53754a57084a9201df8cfe0d201c6ecf183287670ec803c22accfa94943c"
     },
     {
       "path": "source/latex/figure2.tex",
