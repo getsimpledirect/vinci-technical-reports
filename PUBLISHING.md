@@ -123,6 +123,36 @@ narrowing.
 **Numbered social threads must survive being quoted one item at a time.** Item 3 of the launch
 thread read as success on its own, corrected only by item 4.
 
+**State the sign convention for every signed metric, once, before first use — and check
+the abstract against the tables, not against the prose.**
+
+This has now happened twice, in two reports, in the abstract both times.
+
+- Report No. 2 labelled a column "ACC points lost per UAR point gained" over values computed
+  as the reciprocal. Erratum E1.
+- The Report No. 3 draft wrote "median reasoning-token **change** was -10.9%" where every
+  table in the same document said **reduction**, a quantity signed so that positive means
+  fewer tokens. Under "change", -10.9% reads as an improvement; under "reduction" it means
+  reasoning got 10.9% longer. The body was correct throughout — one section even says
+  plainly that reasoning *increased* — and only the abstract inverted it.
+
+The mechanism is the same both times: the convention was never written down, so every table
+applied it correctly and the prose was free to restate it backwards. The abstract is the
+worst place for this to survive, because it is the part that gets quoted, indexed, and pasted
+into submission metadata, and it is the part most likely to be rewritten by hand late.
+
+Two checks, neither expensive:
+
+- For every signed metric, state the direction once, before first use. One sentence: *reduction
+  is signed so that a positive value means fewer tokens; a negative reduction means the quantity
+  increased.*
+- Verify each number in the abstract against the table or artifact it came from, not against
+  the surrounding prose. Prose agreeing with prose is not a check.
+
+Watch for magnitude collisions while you are there. The Report No. 3 draft carries -10.9% and
++10.9% for the same seed in different arms — both as measured, opposite directions, two
+sections apart. Flag it in the text; do not renumber measured values to avoid the confusion.
+
 **Watch for the mention-versus-use false positive.** An automated claim review returned ~20
 blockers, most of which flagged forbidden phrases inside sentences that *prohibited* them —
 "Do not say the holdout passed" flagged for saying "passed". Taken seriously, it would have
