@@ -76,6 +76,9 @@ check "  ...and uploaded nothing"     "$(files_now)" "$PDF_NAME"
 # failing, the harness has stopped reproducing the defect and proves nothing.
 if git -C "$ROOT" cat-file -e 23187b7:scripts/zenodo_stage.sh 2>/dev/null; then
   git -C "$ROOT" show 23187b7:scripts/zenodo_stage.sh > "$TMP/old.sh"
+  # 23187b7 gates on the hyphen form. Feed it a hyphen PDF, or it aborts at the
+  # title check and never reaches the delete bug this control must reproduce.
+  python3 "$ROOT/test/make_test_pdf.py" "$TMP/$PDF_NAME" "-"
   start_mock --id-stable
   invoke "$TMP/old.sh" >/dev/null
   got=$(files_now)

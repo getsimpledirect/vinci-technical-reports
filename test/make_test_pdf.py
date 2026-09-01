@@ -8,7 +8,7 @@ def mkpdf(path, lines):
             "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
             "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
             "/Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
-            "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+            "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
             f"<< /Length {len(content)} >>\nstream\n{content}\nendstream"]
     out, offs = "%PDF-1.4\n", []
     for i, o in enumerate(objs, 1):
@@ -18,4 +18,9 @@ def mkpdf(path, lines):
     for off in offs: out += f"{off:010d} 00000 n \n"
     out += f"trailer\n<< /Size {len(objs)+1} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n"
     pathlib.Path(path).write_bytes(out.encode('latin-1'))
-mkpdf(sys.argv[1], ["Version 1.0 - 1 September 2026", "Outstanding Evidence Work"])
+# Bullet, matching what vinci_tr2_template.tex actually prints — a hyphen here
+# would let a gate pass in tests that fails on the real PDF.
+# \225 is bullet under WinAnsiEncoding — the separator the real template prints.
+# A hyphen here would let the gate pass in tests and fail on the real PDF.
+sep = sys.argv[2] if len(sys.argv) > 2 else "\\225"
+mkpdf(sys.argv[1], [f"Version 1.0 {sep} 1 September 2026", "Outstanding Evidence Work"])

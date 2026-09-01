@@ -63,7 +63,9 @@ echo "== 0. local artifacts =="
 command -v pdftotext >/dev/null || fail "pdftotext not found (brew install poppler)"
 pdftotext "$PDF" "$BODY.txt"
 grep -q "Version 0.9"                   "$BODY.txt" && fail 'that PDF contains "Version 0.9" — it is the draft'
-grep -q "Version 1.0 - 1 September 2026" "$BODY.txt" || fail 'title block is not the v1.0 line'
+# The template prints a bullet, not a hyphen; gating on the hyphen rejected the
+# real PDF. Same defect existed in assemble_release.sh — fixed in both.
+grep -qE "Version 1\.0 (-|.) 1 September 2026" "$BODY.txt" || fail 'title block is not the v1.0 line'
 grep -q "Outstanding Evidence Work"      "$BODY.txt" || fail 'Appendix D is not the v1.0 text'
 rm -f "$BODY.txt"
 ok "PDF is the v1.0 build"
