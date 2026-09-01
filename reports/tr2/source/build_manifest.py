@@ -49,7 +49,7 @@ def main() -> None:
     manifest = {
         "schema": "vinci-publication-package-manifest/v1",
         "package": "Vinci Technical Report No. 2 - Character Transfer Across Three Model Families",
-        "package_version": "0.9",
+        "package_version": "1.0",
         "evidence_tier": "development",
         "claim_tier": "internal-review-only",
         "primary_test_holdout": "untouched",

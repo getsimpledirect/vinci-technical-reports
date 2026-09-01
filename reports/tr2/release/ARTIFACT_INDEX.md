@@ -3,7 +3,7 @@
 ## Report
 
 - `report/Vinci_Technical_Report_No_2.md` - canonical manuscript.
-- `report/Vinci_Technical_Report_No_2.pdf` - archival two-column publication draft.
+- `report/Vinci_Technical_Report_No_2.pdf` - archival two-column report.
 - `report/Vinci_Technical_Report_No_2.docx` - editable review copy.
 - `report/Vinci_Technical_Report_No_2.html` - self-contained HTML.
 

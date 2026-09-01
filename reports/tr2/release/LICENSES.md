@@ -1,15 +1,15 @@
 # Licensing Plan and Rights Review
 
-**Status:** draft; final licences have not been assigned in version 0.9.
+**Status:** assigned. Report text, figures, and Vinci-authored tables are CC BY 4.0; original analysis and build code is Apache 2.0. Benchmark items and judge metadata remain under per-item rights review.
 
 ## Proposed release licences
 
 | Artifact class | Proposed licence | Publication status |
 |---|---|---|
-| Technical report text | CC BY 4.0 | George to confirm before version 1.0 |
-| Original figures | CC BY 4.0 | George to confirm before version 1.0 |
-| Aggregate tables authored by Vinci | CC BY 4.0 | George to confirm before version 1.0 |
-| Original analysis/build code | Apache 2.0 | Confirm repository compatibility |
+| Technical report text | CC BY 4.0 | Assigned |
+| Original figures | CC BY 4.0 | Assigned |
+| Aggregate tables authored by Vinci | CC BY 4.0 | Assigned |
+| Original analysis/build code | Apache 2.0 | Assigned |
 | Validation benchmark items | Per-item rights decision required | Do not publish until audited |
 | Sanitized model-judge labels/metadata | Rights and privacy review required | Do not publish until audited |
 | Model weights/adapters | Not included | No licence decision required for this release |

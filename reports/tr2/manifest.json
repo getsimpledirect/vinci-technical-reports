@@ -1,11 +1,11 @@
 {
   "schema": "vinci-publication-package-manifest/v1",
   "package": "Vinci Technical Report No. 2 - Character Transfer Across Three Model Families",
-  "package_version": "0.9",
+  "package_version": "1.0",
   "evidence_tier": "development",
   "claim_tier": "internal-review-only",
   "primary_test_holdout": "untouched",
-  "generated_at_utc": "2026-09-01T18:50:02+00:00",
+  "generated_at_utc": "2026-09-01T19:13:42+00:00",
   "file_count": 70,
   "files": [
     {
@@ -100,8 +100,8 @@
     },
     {
       "path": "release/ARTIFACT_INDEX.md",
-      "bytes": 1794,
-      "sha256": "9730c1d5ef14acc7c751c1b1dbe9dcc41fb640b6e6d022e18569f00be42f254f"
+      "bytes": 1783,
+      "sha256": "fd3eb9d3f53f50023094e1e70e8f6dcdba1e6a16c570b8630cc0689ef323c78f"
     },
     {
       "path": "release/CITATION.cff",
@@ -115,8 +115,8 @@
     },
     {
       "path": "release/DATA_AND_PROVENANCE.md",
-      "bytes": 2785,
-      "sha256": "2bce9915b7f54990d858140f6d3db515df1bc605223e825b0a28e6e2df1bc365"
+      "bytes": 2790,
+      "sha256": "17ec1b1df7bfaa867314feb2cfee9a2e638d7fd929a5e527196b66cc7045701b"
     },
     {
       "path": "release/ERRATA_REQUIRED_BEFORE_PUBLICATION.md",
@@ -130,18 +130,18 @@
     },
     {
       "path": "release/LICENSES.md",
-      "bytes": 1816,
-      "sha256": "8fb08b88f1920e53fe5fcc6ab1653602fd1862da9036187342f424f72cd61288"
+      "bytes": 1840,
+      "sha256": "44ace9c98e9af9bab9184816807f3e90e183e0f6a2efef1df5089b841399e058"
     },
     {
       "path": "release/LIMITATIONS.md",
-      "bytes": 2622,
-      "sha256": "19bd3caaf0981404802f61e4526e2b2771f93f074763eec62a3e3d23bd733835"
+      "bytes": 2654,
+      "sha256": "5fa42ce01056a9246edb6a84840c56c84af595ea17f9e623d92f6cb4ee8917bc"
     },
     {
       "path": "release/RELEASE_NOTES.md",
-      "bytes": 2896,
-      "sha256": "ac8dd5ff285ad62c1e68afbac4148acf83382cf847f5aa512229521c28e90450"
+      "bytes": 2874,
+      "sha256": "41c9e66590d2595350265156a0fdda0e7b1f353d715e87b0341c4a9b236fefbf"
     },
     {
       "path": "release/REPRODUCIBILITY.md",
@@ -165,18 +165,18 @@
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.docx",
-      "bytes": 766179,
-      "sha256": "e86f7e7af00d2f632f5c39f1760904f8b91f83ece266ec5a790f99f737c60196"
+      "bytes": 766222,
+      "sha256": "23016b2c0f06422ee7892bb840301ca4250490cd3b34043662a6d025206bd431"
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.html",
-      "bytes": 1331696,
-      "sha256": "28819301217b3badc4c84ecac9888df8be198160afaeddc336e8b14dad431851"
+      "bytes": 69168,
+      "sha256": "0e63a71e1fe272b8d52061ca26d4e22843787a224c681f95815912779731af1d"
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.md",
-      "bytes": 46091,
-      "sha256": "e723b46f4587ce1b35b527da8049930159464266a3b8123cf69482f96051701f"
+      "bytes": 46050,
+      "sha256": "08247bf2613e04126db09d09c44e307ec031e25929915e15bbabb291da297a42"
     },
     {
       "path": "source/BUILD.md",
@@ -185,13 +185,13 @@
     },
     {
       "path": "source/Vinci_Technical_Report_No_2_docx.md",
-      "bytes": 45643,
-      "sha256": "f7cd9fc8a41d0cd9e22fefc024db1584903ead819e386ddbe60e57933e9bb771"
+      "bytes": 45602,
+      "sha256": "270d10173504ed3e6d406db24840b0802567e80107a0f2b92bf118740e90f866"
     },
     {
       "path": "source/Vinci_Technical_Report_No_2_html.md",
-      "bytes": 45932,
-      "sha256": "329a4683a3a2e585dffd3e82dc5f0998f635eebee2eadf5ac713f92d66c14e4f"
+      "bytes": 45911,
+      "sha256": "88ed1c8422426ff06c965b61120eda5eafbac942c1c4cdea6aa9772b0ef818b7"
     },
     {
       "path": "source/build_figures_and_tables.py",
@@ -201,7 +201,7 @@
     {
       "path": "source/build_manifest.py",
       "bytes": 2983,
-      "sha256": "7360ea103209b79bab0cb2b3901e3f34f77a13ecc7b09b25d272f0e65b2993d7"
+      "sha256": "faa0135e9f92f3fec789e041ccbe8f7fdf0cc6ef3e0c48fee97c9975301eada9"
     },
     {
       "path": "source/latex/Vinci_Technical_Report_No_2.tex",
@@ -210,8 +210,8 @@
     },
     {
       "path": "source/latex/Vinci_Technical_Report_No_2_pdf.md",
-      "bytes": 37410,
-      "sha256": "bd3cba1b47cf19675ce93bad692858a7e5f56b096f59c318dfef451eb0eef097"
+      "bytes": 37389,
+      "sha256": "0fdb4856956e7a11d3e79dc017d3f163ae263e1c076d11090e6f164d96c42154"
     },
     {
       "path": "source/latex/figure2.tex",

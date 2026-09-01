@@ -15,6 +15,6 @@ Development-tier validation evidence only. Refusal adjustment is Judge-B-only. C
 11. **Declared panel, not a random sample.** The three families do not support a universal estimate over language models.
 12. **No DPO-only arm.** The design identifies ordered C2-C0 and C3-C2 increments, not an order-independent DPO effect.
 13. **No production evaluation.** The study does not measure latency, tool use, long-context behaviour, multilingual use, agentic performance, real-user outcomes, or deployment safety.
-14. **Authorship remains to be confirmed.** The version 0.9 CRediT statement is a draft.
+14. **Authorship is confirmed.** Both named authors confirmed the author order and CRediT statement on 1 September 2026.
 
 These limitations do not erase the measured UAR movement. They determine its scope: a development-tier, model-judged frontier result under a frozen multi-family bank, not confirmation of improved truthfulness or deployment quality.

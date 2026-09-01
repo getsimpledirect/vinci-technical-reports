@@ -367,7 +367,7 @@ The primary holdout remains sealed. Capability preservation remains unmeasured. 
 
 ## Author Contributions
 
-Contributions follow the CRediT taxonomy; equal contribution is not claimed. This statement is a publication draft and requires confirmation by both named authors.
+Contributions follow the CRediT taxonomy; equal contribution is not claimed. Both named authors confirmed the author order and this statement on 1 September 2026.
 
 **George Pu:** conceptualization, methodology, investigation, formal analysis, validation, data curation oversight, supervision, project administration, visualization, and writing - original draft. George served as decision owner, research owner, evaluation lead, statistical owner, and holdout custodian for the development-tier program.
 
@@ -409,7 +409,7 @@ AI systems from OpenAI and Anthropic assisted with software implementation, adve
 
 [14] Jan Kottner, Laurent Audige, Stig Brorson, Allan Donner, Byron J. Gajewski, Asbjorn Hrobjartsson, Chris Roberts, Mohamed M. Shoukri, and David L. Streiner. “Guidelines for Reporting Reliability and Agreement Studies (GRRAS) Were Proposed.” Journal of Clinical Epidemiology 64(1), 96-106, 2011. https://doi.org/10.1016/j.jclinepi.2010.03.002
 
-[15] Vinci Research. “Character Transfer Development-Tier Release Bundle, Version 0.9.” 2026. Public URL and immutable release identifier to be assigned.
+[15] Vinci Research. “Character Transfer Development-Tier Release Bundle, Version 1.0.” 2026. https://doi.org/10.5281/zenodo.22236690
 
 ## Appendix A. Claim-to-Evidence Boundary
 

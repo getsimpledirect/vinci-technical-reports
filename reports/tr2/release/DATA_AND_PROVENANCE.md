@@ -43,7 +43,7 @@ The bundle digest is the execution identity available for this bank. A later pub
 - Results were reported per judge. No pooled average, consensus delta, majority vote, or OR-combination governs the headline.
 - Canonical reliability labels were accompanied by 240 per-call ledger entries per judge, including requested model, echoed model, provider, response ID, finish reason, and response hash.
 
-## Missing public data in version 0.9
+## Public data not included in version 1.0
 
 This package contains aggregate tables, not the final sanitized public evidence export. Before version 1.0, export the item-level scored validation outputs, exclusions, analysis locks, artifact bindings, and sanitized judge ledgers directly from the private repository. Preserve their original hashes and do not reconstruct them from the prose tables.
 

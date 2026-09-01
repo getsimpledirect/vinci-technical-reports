@@ -3,7 +3,7 @@
 Development-tier validation evidence only. Refusal adjustment is Judge-B-only. Capability preservation was not evaluated. No external audit was performed. The primary holdout remains sealed. No model checkpoint is recommended for release.
 
 **Release type:** research finding and evidence package  
-**Version:** 0.9 publication candidate  
+**Version:** 1.0  
 **Date:** 1 September 2026  
 **Claim tier:** internal review only  
 **Primary-test holdout:** untouched  
