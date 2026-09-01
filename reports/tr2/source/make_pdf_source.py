@@ -17,9 +17,10 @@ for k,v in fig_map.items(): body=body.replace(k,v)
 
 # Long hexadecimal identifiers are evidence, but Markdown code spans become
 # unbreakable texttt boxes in LaTeX and can overprint the adjacent column.
+# Include ordinary 40-character Git commit SHAs as well as longer digests.
 # seqsplit keeps every byte visible while allowing safe line breaks.
 body = re.sub(
-    r'`([0-9a-f]{48,})`',
+    r'`([0-9a-f]{40,})`',
     lambda m: r'\texttt{\seqsplit{' + m.group(1) + '}}',
     body,
 )
