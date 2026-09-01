@@ -10,7 +10,7 @@ This checklist separates work required to publish the development-tier result fr
 - [ ] **Run the public bundle from a clean environment.** Recompute the aggregate tables and figures and verify all reported fields.
 - [ ] **Complete benchmark-item rights review.** Record the source, licence, redistribution status, and redaction decision for every public item.
 - [ ] **Confirm authorship.** George Pu and Ayush Naik must confirm author order and the exact CRediT statement.
-- [ ] **Assign immutable publication identifiers.** Fill `https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families`, `https://doi.org/10.5281/zenodo.22236690`, `tr-2026-02-v1.0.0`, publication source commit, and final package SHA-256.
+- [ ] **Assign immutable publication identifiers.** Fill `https://getsimpledirect.com/research/character-transfer-across-three-model-families`, `https://doi.org/10.5281/zenodo.22236690`, `tr-2026-02-v1.0.0`, publication source commit, and final package SHA-256.
 - [ ] **Run independent claim review.** Review the PDF, DOCX, HTML, release notes, research-page copy, FAQ, Report No. 1 notice, and launch copy against `release/CLAIMS.md`.
 - [ ] **Run security and privacy review.** Prove that holdout material, keys, credentials, private response text, session transcripts, and internal-only paths are absent.
 - [ ] **Update Technical Report No. 1 and the existing Prova model cards.** Add the dated follow-up notice without changing the original measurements.

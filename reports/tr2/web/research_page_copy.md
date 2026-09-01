@@ -73,7 +73,7 @@ Development-tier validation evidence only. Refusal adjustment is Judge-B-only. C
   "holdoutStatus": "untouched",
   "authors": ["George Pu", "Ayush Naik"],
   "publishedAt": "1 September 2026",
-  "reportUrl": "https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families",
+  "reportUrl": "https://getsimpledirect.com/research/character-transfer-across-three-model-families",
   "bundleUrl": "https://doi.org/10.5281/zenodo.22236690"
 }
 ```

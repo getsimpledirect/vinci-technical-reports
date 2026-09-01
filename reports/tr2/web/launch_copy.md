@@ -8,7 +8,7 @@ We tested one frozen character post-training recipe across Qwen3, Ministral, and
 
 Unsupported assertions declined. Grounded-answer accuracy fell too far. No family met the pre-registered bar.
 
-Report and evidence: https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families
+Report and evidence: https://getsimpledirect.com/research/character-transfer-across-three-model-families
 
 ## George X post
 
@@ -18,7 +18,7 @@ We tested one frozen character SFT-to-DPO recipe across three model families and
 
 OLMo gave us the least damaging frontier, which is a useful next direction. It did not pass as a release candidate. The primary holdout remains sealed, and we are releasing the report and evidence rather than pretending this is a model launch.
 
-https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families
+https://getsimpledirect.com/research/character-transfer-across-three-model-families
 
 ## Optional X thread
 
@@ -38,7 +38,7 @@ https://vinci.getsimpledirect.com/research/character-transfer-across-three-model
 
 **8/** The primary holdout is untouched. Capability preservation was not evaluated. No external audit occurred. No checkpoint is being released from this bank.
 
-**9/** Report, protocol, aggregate evidence, and release package: https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families
+**9/** Report, protocol, aggregate evidence, and release package: https://getsimpledirect.com/research/character-transfer-across-three-model-families
 
 ## Company LinkedIn post
 
@@ -52,7 +52,7 @@ The result gives us a real direction rather than a release: OLMo produced the le
 
 We are publishing the negative result, protocol, aggregate evidence, limitations, and evaluator failure. We are not releasing a model checkpoint from this bank. The primary-test holdout remains sealed.
 
-Read the report: https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families
+Read the report: https://getsimpledirect.com/research/character-transfer-across-three-model-families
 
 ## George LinkedIn post
 
@@ -66,7 +66,7 @@ That is not a useless failure. OLMo paid a much lower accuracy cost than the oth
 
 We are releasing the development-tier report and evidence package. We are not turning the least-bad seed into a model launch, and we are not spending the primary holdout just to make the release look more complete.
 
-https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families
+https://getsimpledirect.com/research/character-transfer-across-three-model-families
 
 ## Research blog opening
 

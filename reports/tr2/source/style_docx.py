@@ -427,7 +427,7 @@ def main() -> None:
     cp.author = 'George Pu; Ayush Naik'
     cp.keywords = 'character post-training; DPO; unsupported assertions; answer preservation; evaluation reliability'
     cp.category = 'Vinci Research Technical Report'
-    cp.comments = 'Version 0.9 publication draft. Internal review only.'
+    cp.comments = 'Version 1.0. Development-tier evidence; internal review only.'
 
     doc.save(OUT)
     print(OUT)

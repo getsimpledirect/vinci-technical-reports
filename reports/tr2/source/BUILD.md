@@ -11,8 +11,8 @@ Pin these exact versions. Figure output is sensitive to the plotting and font st
 | numpy | 2.5.2 |
 | pandas | 2.2.x |
 | python-docx | 1.1.x |
-| Pandoc | 3.x |
-| XeLaTeX | TeX Live 2024 |
+| Pandoc | 3.1.11.1 |
+| XeLaTeX | XeTeX 3.141592653-2.6-0.999996, TeX Live 2025/dev/Debian |
 
 XeLaTeX also needs `fontspec`, `microtype`, `booktabs`, `tabularx`, `caption`, `hyperref`,
 `fancyhdr`, `titlesec`, `enumitem`, and `seqsplit`, plus the Liberation Serif, Liberation
@@ -104,6 +104,17 @@ pandoc source/Vinci_Technical_Report_No_2_html.md \
 python source/build_manifest.py
 sha256sum -c checksums.sha256
 ```
+
+## Publication source commit
+
+`report/Vinci_Technical_Report_No_2.md` carries the line
+
+    - publication source commit: to be recorded at release time.
+
+Substitute the SHA of the commit you are building **from** — the source commit, before the
+generated PDF is committed. That keeps the reference non-circular: sources at commit X
+produce the PDF, and the PDF names X. Do not substitute the commit that later contains the
+PDF, and never touch the execution Git commit field, which stays `unknown`.
 
 ## Reproducibility boundary
 

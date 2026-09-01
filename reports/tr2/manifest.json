@@ -5,7 +5,7 @@
   "evidence_tier": "development",
   "claim_tier": "internal-review-only",
   "primary_test_holdout": "untouched",
-  "generated_at_utc": "2026-09-01T19:13:42+00:00",
+  "generated_at_utc": "2026-09-01T19:21:12+00:00",
   "file_count": 70,
   "files": [
     {
@@ -15,8 +15,8 @@
     },
     {
       "path": "PUBLICATION_CHECKLIST.md",
-      "bytes": 4415,
-      "sha256": "e5c8178fbc7f1c9681d1dc2794d2e59ef3af40af7f8db163c65661d91f62fdb3"
+      "bytes": 4409,
+      "sha256": "3ae06aeed762ca63caabd8d68fd86b912af9c3f2e4ee3b9b49cdbbebbcbb5bc9"
     },
     {
       "path": "README.md",
@@ -105,8 +105,8 @@
     },
     {
       "path": "release/CITATION.cff",
-      "bytes": 1635,
-      "sha256": "2b08b73a93cb0d73f4fe82d07b004f00a6276895ccc552b15ae456c0477cf2eb"
+      "bytes": 1629,
+      "sha256": "2fefcf5bf4020fc76b1ef0c2d47b5bf5efafed485c989327f983fa91da705586"
     },
     {
       "path": "release/CLAIMS.md",
@@ -165,8 +165,8 @@
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.docx",
-      "bytes": 766222,
-      "sha256": "23016b2c0f06422ee7892bb840301ca4250490cd3b34043662a6d025206bd431"
+      "bytes": 766218,
+      "sha256": "d439372243de7769a9a05f9d72f5261e75e67ab0d5ec87c345b1045567b777d9"
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.html",
@@ -180,8 +180,8 @@
     },
     {
       "path": "source/BUILD.md",
-      "bytes": 3909,
-      "sha256": "93a6b14f12885a922d3015b87d06d879a5c89e539633549a87bcf471ad1a5870"
+      "bytes": 4459,
+      "sha256": "68707835181958494b7a884cbc7d50fd5559b133a29fa18092e00abffe15c4b5"
     },
     {
       "path": "source/Vinci_Technical_Report_No_2_docx.md",
@@ -275,8 +275,8 @@
     },
     {
       "path": "source/latex/vinci_tr2_template.tex",
-      "bytes": 5418,
-      "sha256": "d1a4a18efd78e6a4a7466e219b32979734535c741fcd0dc4db4df38f94d527bc"
+      "bytes": 5721,
+      "sha256": "05df76e2c7421ed64ee91374d059ef2a92d85e700e4931a67c536bfbf6f5a0ca"
     },
     {
       "path": "source/make_html_source.py",
@@ -295,8 +295,8 @@
     },
     {
       "path": "source/style_docx.py",
-      "bytes": 18002,
-      "sha256": "b4b39c051cc0781718a7c9cc1c10da8fb054fc401d45143b3df03c42ffac1189"
+      "bytes": 18011,
+      "sha256": "c3e3984b81972112b2bcccccc9b2a985b59abd66cbb3016f37aeb16afb5ede34"
     },
     {
       "path": "source/vinci_report.css",
@@ -345,18 +345,18 @@
     },
     {
       "path": "web/launch_copy.md",
-      "bytes": 6365,
-      "sha256": "5d98e05de049f380fbd0aa9388284e3ff4488abeed0b3c1c36e255a50b8ab52b"
+      "bytes": 6335,
+      "sha256": "68fd61ffbf252ce0cc927617dd80eb8208b3b71d43ab7df2a8390913d59d0edc"
     },
     {
       "path": "web/report1_followup_notice.md",
-      "bytes": 3751,
-      "sha256": "bf9db51fd75955801322dc3e11c6dc6b4a2f45bc654c8f95f1685dd791d5999e"
+      "bytes": 3721,
+      "sha256": "f583e91a4fff2c968c6607459c6934f25d88681270c2266608fa7fcfd6ff671d"
     },
     {
       "path": "web/research_page_copy.md",
-      "bytes": 3504,
-      "sha256": "392f6567463ab2cb3795ba626345514a468e90493e793e09bc906db63f12410d"
+      "bytes": 3498,
+      "sha256": "c3dbaed5efe1750e670bd6579f509b8895cbb0e83d52214829a28bd0fa8cc0b0"
     }
   ],
   "integrity_note": "manifest.json excludes itself and checksums.sha256. checksums.sha256 includes manifest.json and all other packaged files except itself."
