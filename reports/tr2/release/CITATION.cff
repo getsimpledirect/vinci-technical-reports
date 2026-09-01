@@ -7,7 +7,7 @@ date-released: 2026-09-01
 doi: 10.5281/zenodo.22236690
 license: CC-BY-4.0
 repository-code: "https://github.com/getsimpledirect/vinci-technical-reports"
-url: "https://getsimpledirect.com/research/character-transfer-across-three-model-families"
+url: "https://www.getsimpledirect.com/research/papers/character-transfer-across-three-model-families"
 authors:
   - family-names: Pu
     given-names: George

@@ -10,7 +10,7 @@ Steps 4 and 5 cannot be undone. Everything before them is reversible.
 | Authors | George Pu, Ayush Naik — confirmed 1 Sep 2026, 14:28 ET |
 | Claim review | Vikas Grover — internal claim review, not an external audit |
 | DOI | `10.5281/zenodo.22236690` — reserved, record still draft |
-| Report URL | https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families |
+| Report URL | https://www.getsimpledirect.com/research/papers/character-transfer-across-three-model-families |
 | Release tag | `tr-2026-02-v1.0.0` — not yet created |
 | Repo | private, no tags |
 
@@ -71,8 +71,13 @@ check the other six variants the same way before posting.
 
 ## 8. Report No. 1
 
-Add the dated follow-up notice from `reports/tr1/FOLLOWUP_NOTICE.md` to the Report No. 1
-page and the existing Prova model cards. Do not label Report No. 1 retracted — the follow-up
+Add the dated follow-up notice from `reports/tr1/FOLLOWUP_NOTICE.md` to **three** surfaces:
+the Report No. 1 page, the existing Prova model cards, and the launch blog post at
+`/blog/we-tested-whether-character-training-transfers-across-model-lineages-it-did`. The
+checklist names only the first two. That post's body is correctly hedged, but its headline
+— "We tested whether character training transfers across model lineages. It did." — is what
+circulates, and it reads as the opposite of the newer finding. Put the notice above the body.
+Do not change the slug; inbound links depend on it. Do not label Report No. 1 retracted — the follow-up
 narrows the generalization; the original measurements are unchanged.
 
 ## What ships undischarged

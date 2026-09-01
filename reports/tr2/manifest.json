@@ -5,7 +5,7 @@
   "evidence_tier": "development",
   "claim_tier": "internal-review-only",
   "primary_test_holdout": "untouched",
-  "generated_at_utc": "2026-09-01T19:21:12+00:00",
+  "generated_at_utc": "2026-09-01T19:24:16+00:00",
   "file_count": 70,
   "files": [
     {
@@ -15,8 +15,8 @@
     },
     {
       "path": "PUBLICATION_CHECKLIST.md",
-      "bytes": 4409,
-      "sha256": "3ae06aeed762ca63caabd8d68fd86b912af9c3f2e4ee3b9b49cdbbebbcbb5bc9"
+      "bytes": 4420,
+      "sha256": "11fe2f6d7ad1f62b10f29b8165afc643c367b6d4c605fd8972c1f27643a6ad24"
     },
     {
       "path": "README.md",
@@ -105,8 +105,8 @@
     },
     {
       "path": "release/CITATION.cff",
-      "bytes": 1629,
-      "sha256": "2fefcf5bf4020fc76b1ef0c2d47b5bf5efafed485c989327f983fa91da705586"
+      "bytes": 1640,
+      "sha256": "f0bfd09dc0cddb4f83ffb8c01515b494cc2225306d3562ea1cac11679e3538f8"
     },
     {
       "path": "release/CLAIMS.md",
@@ -165,8 +165,8 @@
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.docx",
-      "bytes": 766218,
-      "sha256": "d439372243de7769a9a05f9d72f5261e75e67ab0d5ec87c345b1045567b777d9"
+      "bytes": 766219,
+      "sha256": "477ada5f4ae5e5a45ed46257b14a31e45817fbaf2621383b5231131948202b90"
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.html",
@@ -275,8 +275,8 @@
     },
     {
       "path": "source/latex/vinci_tr2_template.tex",
-      "bytes": 5721,
-      "sha256": "05df76e2c7421ed64ee91374d059ef2a92d85e700e4931a67c536bfbf6f5a0ca"
+      "bytes": 5743,
+      "sha256": "24116ca31716046e272f7c324580b02a8e685206c478997da487cb3691e2246a"
     },
     {
       "path": "source/make_html_source.py",
@@ -345,18 +345,18 @@
     },
     {
       "path": "web/launch_copy.md",
-      "bytes": 6335,
-      "sha256": "68fd61ffbf252ce0cc927617dd80eb8208b3b71d43ab7df2a8390913d59d0edc"
+      "bytes": 6390,
+      "sha256": "c58d7f945ad25f1a9683e103a4792109f7b4356691a926728310c93c3c35ae09"
     },
     {
       "path": "web/report1_followup_notice.md",
-      "bytes": 3721,
-      "sha256": "f583e91a4fff2c968c6607459c6934f25d88681270c2266608fa7fcfd6ff671d"
+      "bytes": 4663,
+      "sha256": "a61c76e99f9ecc8d28fc17e6f05069f490a2d3e47a50606ac98cfa3c20e1eca1"
     },
     {
       "path": "web/research_page_copy.md",
-      "bytes": 3498,
-      "sha256": "c3dbaed5efe1750e670bd6579f509b8895cbb0e83d52214829a28bd0fa8cc0b0"
+      "bytes": 3509,
+      "sha256": "a45c4fc9154e49ab415dd871a86baa87d1d768154c3ae8c2ca54bf516b76415c"
     }
   ],
   "integrity_note": "manifest.json excludes itself and checksums.sha256. checksums.sha256 includes manifest.json and all other packaged files except itself."
