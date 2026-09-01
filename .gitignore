@@ -1,0 +1,17 @@
+# Build intermediates
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.tmp
+*_unstyled.docx
+
+# Environments and caches
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
