@@ -5,7 +5,7 @@
   "evidence_tier": "development",
   "claim_tier": "internal-review-only",
   "primary_test_holdout": "untouched",
-  "generated_at_utc": "2026-09-01T20:00:40+00:00",
+  "generated_at_utc": "2026-09-01T20:08:53+00:00",
   "file_count": 70,
   "files": [
     {
@@ -159,11 +159,6 @@
       "sha256": "76926b6404ded8ef297e2807f01a17ffdf880b1a1f620a68eff804f693ed5f23"
     },
     {
-      "path": "report/PDF_NOT_BUILT.md",
-      "bytes": 759,
-      "sha256": "d302b74514df2379a6fb62a254ee1cdc85745a2edf571ff758da5cd7862f2e97"
-    },
-    {
       "path": "report/Vinci_Technical_Report_No_2.docx",
       "bytes": 766196,
       "sha256": "81d81061f67ad1c7e0719f90bf55fa440acb2e756fd2c2ffc08951433538bdc5"
@@ -177,6 +172,11 @@
       "path": "report/Vinci_Technical_Report_No_2.md",
       "bytes": 45990,
       "sha256": "039926de74912d4dad3e6d8952d2c31eba788db58b142bc244ecd057e7bd7521"
+    },
+    {
+      "path": "report/Vinci_Technical_Report_No_2.pdf",
+      "bytes": 232406,
+      "sha256": "5dd53c9eb02de988061bbc394ebc076505a9c2c32aa64fe27d1dbda1c3d19078"
     },
     {
       "path": "source/BUILD.md",
