@@ -5,7 +5,7 @@
   "evidence_tier": "development",
   "claim_tier": "internal-review-only",
   "primary_test_holdout": "untouched",
-  "generated_at_utc": "2026-09-01T19:37:24+00:00",
+  "generated_at_utc": "2026-09-01T20:00:40+00:00",
   "file_count": 70,
   "files": [
     {
@@ -285,8 +285,8 @@
     },
     {
       "path": "source/make_pdf_source.py",
-      "bytes": 4539,
-      "sha256": "efc32241ef75d6a6d465540145958ae0f80a960aaa239c93bbb54c875d0319ce"
+      "bytes": 4614,
+      "sha256": "336241a11cbf172b34902da68fc2c30457f4ba04c203603c0ddce487b833c738"
     },
     {
       "path": "source/references.bib",
