@@ -1,0 +1,26 @@
+# Explicitly permitted public-export classes. Paths are illustrative and must
+# be matched against the real repository before export.
+report/**
+figures/**
+tables/**
+release/**
+web/**
+source/**
+character-transfer/protocol/charter.md
+character-transfer/protocol/G0_freeze.yaml
+character-transfer/protocol/claim_chart.csv
+character-transfer/protocol/VALIDATION-BANK-ANALYSIS-PLAN-2026-08-29.md
+character-transfer/protocol/G1-READOUT-AND-PIVOT-2026-08-31.md
+character-transfer/protocol/G1-GATE-RESULT-2026-09-01.md
+character-transfer/release/RELEASE-dev-tier-2026-09-01.md
+character-transfer/results/development/public/**
+character-transfer/results/development/g1_model_judge_ac1/labels_a.csv
+character-transfer/results/development/g1_model_judge_ac1/labels_b.csv
+character-transfer/results/development/g1_model_judge_ac1/labels_a.ledger.sanitized.jsonl
+character-transfer/results/development/g1_model_judge_ac1/labels_b.ledger.sanitized.jsonl
+character-transfer/results/development/g1_model_judge_ac1/gate_analysis_lock.json
+character-transfer/results/development/g1_model_judge_ac1/GATE-RESULT-MODEL-JUDGES.json
+character-transfer/data/validation/public/**
+character-transfer/tools/readout/**
+character-transfer/src/analysis/**
+character-transfer/src/evaluation/gate_metrics.py

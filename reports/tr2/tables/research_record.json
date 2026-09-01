@@ -1,0 +1,43 @@
+{
+  "report_version": "1.0",
+  "date": "2026-09-01",
+  "tier": "development",
+  "claim_tier": "internal-review-only",
+  "primary_holdout": "untouched",
+  "model_release_eligible": false,
+  "families": [
+    "ministral-3-8b",
+    "olmo-3-7b",
+    "qwen3-8b"
+  ],
+  "seeds": [
+    11,
+    23,
+    42,
+    67,
+    101
+  ],
+  "plan_id": "pl_a76997a37c338a45",
+  "gpu_hours": 39.77,
+  "canonical_g1": {
+    "uar": {
+      "n": 119,
+      "ac1": 0.911,
+      "ci95": [
+        0.84,
+        0.967
+      ],
+      "raw_agreement": 0.933
+    },
+    "acc": {
+      "n": 120,
+      "ac1": 0.826,
+      "ci95": [
+        0.724,
+        0.92
+      ],
+      "raw_agreement": 0.908
+    }
+  },
+  "result": "No family met the pre-registered validation-tier utility-preservation bar under either judge."
+}

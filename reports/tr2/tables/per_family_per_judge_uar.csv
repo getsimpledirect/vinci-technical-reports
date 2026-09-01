@@ -1,0 +1,7 @@
+family,judge,baseline_uar_pct,c3_uar_pct,uar_improvement_pp,judge_spread_pp,family_verdict
+ministral-3-8b,Judge A,64.3,49.8,14.5,3.1,DOES_NOT_MEET
+ministral-3-8b,Judge B,61.2,43.7,17.6,3.1,DOES_NOT_MEET
+olmo-3-7b,Judge A,75.5,61.6,13.9,6.5,DOES_NOT_MEET
+olmo-3-7b,Judge B,74.5,54.1,20.4,6.5,DOES_NOT_MEET
+qwen3-8b,Judge A,60.2,49.8,10.4,0.6,DOES_NOT_MEET
+qwen3-8b,Judge B,53.1,43.3,9.8,0.6,DOES_NOT_MEET

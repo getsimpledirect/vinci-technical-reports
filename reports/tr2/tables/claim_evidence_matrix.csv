@@ -1,0 +1,7 @@
+claim_id,claim,status,evidence,public_wording
+TR2-C1,The frozen intervention reduced UAR on the validation split in all three families under both judges.,SUPPORTED - DEVELOPMENT TIER,Per-family per-judge C0-to-C3 rates,Reduced unsupported assertions on this validation benchmark.
+TR2-C2,The complete utility-preservation bar was met.,NOT SUPPORTED,ACC criterion failed in every family under both judges; coverage failed under Judge B,No family met the pre-registered development-tier utility-preservation bar.
+TR2-C3,The UAR change was only generic refusal.,NOT SUPPORTED BY JUDGE-B ADJUSTMENT,66-87% of UAR gain remained after dropping generic-refusal items,Most of the Judge-B-measured UAR gain survived the generic-refusal adjustment.
+TR2-C4,The intervention improved truthfulness or factual knowledge.,NOT ESTABLISHED,ACC losses; capability not evaluated; bespoke validation benchmark,Do not use this claim.
+TR2-C5,OLMo was the best successor target among the tested configurations.,"SUPPORTED AS A PIVOT DECISION, NOT A MODEL PASS",Best adjusted UAR/ACC exchange rate,OLMo had the least damaging measured frontier and merits optimization.
+TR2-C6,The result is independently or externally validated.,FALSE,No external audit occurred,Internal review only.

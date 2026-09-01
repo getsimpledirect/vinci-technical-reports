@@ -1,0 +1,25 @@
+# Any match blocks the export. This list should be enforced before packaging.
+**/*.pem
+**/*.key
+**/*private*key*
+**/*credential*
+**/.env
+**/.env.*
+**/vault/**
+**/primary_test_encrypted/**
+**/primary-test/**
+**/*holdout*key*
+**/*custodian*priv*
+**/session*/**
+**/*scratchpad*/**
+**/*transcript*/**
+**/*raw_response*.json
+**/*raw_response*.jsonl
+**/*provider_response*.json
+**/*provider_response*.jsonl
+**/*presigned*
+**/*token*
+**/*secret*
+character-transfer/results/primary/**
+character-transfer/data/primary_test_encrypted/**
+vault/**

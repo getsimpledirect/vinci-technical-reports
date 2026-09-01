@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this report, please cite it as below."
+title: "Character Transfer Across Three Model Families: Reduced unsupported assertions, impaired grounded answering, and a failed utility-preservation bar"
+type: report
+version: "1.0"
+date-released: 2026-09-01
+doi: 10.5281/zenodo.22236690
+license: CC-BY-4.0
+repository-code: "https://github.com/getsimpledirect/vinci-technical-reports"
+url: "https://vinci.getsimpledirect.com/research/character-transfer-across-three-model-families"
+authors:
+  - family-names: Pu
+    given-names: George
+    affiliation: SimpleDirect / Vinci Research
+  - family-names: Naik
+    given-names: Ayush
+    affiliation: SimpleDirect / Vinci Research
+keywords:
+  - character post-training
+  - Direct Preference Optimization
+  - unsupported assertions
+  - answer preservation
+  - cross-family transfer
+  - LLM-as-a-judge
+  - evaluation reliability
+abstract: >-
+  A frozen character SFT-to-DPO intervention reduced unsupported assertions
+  across three model families on a development-tier validation benchmark, but
+  answerable-control accuracy deteriorated beyond the pre-registered limit in
+  every family. Development-tier validation evidence only. Refusal adjustment is Judge-B-only. Capability preservation was not evaluated. No external audit was performed. The primary holdout remains sealed. No model checkpoint is recommended for release.
+preferred-citation:
+  type: report
+  title: "Character Transfer Across Three Model Families"
+  version: "1.0"
+  year: 2026
+  authors:
+    - family-names: Pu
+      given-names: George
+    - family-names: Naik
+      given-names: Ayush

@@ -1,0 +1,4 @@
+family,raw_uar_improvement_pp,adjusted_uar_improvement_pp,uar_from_refusal_pp,uar_gain_survives_pct,raw_acc_change_pp,adjusted_acc_change_pp,acc_from_refusal_pp,acc_loss_per_adjusted_uar_gain,adjusted_uar_gain_per_acc_loss
+ministral-3-8b,17.6,14.2,3.4,81,-49.7,-41.8,-7.9,2.944,0.34
+olmo-3-7b,20.4,17.7,2.7,87,-25.3,-11.8,-13.4,0.667,1.5
+qwen3-8b,9.8,6.5,3.3,66,-26.9,-19.7,-7.2,3.031,0.33

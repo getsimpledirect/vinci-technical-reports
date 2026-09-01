@@ -1,0 +1,81 @@
+\documentclass[9pt,letterpaper,twocolumn]{extarticle}
+\usepackage[margin=0.62in,top=0.58in,bottom=0.63in,columnsep=0.25in]{geometry}
+\usepackage{fontspec}
+\setmainfont{Liberation Serif}
+\setsansfont{Liberation Sans}
+\setmonofont{DejaVu Sans Mono}[Scale=0.82]
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\usepackage{float}
+\usepackage{url}
+\usepackage{seqsplit}
+\usepackage{ragged2e}
+\definecolor{VinciTeal}{HTML}{08756F}
+\definecolor{VinciDark}{HTML}{1C2628}
+\definecolor{VinciGray}{HTML}{6D7375}
+\definecolor{VinciPale}{HTML}{E6F1EF}
+\hypersetup{colorlinks=true,linkcolor=VinciTeal,urlcolor=VinciTeal,citecolor=VinciTeal,pdftitle={Character Transfer Across Three Model Families},pdfauthor={George Pu; Ayush Naik},pdfsubject={Vinci Technical Report No. 2},pdfkeywords={character post-training, DPO, unsupported assertions, answer preservation, model evaluation}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\fontsize{7}{8}\selectfont VINCI RESEARCH \textbullet{} TECHNICAL REPORT NO. 2}
+\fancyhead[R]{\sffamily\fontsize{7}{8}\selectfont CHARACTER TRANSFER ACROSS MODEL FAMILIES}
+\fancyfoot[C]{\sffamily\fontsize{7}{8}\selectfont \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{VinciTeal}\leaders\hrule height \headrulewidth\hfill}}
+\titleformat{\section}{\sffamily\bfseries\large\color{VinciDark}}{\thesection}{0.45em}{}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize\color{VinciDark}}{\thesubsection}{0.45em}{}
+\titlespacing*{\section}{0pt}{1.1ex plus .2ex}{0.45ex}
+\titlespacing*{\subsection}{0pt}{0.85ex plus .2ex}{0.3ex}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+\captionsetup{font=small,labelfont={bf,sf,color=VinciDark},justification=justified,singlelinecheck=false}
+\renewcommand{\arraystretch}{1.15}
+\emergencystretch=1.5em
+\sloppy
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\VinciTitleBlock}{%
+\begin{@twocolumnfalse}
+\noindent{\sffamily\fontsize{8}{9}\selectfont\bfseries\color{VinciTeal} VINCI TECHNICAL REPORT NO. 2 \textbullet{} SEPTEMBER 2026}\par
+\vspace{0.24em}
+{\color{VinciTeal}\rule{\textwidth}{1.1pt}}\par
+\vspace{0.6em}
+{\sffamily\fontsize{23}{25}\selectfont\bfseries\color{VinciDark} Character Transfer Across Three Model Families}\par
+\vspace{0.25em}
+{\sffamily\fontsize{12}{14}\selectfont\color{VinciGray} Reduced unsupported assertions, impaired grounded answering, and a failed utility-preservation bar}\par
+\vspace{0.55em}
+{\sffamily\fontsize{9.5}{11}\selectfont\bfseries George Pu\textsuperscript{1}\quad Ayush Naik\textsuperscript{1}}\par
+{\sffamily\fontsize{8}{9.5}\selectfont\textsuperscript{1}SimpleDirect / Vinci Research, Toronto, Canada}\par
+\vspace{0.3em}
+{\sffamily\fontsize{8}{9.5}\selectfont Version 0.9 \textbullet{} 1 September 2026 \textbullet{} Development-tier evidence \textbullet{} Internal review only \textbullet{} External peer review not performed}\par
+\vspace{0.75em}
+\begin{minipage}{\textwidth}
+\small
+\noindent\textbf{Abstract.} Character post-training attempts to shape persistent assistant behaviours such as calibrated uncertainty, restraint around unsupported claims, directness, and resistance to sycophancy. Vinci Technical Report No. 1 provided pilot evidence that one supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) recipe changed behaviour on a Mistral 7B checkpoint. We applied the frozen intervention to Qwen3-8B, Ministral 3 8B, and OLMo 3 7B using five paired seeds per family, then evaluated final outputs on a 200-prompt validation split. No family met the complete pre-registered validation-tier bar under either judge. UAR improved in every family, but ACC declined beyond the allowed 3-point limit in every family under both judges; coverage also violated its limit under Judge B. A Judge-B-only refusal adjustment retained 66--87\% of the UAR gain, while adjusted ACC loss remained 41.8 points for Ministral, 19.7 for Qwen, and 11.8 for OLMo. The canonical inter-judge reliability run passed, but a prior void run produced materially different estimates, exposing an unresolved intra-judge repeatability problem. The primary holdout remained untouched, capability preservation was not evaluated, no external audit was performed, and no checkpoint is recommended for release. The bounded finding is that the intervention moved the unsupported-assertion/grounded-answering frontier without demonstrating useful utility-preserving transfer.
+
+\vspace{0.3em}
+\noindent\textbf{Keywords:} character post-training; Direct Preference Optimization; abstention; unsupported assertions; answer preservation; cross-family transfer; LLM-as-a-judge; evaluation reliability
+\end{minipage}
+\vspace{0.7em}
+\begin{center}
+\includegraphics[width=0.96\textwidth]{../../figures/figure1_experimental_design.pdf}
+\captionof{figure}{Experimental design. The same ordered SFT-to-DPO recipe was applied to three families with five paired seeds. This release uses the validation split; the primary-test holdout remains untouched.}
+\label{fig:design}
+\end{center}
+\vspace{0.65em}
+\end{@twocolumnfalse}%
+}
+\begin{document}
+\twocolumn[\VinciTitleBlock]
+$body$
+\end{document}

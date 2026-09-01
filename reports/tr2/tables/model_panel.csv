@@ -1,0 +1,4 @@
+family,base_model,revision,condition_0,condition_2,condition_3,trained_seeds
+qwen3-8b,Qwen/Qwen3-8B,b968826d9c46dd6066d109eabc6255188de91218,untouched instruction checkpoint,character SFT,character SFT+DPO,11;23;42;67;101
+ministral-3-8b,mistralai/Ministral-3-8B-Instruct-2512-BF16,f6fae9795746f63c9be8344932f01275f3c63734,untouched instruction checkpoint,character SFT,character SFT+DPO,11;23;42;67;101
+olmo-3-7b,allenai/Olmo-3-7B-Instruct,6e5971d9eba42665f5bd5a0fcf047f299ce1dccc,untouched instruction checkpoint,character SFT,character SFT+DPO,11;23;42;67;101

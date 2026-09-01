@@ -1,0 +1,10 @@
+field,value,qualification
+plan,pl_a76997a37c338a45,19/19 nodes succeeded; no evictions
+compute,39.77 GPU-h,of 248 GPU-h authorized for the completed bank
+matrix,3 families x 5 seeds,15 C2 SFT + 15 C3 DPO + 3 C0 baseline artifacts
+sealed_artifacts,33,33 distinct ciphertext digests; seal integrity verified
+code_bundle_sha256,e0bf9a948a623b6eb464fc17cec8ba7f96377a69c663ab68edb29af2be437b71,identical across all 33 artifacts
+validation_sha256,eaaadaeb589e4b1236d18636289595a0a70b08daeb142f070af5c67104400fa5,200-prompt validation split
+readout_rows,3546,197 scorable items x 18 C0/C3 artifacts
+execution_git_commit,unknown,all 33 manifests; do not replace with publication commit
+claim_tier,INTERNAL REVIEW ONLY,no external audit; primary-test holdout untouched

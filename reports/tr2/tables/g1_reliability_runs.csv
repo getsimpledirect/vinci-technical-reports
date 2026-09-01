@@ -1,0 +1,5 @@
+run,status,outcome,effective_n,ac1,ci_low,ci_high,raw_agreement,incomplete_count
+run_1,VOID - provenance inadequate,UAR,119,0.854,0.763,0.928,not used for canonical result,1
+run_1,VOID - provenance inadequate,ACC,120,0.859,0.768,0.938,not used for canonical result,0
+run_2,CANONICAL - provenance complete,UAR,119,0.911,0.84,0.967,0.933,0
+run_2,CANONICAL - provenance complete,ACC,120,0.826,0.724,0.92,0.908,0

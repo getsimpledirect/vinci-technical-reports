@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering
+\caption{Principal frozen intervention settings. Family-specific serialization and mechanically required target-module mappings were permitted.}
+\label{tab:intervention}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}p{0.25\textwidth}X@{}}
+\toprule
+\textbf{Component} & \textbf{Frozen value} \\
+\midrule
+Adapter & LoRA, rank 32, alpha 64, dropout 0.05 \\
+Target modules & Attention and MLP projection modules mapped mechanically by family \\
+SFT & 2 epochs, learning rate \texttt{5e-5}, maximum sequence length 2048 \\
+DPO & 2 epochs, learning rate \texttt{5e-6}, beta 0.05, sigmoid loss \\
+Optimizer / scheduler & AdamW / cosine \\
+Checkpoint fractions & 25\%, 50\%, 75\%, 100\% \\
+DPO pairs & 983 \\
+Paired seeds & 11, 23, 42, 67, 101 \\
+\bottomrule
+\end{tabularx}
+\end{table*}
