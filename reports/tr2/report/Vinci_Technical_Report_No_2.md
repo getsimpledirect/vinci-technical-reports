@@ -377,11 +377,11 @@ The primary holdout remains sealed. Capability preservation remains unmeasured. 
 
 ## Author Contributions
 
-Contributions follow the CRediT taxonomy; equal contribution is not claimed. Both named authors confirmed the author order and this statement on 1 September 2026.
+Contributions follow the CRediT taxonomy; equal contribution is not claimed. Both authors reviewed and approved the final manuscript, author order, and this contribution statement on 1 September 2026.
 
 **George Pu:** conceptualization, methodology, investigation, formal analysis, validation, data curation oversight, supervision, project administration, visualization, and writing - original draft. George served as decision owner, research owner, evaluation lead, statistical owner, and holdout custodian for the development-tier program.
 
-**Ayush Naik:** software, training infrastructure, technical validation, supporting methodology, reproducibility support, and writing - review and editing. Exact contribution wording should be confirmed before publication.
+**Ayush Naik:** software, training infrastructure, technical validation, supporting methodology, reproducibility support, and writing - review and editing.
 
 ## Competing Interests, Funding, and AI Assistance
 

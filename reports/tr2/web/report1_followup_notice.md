@@ -47,3 +47,41 @@ body, where a reader arriving from the headline sees it first.
 - Add `followUpReport: https://www.getsimpledirect.com/research/papers/character-transfer-across-three-model-families`.
 - Replace any present-tense broad statement that the recipe “transfers across lineages” with the narrower historical statement that a behavioural effect was measured on one additional lineage.
 - Do not label Report No. 1 retracted. The follow-up narrows the generalization; it does not invalidate the original checkpoint-specific measurements.
+
+## Launch blog post — headline revision and notice
+
+Ruled 1 September 2026. Do **both**: revise the headline and add the notice. A notice alone
+is not enough, because search results, social previews and screenshots often carry only the
+headline.
+
+**Current headline**
+
+> We tested whether character training transfers across model lineages. It did.
+
+**Revised headline**
+
+> We tested whether character post-training transferred to Mistral 7B. It did — with trade-offs.
+
+It names the specific lineage, keeps the positive result, drops the implication of broad
+multi-family portability, and stays compatible with Report No. 2.
+
+**Keep the slug unchanged:** `/blog/we-tested-whether-character-training-transfers-across-model-lineages-it-did`
+
+**Update every headline-bearing surface**, not just the visible one: H1, HTML `<title>`,
+Open Graph title, X card title, JSON-LD `headline`, the research-index card, and the sitemap
+title where applicable.
+
+**Notice, above the article body**
+
+> **Follow-up - 1 September 2026.** A larger frozen-recipe study across Qwen3, Ministral and
+> OLMo found that unsupported assertions declined, but no family preserved grounded-answer
+> accuracy well enough to meet the pre-registered utility bar. The original Mistral
+> measurements reported below are unchanged; the follow-up narrows how broadly they should be
+> interpreted. Read Vinci Technical Report No. 2.
+
+**Editorial disclosure, beside the notice**
+
+> The headline was narrowed on 1 September 2026 for precision following the larger study. The
+> original results and article body were not withdrawn.
+
+The disclosure is what keeps this a correction rather than a quiet rewrite of the record.

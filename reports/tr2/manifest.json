@@ -5,7 +5,7 @@
   "evidence_tier": "development",
   "claim_tier": "internal-review-only",
   "primary_test_holdout": "untouched",
-  "generated_at_utc": "2026-09-01T19:24:16+00:00",
+  "generated_at_utc": "2026-09-01T19:30:01+00:00",
   "file_count": 70,
   "files": [
     {
@@ -165,18 +165,18 @@
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.docx",
-      "bytes": 766219,
-      "sha256": "477ada5f4ae5e5a45ed46257b14a31e45817fbaf2621383b5231131948202b90"
+      "bytes": 766208,
+      "sha256": "919c6e74ca6b59b3d516c6bbf94bb740d6ad2ecd603ba5c7da7ab74c8ee0c7b5"
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.html",
-      "bytes": 69168,
-      "sha256": "0e63a71e1fe272b8d52061ca26d4e22843787a224c681f95815912779731af1d"
+      "bytes": 69139,
+      "sha256": "3dadad8e9607cbc715b25a760d5daa79e0ab233b36f708201efe127d0e148d73"
     },
     {
       "path": "report/Vinci_Technical_Report_No_2.md",
-      "bytes": 46050,
-      "sha256": "08247bf2613e04126db09d09c44e307ec031e25929915e15bbabb291da297a42"
+      "bytes": 46021,
+      "sha256": "1b7ed2b35db2be5cb8f9d3ab48b1f1107036374359c0330d5d50e05d8c8a7f8c"
     },
     {
       "path": "source/BUILD.md",
@@ -185,13 +185,13 @@
     },
     {
       "path": "source/Vinci_Technical_Report_No_2_docx.md",
-      "bytes": 45602,
-      "sha256": "270d10173504ed3e6d406db24840b0802567e80107a0f2b92bf118740e90f866"
+      "bytes": 45573,
+      "sha256": "69c118b0870389474d2d79236e1fa53595431b4c905aaba33b380a75d676774b"
     },
     {
       "path": "source/Vinci_Technical_Report_No_2_html.md",
-      "bytes": 45911,
-      "sha256": "88ed1c8422426ff06c965b61120eda5eafbac942c1c4cdea6aa9772b0ef818b7"
+      "bytes": 45882,
+      "sha256": "e5d7944d935880d4e6339f24129fd8fef4c8002fd1630095362751f3a6790b79"
     },
     {
       "path": "source/build_figures_and_tables.py",
@@ -210,8 +210,8 @@
     },
     {
       "path": "source/latex/Vinci_Technical_Report_No_2_pdf.md",
-      "bytes": 37389,
-      "sha256": "0fdb4856956e7a11d3e79dc017d3f163ae263e1c076d11090e6f164d96c42154"
+      "bytes": 37360,
+      "sha256": "b4eca3a07922b44035b8b2368bc1887716b251dc4f2dd7d407daf75733b5bb18"
     },
     {
       "path": "source/latex/figure2.tex",
@@ -350,8 +350,8 @@
     },
     {
       "path": "web/report1_followup_notice.md",
-      "bytes": 4663,
-      "sha256": "a61c76e99f9ecc8d28fc17e6f05069f490a2d3e47a50606ac98cfa3c20e1eca1"
+      "bytes": 6350,
+      "sha256": "af5623f57220acb41d0e6c4a910dc619596bbbb23aa68566a7c4f95cd9ab0aff"
     },
     {
       "path": "web/research_page_copy.md",
