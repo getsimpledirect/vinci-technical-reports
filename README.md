@@ -5,10 +5,10 @@ technical reports.
 
 ## Reports
 
-| No. | Title | Version | Status |
-|---|---|---|---|
-| 2 | Character Transfer Across Three Model Families | — | in preparation |
-| 1 | Transferring Character Post-Training to Mistral 7B | 1.0 | published 13 August 2026 |
+| No. | Title | Version | Published | DOI |
+|---|---|---|---|---|
+| 2 | [Character Transfer Across Three Model Families](reports/tr2/) | 1.0 | 1 September 2026 | [10.5281/zenodo.22236690](https://doi.org/10.5281/zenodo.22236690) |
+| 1 | Transferring Character Post-Training to Mistral 7B | 1.0 | 13 August 2026 | — |
 
 ## Technical Report No. 2
 
@@ -16,7 +16,11 @@ technical reports.
 *Reduced unsupported assertions, impaired grounded answering, and a failed
 utility-preservation bar*
 
-George Pu, Ayush Naik
+George Pu, Ayush Naik · 1 September 2026 · Version 1.0
+
+**DOI** [10.5281/zenodo.22236690](https://doi.org/10.5281/zenodo.22236690) ·
+**Report page** [getsimpledirect.com/research/papers/character-transfer-across-three-model-families](https://www.getsimpledirect.com/research/papers/character-transfer-across-three-model-families) ·
+**PDF** [reports/tr2/report/Vinci_Technical_Report_No_2.pdf](reports/tr2/report/Vinci_Technical_Report_No_2.pdf)
 
 > We tested one frozen character post-training recipe across three model families. It
 > reduced unsupported assertions, but no family preserved grounded-answer accuracy well
@@ -45,7 +49,25 @@ remains sealed. No model checkpoint is recommended for release.
 - validation benchmark prompt and reference text — see [docs/data_access.md](docs/data_access.md).
 
 Independent recomputation of the published summary is not yet possible from this
-repository. See each report's reproducibility statement for the exact boundary.
+repository. Report No. 2 is an aggregate-only release: three items remain open and are
+recorded in its Appendix D — the public tables have not been regenerated from the frozen
+scored artifacts, sanitized item-level labels and judge ledgers have not been exported, and
+the benchmark-item rights review is not complete. See `reports/tr2/release/REPRODUCIBILITY.md`
+for the exact boundary.
+
+## Verifying a release
+
+The published package is on Zenodo under the DOI above. To check a download:
+
+```sh
+shasum -a 256 -c Vinci-TR2-Character-Transfer-v1.0-public.zip.sha256
+unzip -q Vinci-TR2-Character-Transfer-v1.0-public.zip && cd tr2
+shasum -a 256 -c checksums.sha256
+```
+
+`reports/tr2/` in this repository is the published package, byte-for-byte. Its
+`checksums.sha256` and `manifest.json` describe the archived release, so nothing under that
+path is edited after publication — corrections become a new version, not a rewrite.
 
 ## Licensing
 
@@ -61,5 +83,9 @@ prompt sources, or third-party benchmark material.
 
 ## Citing
 
-Use the `CITATION.cff` in each report directory. Cite the published version, not a
-pre-release tag.
+Use the `CITATION.cff` in each report directory, and cite the published version rather than
+a pre-release tag.
+
+> Pu, G., & Naik, A. (2026). *Character Transfer Across Three Model Families: Reduced
+> unsupported assertions, impaired grounded answering, and a failed utility-preservation
+> bar* (Version 1.0). Vinci Technical Report No. 2. https://doi.org/10.5281/zenodo.22236690
