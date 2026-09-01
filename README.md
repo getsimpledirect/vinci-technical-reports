@@ -65,9 +65,21 @@ unzip -q Vinci-TR2-Character-Transfer-v1.0-public.zip && cd tr2
 shasum -a 256 -c checksums.sha256
 ```
 
-`reports/tr2/` in this repository is the published package, byte-for-byte. Its
-`checksums.sha256` and `manifest.json` describe the archived release, so nothing under that
-path is edited after publication — corrections become a new version, not a rewrite.
+`reports/tr2/` in this repository tracks the published package. It is **not** byte-for-byte
+identical to the archive on Zenodo, and the difference is recorded rather than silent.
+
+**Divergence from the published version 1.0 archive — three files.**
+`source/latex/Vinci_Technical_Report_No_2.tex` is a Pandoc-generated build intermediate, and
+the copy inside the published archive is the version 0.9 generation: it reads "Version 0.9"
+and carries the pre-1.0 Appendix D. Every other artifact in that archive — Markdown, HTML,
+DOCX, PDF — is version 1.0 and self-consistent, so nothing a reader opens is affected; only a
+rebuild from `source/` would be. It has been regenerated here, which also changes
+`checksums.sha256` and `manifest.json`, the two files that describe it. See erratum E6.
+
+The archive on Zenodo is immutable and was not altered. Verify a download against **its own**
+`checksums.sha256`, which is internally consistent; the repository's copy describes the
+repository. A checksum establishes that a file is unmodified, not that it is correct — this
+erratum is exactly that distinction.
 
 ## Licensing
 

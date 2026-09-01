@@ -35,3 +35,29 @@ Author order and the CRediT statement were confirmed by both named authors on 1 
 ## E5 - Licensing
 
 The report, figures, code, benchmark items, and judge metadata do not automatically share one licence. Assign licences only after artifact-class and per-item rights review.
+
+## E6 - Stale generated LaTeX in the published archive
+
+**Status:** present in the published version 1.0 archive; corrected in the repository after
+publication. The archive itself is immutable and was not altered.
+
+`source/latex/Vinci_Technical_Report_No_2.tex` is generated from
+`Vinci_Technical_Report_No_2_pdf.md` by the Pandoc command in `source/BUILD.md`. The copy
+inside the published archive is the version 0.9 generation: it reads "Version 0.9", carries
+"publication draft" and the pre-1.0 authorship sentence, and titles Appendix D "Publication
+Corrections Required Before Version 1.0".
+
+It contradicts every other artifact in the same archive. The Markdown, HTML, DOCX and PDF are
+all version 1.0 and agree with each other.
+
+**Why it survived.** The file is a build intermediate, so version sweeps excluded it on the
+reasoning that the build regenerates it. It was regenerated — on the machine that produced the
+archival PDF, and never returned to the repository. `checksums.sha256` covers it, so the
+package verifies as internally consistent: a checksum establishes that a file is unmodified,
+not that it is correct.
+
+**Effect.** None on any rendering a reader opens. It misleads only someone rebuilding from
+`source/`, who would produce a version 0.9 title block from a version 1.0 package.
+
+**Correction.** Regenerated in the repository from the canonical Markdown. The published
+archive and its DOI are unchanged; see the divergence note in the top-level README.

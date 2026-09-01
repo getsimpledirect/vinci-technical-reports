@@ -5,7 +5,7 @@
   "evidence_tier": "development",
   "claim_tier": "internal-review-only",
   "primary_test_holdout": "untouched",
-  "generated_at_utc": "2026-09-01T20:08:53+00:00",
+  "generated_at_utc": "2026-09-01T20:45:16+00:00",
   "file_count": 70,
   "files": [
     {
@@ -205,8 +205,8 @@
     },
     {
       "path": "source/latex/Vinci_Technical_Report_No_2.tex",
-      "bytes": 45847,
-      "sha256": "91cd6cb87c294000ed9844c304fc615cc39bfe2e0f99e45ab16221a2adae85a4"
+      "bytes": 46056,
+      "sha256": "2b992512a5c772ea6f47f18605c90a1df85a18d349a8519b328db1ec2dc4fdb6"
     },
     {
       "path": "source/latex/Vinci_Technical_Report_No_2_pdf.md",

@@ -57,7 +57,8 @@
 {\sffamily\fontsize{9.5}{11}\selectfont\bfseries George Pu\textsuperscript{1}\quad Ayush Naik\textsuperscript{1}}\par
 {\sffamily\fontsize{8}{9.5}\selectfont\textsuperscript{1}SimpleDirect / Vinci Research, Toronto, Canada}\par
 \vspace{0.3em}
-{\sffamily\fontsize{8}{9.5}\selectfont Version 0.9 \textbullet{} 1 September 2026 \textbullet{} Development-tier evidence \textbullet{} Internal review only \textbullet{} External peer review not performed}\par
+{\sffamily\fontsize{8}{9.5}\selectfont Version 1.0 \textbullet{} 1 September 2026 \textbullet{} Development-tier evidence \textbullet{} Internal review only \textbullet{} External peer review not performed}\par
+{\sffamily\fontsize{8}{9.5}\selectfont DOI: \href{https://doi.org/10.5281/zenodo.22236690}{10.5281/zenodo.22236690} \textbullet{} \href{https://www.getsimpledirect.com/research/papers/character-transfer-across-three-model-families}{www.getsimpledirect.com/research/papers/character-transfer-across-three-model-families}}\par
 \vspace{0.75em}
 \begin{minipage}{\textwidth}
 \small
@@ -736,7 +737,7 @@ Use}\label{reproducibility-artifacts-and-intended-use}
 
 \subsection{Release package}\label{release-package}
 
-The accompanying publication package is designed to contain:
+The accompanying publication package contains:
 
 \begin{itemize}
 \tightlist
@@ -746,7 +747,7 @@ The accompanying publication package is designed to contain:
   publication figures in PNG, SVG, and PDF;
 \item
   machine-readable UAR, refusal-adjusted, G1-reliability, model-panel,
-  provenance, and claim-evidence tables;
+  provenance, and claim-evidence tables, at aggregate level only;
 \item
   claim and limitation statements;
 \item
@@ -758,7 +759,9 @@ The accompanying publication package is designed to contain:
   an explicit public-export allowlist and denylist.
 \end{itemize}
 
-The present draft does not include private raw outputs, encrypted
+It does not contain item-level scored outputs, per-call judge ledgers,
+exclusion records, analysis locks, artifact bindings, validation
+benchmark prompt or reference text, private raw outputs, encrypted
 holdout material, decryption keys, provider credentials, or unpublished
 per-seed response text.
 
@@ -847,8 +850,8 @@ checkpoint and not a claim of improved truthfulness.
 \section*{Author Contributions}
 
 Contributions follow the CRediT taxonomy; equal contribution is not
-claimed. This statement is a publication draft and requires confirmation
-by both named authors.
+claimed. Both authors confirmed the author order and this contribution
+statement on 1 September 2026.
 
 \textbf{George Pu:} conceptualization, methodology, investigation,
 formal analysis, validation, data curation oversight, supervision,
@@ -859,8 +862,7 @@ program.
 
 \textbf{Ayush Naik:} software, training infrastructure, technical
 validation, supporting methodology, reproducibility support, and writing
-- review and editing. Exact contribution wording should be confirmed
-before publication.
+- review and editing.
 
 \section*{Competing Interests, Funding, and AI Assistance}
 
@@ -882,68 +884,70 @@ claims. AI assistance does not constitute independent validation.
 {[}1{]} Sharan Maiya, Henning Bartsch, Nathan Lambert, and Evan
 Hubinger. ``Open Character Training: Shaping the Persona of AI
 Assistants through Constitutional AI.'' arXiv:2511.01689, 2025.
-https://arxiv.org/abs/2511.01689
+\url{https://arxiv.org/abs/2511.01689}
 
 {[}2{]} Rafael Rafailov, Archit Sharma, Eric Mitchell, Stefano Ermon,
 Christopher D. Manning, and Chelsea Finn. ``Direct Preference
 Optimization: Your Language Model is Secretly a Reward Model.''
-arXiv:2305.18290, 2023. https://arxiv.org/abs/2305.18290
+arXiv:2305.18290, 2023. \url{https://arxiv.org/abs/2305.18290}
 
 {[}3{]} Polina Kirichenko, Mark Ibrahim, Kamalika Chaudhuri, and Samuel
 J. Bell. ``AbstentionBench: Reasoning LLMs Fail on Unanswerable
-Questions.'' arXiv:2506.09038, 2025. https://arxiv.org/abs/2506.09038
+Questions.'' arXiv:2506.09038, 2025.
+\url{https://arxiv.org/abs/2506.09038}
 
 {[}4{]} Skylar Zhai, Jingcheng Liang, and Dongyeop Kang. ``Abstain-R1:
 Calibrated Abstention and Post-Refusal Clarification via Verifiable
-RL.'' arXiv:2604.17073, 2026. https://arxiv.org/abs/2604.17073
+RL.'' arXiv:2604.17073, 2026. \url{https://arxiv.org/abs/2604.17073}
 
 {[}5{]} Lianmin Zheng et al.~``Judging LLM-as-a-Judge with MT-Bench and
 Chatbot Arena.'' NeurIPS 2023; arXiv:2306.05685.
-https://arxiv.org/abs/2306.05685
+\url{https://arxiv.org/abs/2306.05685}
 
 {[}6{]} Rajarshi Haldar and Julia Hockenmaier. ``Rating Roulette:
 Self-Inconsistency in LLM-As-A-Judge Frameworks.'' Findings of EMNLP
-2025, 24986-25004. https://doi.org/10.18653/v1/2025.findings-emnlp.1361
+2025, 24986-25004.
+\url{https://doi.org/10.18653/v1/2025.findings-emnlp.1361}
 
 {[}7{]} Hongyu Chen and Seraphina Goldfarb-Tarrant. ``Safer or Luckier?
 LLMs as Safety Evaluators Are Not Robust to Artifacts.'' ACL 2025.
-https://doi.org/10.18653/v1/2025.acl-long.970
+\url{https://doi.org/10.18653/v1/2025.acl-long.970}
 
 {[}8{]} Tianruo Rose Xu, Vedant Gaur, Liu Leqi, and Tanya Goyal. ``The
 Progress Illusion: Revisiting Meta-Evaluation Standards of LLM
 Evaluators.'' Findings of EMNLP 2025, 19033-19043.
-https://doi.org/10.18653/v1/2025.findings-emnlp.1036
+\url{https://doi.org/10.18653/v1/2025.findings-emnlp.1036}
 
 {[}9{]} Kilem Li Gwet. ``Computing Inter-Rater Reliability and Its
 Variance in the Presence of High Agreement.'' British Journal of
 Mathematical and Statistical Psychology 61(1), 29-48, 2008.
-https://doi.org/10.1348/000711006X126600
+\url{https://doi.org/10.1348/000711006X126600}
 
 {[}10{]} George Pu and Ayush Naik. ``Transferring Character
 Post-Training to Mistral 7B.'' Vinci Technical Report No.~1, Version
 1.0, 13 August 2026.
 
 {[}11{]} Qwen Team. ``Qwen3-8B Model Card.'' Hugging Face, accessed 1
-September 2026. https://huggingface.co/Qwen/Qwen3-8B
+September 2026. \url{https://huggingface.co/Qwen/Qwen3-8B}
 
 {[}12{]} Mistral AI. ``Ministral-3-8B-Instruct-2512-BF16 Model Card.''
 Hugging Face, accessed 1 September 2026.
-https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-BF16
+\url{https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-BF16}
 
 {[}13{]} Allen Institute for AI. ``OLMo-3-7B-Instruct Model Card.''
 Hugging Face, accessed 1 September 2026.
-https://huggingface.co/allenai/Olmo-3-7B-Instruct
+\url{https://huggingface.co/allenai/Olmo-3-7B-Instruct}
 
 {[}14{]} Jan Kottner, Laurent Audige, Stig Brorson, Allan Donner, Byron
 J. Gajewski, Asbjorn Hrobjartsson, Chris Roberts, Mohamed M. Shoukri,
 and David L. Streiner. ``Guidelines for Reporting Reliability and
 Agreement Studies (GRRAS) Were Proposed.'' Journal of Clinical
 Epidemiology 64(1), 96-106, 2011.
-https://doi.org/10.1016/j.jclinepi.2010.03.002
+\url{https://doi.org/10.1016/j.jclinepi.2010.03.002}
 
 {[}15{]} Vinci Research. ``Character Transfer Development-Tier Release
-Bundle, Version 0.9.'' 2026. Public URL and immutable release identifier
-to be assigned.
+Bundle, Version 1.0.'' 2026.
+\url{https://doi.org/10.5281/zenodo.22236690}
 
 \clearpage
 \onecolumn
@@ -962,39 +966,27 @@ Items}\label{material-deviations-and-unfinished-charter-items}
 
 \input{table_deviations.tex}
 
-\section{Publication Corrections Required Before Version
-1.0}\label{publication-corrections-required-before-version-1.0}
+\section{Outstanding Evidence Work}\label{outstanding-evidence-work}
+
+Version 1.0 finalizes this document. It does not promote the evidence
+tier. The following items were not completed for this release and remain
+open:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Land the exchange-rate unit correction in the source research record.
-\item
   Generate the public tables directly from the frozen scored artifacts
-  and compare them byte-for-byte with this draft.
+  and compare them field-for-field with this report. The tables in this
+  release are transcribed from the analysis record; they have not been
+  regenerated from the sealed artifacts.
 \item
   Export sanitized item-level labels and per-call judge ledgers through
-  an explicit allowlist.
+  an explicit allowlist. The accompanying package contains aggregate
+  tables only.
 \item
   Confirm benchmark-item rights and assign licences by artifact class.
-\item
-  Confirm authorship, author order, and CRediT contributions with both
-  named authors.
-\item
-  Assign the final report URL, release tag, and immutable artifact
-  identifier.
-\item
-  Add the publication source commit and package SHA-256 after final
-  build.
-\item
-  Run an independent final claim review against the PDF, HTML, release
-  notes, and social copy.
-\item
-  Add a dated follow-up notice to Technical Report No.~1 and the
-  existing Prova model cards.
-\item
-  Do not include model weights or unlock the primary holdout as part of
-  this release.
+  The validation benchmark remains under controlled access pending that
+  review.
 \end{enumerate}
 \end{document}
