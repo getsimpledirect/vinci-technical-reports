@@ -112,26 +112,23 @@ if bad: sys.exit('  FAIL: not on the record with the expected checksum: %s' % ba
 print('  ok   still unsubmitted; both files present with the exact local checksums')
 " || exit 1
 
-echo "== 4. delete only files that are NOT one of the two we just verified =="
-# Never delete by a pre-recorded id. Delete only what does not belong on the
-# final record, identified by name-and-checksum at this moment.
-DOOMED=$(printf '%s' "$DEP2" | DESIRED="$DESIRED" python3 -c "
+echo "== 4. refuse anything unexpected — this script never deletes =="
+# The same-key PUT already replaced the old PDF, so there is nothing to remove.
+# Deletion was the only destructive operation here; removing it removes the
+# entire class of risk, including the one that made 23187b7 unsafe. If a file
+# we did not put there is on the record, stop and let a person decide.
+printf '%s' "$DEP2" | DESIRED="$DESIRED" python3 -c "
 import json,os,sys
 d=json.load(sys.stdin)
-want=dict(x.split(':',1) for x in os.environ['DESIRED'].split())
-for f in d.get('files',[]):
-    c=f['checksum'].replace('md5:','')
-    if want.get(f['filename'])!=c: print(f['id'], f['filename'])
-")
-if [ -z "$DOOMED" ]; then
-  ok "nothing to delete — the same-key upload already replaced the old file"
-else
-  printf '%s\n' "$DOOMED" | while read -r fid fname; do
-    [ -n "$fid" ] || continue
-    api DELETE "$API/deposit/depositions/$DEP_ID/files/$fid" >/dev/null || exit 1
-    ok "deleted stale $fname (id $fid)"
-  done || fail "a delete failed"
-fi
+want=set(dict(x.split(':',1) for x in os.environ['DESIRED'].split()))
+extra=[f['filename'] for f in d.get('files',[]) if f['filename'] not in want]
+if extra:
+    print('  FAIL: unexpected files on the draft: %s' % extra)
+    print('        this script will not delete them. Remove them in the Zenodo UI')
+    print('        if they do not belong, then re-run.')
+    sys.exit(1)
+print('  ok   record holds exactly the two intended files; nothing to delete')
+" || exit 1
 
 echo "== 5. metadata =="
 python3 - "$URL" > "$BODY.meta" <<'PYMETA'
