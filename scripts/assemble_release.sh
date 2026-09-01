@@ -31,7 +31,11 @@ grep -q "Version 0.9"                                        "$TXT" && fail 'PDF
 grep -q "publication draft"                                  "$TXT" && fail 'PDF says "publication draft" — this is the draft'
 grep -q "Publication Corrections Required Before Version 1.0" "$TXT" && fail 'PDF carries the old Appendix D — this is the draft'
 ok 'no draft markers present'
-grep -q "Version 1.0 - 1 September 2026" "$TXT" || fail 'title block is not "Version 1.0 - 1 September 2026"'
+# The template prints "Version 1.0 <bullet> 1 September 2026". Gating on a
+# hyphen rejected the real PDF while passing nothing — match the separator the
+# template actually emits, and tolerate either.
+grep -qE "Version 1\.0 (-|\xe2\x80\xa2|.) 1 September 2026" "$TXT" \
+  || fail 'title block does not read "Version 1.0 <sep> 1 September 2026"'
 ok 'title block is the v1.0 line'
 grep -q "Outstanding Evidence Work" "$TXT" || fail 'Appendix D is not the v1.0 "Outstanding Evidence Work"'
 ok 'Appendix D is the v1.0 text'

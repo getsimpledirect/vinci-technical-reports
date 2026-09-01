@@ -19,6 +19,7 @@ ap.add_argument('--corrupt-upload', action='store_true')
 ap.add_argument('--extra-file', action='store_true')
 ap.add_argument('--dep-id', default='22236690')
 ap.add_argument('--doi', default='10.5281/zenodo.22236690')
+ap.add_argument('--bucket-uuid', default='3f9a1c02-mock-uuid')
 A = ap.parse_args()
 
 STATE = {
@@ -41,7 +42,7 @@ def dep(port):
             'submitted': STATE['submitted'],
             'metadata': STATE['metadata'],
             'files': STATE['files'],
-            'links': {'bucket': f'http://127.0.0.1:{port}/bucket'}}
+            'links': {'bucket': f'http://127.0.0.1:{port}/api/files/{A.bucket_uuid}'}}
 
 class H(BaseHTTPRequestHandler):
     def log_message(self, *a): pass
@@ -59,7 +60,7 @@ class H(BaseHTTPRequestHandler):
     def do_PUT(self):
         n = int(self.headers.get('Content-Length', 0))
         body = self.rfile.read(n)
-        if self.path.startswith('/bucket/'):
+        if '/api/files/' in self.path:
             name = self.path.rsplit('/', 1)[-1]
             digest = hashlib.md5(body).hexdigest()
             if A.corrupt_upload: digest = '0'*32

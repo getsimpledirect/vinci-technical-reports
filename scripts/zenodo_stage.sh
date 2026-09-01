@@ -92,8 +92,36 @@ m=d.get('metadata',{})
 doi=(m.get('prereserve_doi') or {}).get('doi') or m.get('doi') or d.get('doi') or ''
 if doi != want_doi: sys.exit('  FAIL: reserved DOI is %r, expected %r' % (doi, want_doi))
 b=d.get('links',{}).get('bucket','')
-if want_id not in b and 'bucket' not in b: sys.exit('  FAIL: bucket link %r does not belong to this deposition' % b)
+# Live Zenodo buckets are https://zenodo.org/api/files/<uuid> — they contain
+# neither the deposition id nor the word 'bucket'. Validate scheme and host, not
+# a substring that only ever matched the mock.
+from urllib.parse import urlparse
+u=urlparse(b)
+allowed={'zenodo.org','sandbox.zenodo.org'}
+override=os.environ.get('ZENODO_ALLOW_HOST','')
+if override: allowed.add(override)
+if u.scheme not in ('https','http') or not u.netloc:
+    sys.exit('  FAIL: bucket link is not a URL: %r' % b)
+host=u.netloc.split(':')[0]
+if host not in allowed:
+    sys.exit('  FAIL: bucket host %r is not one of %s' % (host, sorted(allowed)))
+if u.scheme != 'https' and host not in ('127.0.0.1','localhost'):
+    sys.exit('  FAIL: refusing a non-https bucket on %r' % host)
 print('  ok   identity: deposition %s, DOI %s' % (got_id, doi))
+" || exit 1
+# Preflight: refuse an unexpected file BEFORE uploading anything, so a stranger
+# file means zero writes rather than two uploads and then an abort.
+DESIRED="$(basename "$PDF"):$PDF_MD5 $(basename "$ZIP"):$ZIP_MD5"
+printf '%s' "$DEP" | DESIRED="$DESIRED" python3 -c "
+import json,os,sys
+d=json.load(sys.stdin)
+want=set(dict(x.split(':',1) for x in os.environ['DESIRED'].split()))
+extra=[f['filename'] for f in d.get('files',[]) if f['filename'] not in want]
+if extra:
+    sys.exit('  FAIL: unexpected files already on the draft: %s\\n'
+             '        nothing has been uploaded. Remove them in the Zenodo UI if\\n'
+             '        they do not belong, then re-run.' % extra)
+print('  ok   no unexpected files on the draft')
 " || exit 1
 BUCKET=$(printf '%s' "$DEP" | jq_py "print(d['links']['bucket'])")
 
@@ -115,7 +143,6 @@ echo "== 3. re-read, and prove the new bytes are actually on the record =="
 # and deleting by an id recorded before the upload can delete the replacement
 # itself, if Zenodo keeps the id across a same-key overwrite. Everything below
 # keys off checksums, which is true regardless of how ids behave.
-DESIRED="$(basename "$PDF"):$PDF_MD5 $(basename "$ZIP"):$ZIP_MD5"
 DEP2=$(api GET "$API/deposit/depositions/$DEP_ID")
 printf '%s' "$DEP2" | DESIRED="$DESIRED" python3 -c "
 import json,os,sys

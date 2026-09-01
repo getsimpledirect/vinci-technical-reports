@@ -20,13 +20,13 @@ head -c 4096 /dev/urandom > "$TMP/$ZIP_NAME"
 
 FAILURES=0
 start_mock(){ [ -n "$MOCK_PID" ] && kill "$MOCK_PID" 2>/dev/null; sleep 0.3
-  { python3 "$ROOT/test/mock_zenodo.py" --port 8899 "$@" >/dev/null 2>&1 & MOCK_PID=$!; } 2>/dev/null; disown 2>/dev/null; sleep 0.8; }
+  { ZENODO_ALLOW_HOST=127.0.0.1 python3 "$ROOT/test/mock_zenodo.py" --port 8899 "$@" >/dev/null 2>&1 & MOCK_PID=$!; } 2>/dev/null; disown 2>/dev/null; sleep 0.8; }
 files_now(){ curl -s -H "Authorization: Bearer mock" \
   http://127.0.0.1:8899/api/deposit/depositions/22236690 \
   | python3 -c "import json,sys;print(','.join(sorted(f['filename'] for f in json.load(sys.stdin)['files'])))"; }
 invoke(){ sed -e "s#^API=.*#API=http://127.0.0.1:8899/api#" \
               -e "s#^PDF=.*#PDF=$TMP/$PDF_NAME#" -e "s#^ZIP=.*#ZIP=$TMP/$ZIP_NAME#" "$1" > "$TMP/s.sh"
-          ZENODO_TOKEN=mock ZENODO_TOKEN_FILE=/nonexistent bash "$TMP/s.sh" >"$TMP/out" 2>&1; echo $?; }
+          ZENODO_ALLOW_HOST="${ZENODO_ALLOW_HOST-127.0.0.1}" ZENODO_TOKEN=mock ZENODO_TOKEN_FILE=/nonexistent bash "$TMP/s.sh" >"$TMP/out" 2>&1; echo $?; }
 check(){ # check <label> <actual> <expected>
   if [ "$2" = "$3" ]; then printf '  PASS  %-46s %s\n' "$1" "$2"
   else printf '  FAIL  %-46s got %s want %s\n' "$1" "$2" "$3"; FAILURES=$((FAILURES+1)); sed 's/^/        /' "$TMP/out" | tail -6; fi; }
@@ -65,6 +65,12 @@ rc=$(invoke "$ROOT/scripts/zenodo_stage.sh")
 check "unexpected third file refuses" "$rc" "1"
 check "  ...stranger file untouched"  "$(files_now | tr ',' '\n' | grep -c someone_elses_notes.txt)" "1"
 check "  ...zero DELETE verbs issued" "$(grep -c 'api DELETE' "$ROOT/scripts/zenodo_stage.sh")" "0"
+
+# --- bucket host must be validated, not substring-matched ---
+start_mock
+rc=$(ZENODO_ALLOW_HOST= invoke "$ROOT/scripts/zenodo_stage.sh")
+check "foreign bucket host refuses"   "$rc" "1"
+check "  ...and uploaded nothing"     "$(files_now)" "$PDF_NAME"
 
 # Regression control: the old script must LOSE the PDF here. If this stops
 # failing, the harness has stopped reproducing the defect and proves nothing.
