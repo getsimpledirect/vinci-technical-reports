@@ -46,10 +46,20 @@ for s in ${PDF_FORBID[@]+"${PDF_FORBID[@]}"}; do   # empty-array safe (bash 3.2 
   grep -qF "$s" "$TXT" && fail "PDF contains \"$s\" -- this looks like a draft, not the final build"
 done
 ok "no draft markers (${#PDF_FORBID[@]} checked)"
+# Required phrases match against a whitespace-flattened copy: a designed cover
+# wraps the title across lines, and grep cannot match a newline inside a bracket
+# expression, so gating on the one-line form rejects a correct PDF.
+FLAT="$(mktemp)"; tr '\n' ' ' < "$TXT" | tr -s ' ' > "$FLAT"
 for r in ${PDF_REQUIRE_REGEX[@]+"${PDF_REQUIRE_REGEX[@]}"}; do
-  grep -qE "$r" "$TXT" || fail "PDF is missing required content: /$r/"
+  grep -qE "$r" "$FLAT" || fail "PDF is missing required content: /$r/"
 done
 ok "all ${#PDF_REQUIRE_REGEX[@]} required strings present"
+# Private-use code points. Unconditional: a glyph with no meaning outside the
+# font that emitted it has no place in an archival PDF, and this failure is
+# invisible on the page -- only extraction is wrong. See scripts/pdf_text_sanity.py.
+python3 "$(dirname "$0")/pdf_text_sanity.py" "$PDF" \
+  || fail "PDF extraction contains private-use code points (signs or identifiers will be lost downstream)"
+ok "extracted text is free of private-use code points"
 # Link targets, not link text. pdftotext yields only a hyperlink's visible
 # label, so a forbidden URL can sit in the PDF and never appear in "$TXT".
 # Reports needing this declare PDF_FORBID_URI; those that do not are unaffected.
