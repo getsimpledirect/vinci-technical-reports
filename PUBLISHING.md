@@ -21,10 +21,17 @@ days, because it depends on another person agreeing. Log in, start a submission,
 category. You will be told immediately. Report No. 2 discovered this at the end, after
 everything else was staged.
 
-**2. Reserve the DOI before the build, not after.**
-It is the only ordering constraint in the whole sequence. A DOI minted afterwards cannot go
-inside the archival PDF, so the document never carries its own identifier. Zenodo reserves
-ahead of publishing; do it first, hand the identifier to whoever builds.
+**2. Reserve the DOI before the build, not after — if the PDF is meant to carry it.**
+A DOI minted afterwards cannot go inside the archival PDF, so the document never carries its
+own identifier. Zenodo reserves ahead of publishing; do it first, hand the identifier to
+whoever builds.
+
+Report No. 3 decided the opposite on purpose — its `LIMITATIONS.md` records that identifiers
+assigned by external repositories belong in repository metadata, not in the document — and that
+is a legitimate choice. **Read the report's own position before treating this as binding**, and
+if the PDF will not carry the DOI, say so in `release.conf` so the DOI-in-PDF check is expected
+to warn rather than read as a defect. Reserving early still pays: citation files, the site page
+and the announcement all want the identifier before launch.
 
 **3. Generate the manifest and checksums LAST, and make it an invariant, not a reminder.**
 Report No. 2 shipped a manifest generated before two files were added. `shasum -c` passed
@@ -265,30 +272,118 @@ publish the archive        ← irreversible: files become immutable
 flip the repository public ← irreversible: publishes the whole history
 tag, release, attach assets
 site page, launch copy, follow-up notices on every prior surface the result narrows
+VERIFY EACH SURFACE AGAINST THE PUBLISHED TEXT — not against the PDF, and not against each other
 ```
 
 The last line is the one most easily forgotten. A new result that narrows an old one leaves
 the old claim live everywhere it was ever stated — the earlier report, its blog post and
 headline, its model cards, and any mirror you do not control.
 
-### And the fix for it was wrong the first time
+## Report No. 3: the artifact was right and the surfaces were wrong
 
-The repair recommended for the private-use defect was
-`\setsansfont{Inter}[Ligatures=NoContextual, RawFeature={-case}]`. It does not
-work. fontspec's `Ligatures=NoContextual` disables `clig`, contextual
-*ligatures*; the substitution that reached Inter's PUA alternates came through
-`calt`, contextual *alternates*. Two features, similar names, different things.
-The working setting is `RawFeature={-calt,-case}`.
+Every defect below survived a package whose 96 checksums verified, whose numbers reconciled,
+and whose claim discipline held. Integrity checking answers *did these bytes change*. None of
+this is that question.
 
-It was caught only because the brief carried a fallback and, more importantly,
-an acceptance test the recipient could run without trusting the diagnosis. A
-handoff that says what to change should also say how the recipient proves it
-worked, precisely so a wrong instruction fails loudly instead of shipping.
+### Template scaffolding is content until someone deletes it
 
-The rebuild's own regression control is the one worth copying: map the two PUA
-code points in the OLD extraction to the characters they were meant to be, and
-compare with the NEW extraction. Byte-identical, 120,751 characters each -- so
-the rebuild changed exactly those glyphs and nothing else. A visual diff alone
-could not have shown that (7 pages changed, at most 0.0168% of pixels), and a
-clean new extraction alone would not have ruled out silent edits elsewhere.
+Four instances shipped inside an archival PDF, DOCX and HTML:
+
+- `[TO BE FROZEN]`, `[TO BE RULED]`, `[TO BE GENERATED AFTER CONTENT APPROVAL]` in the source-identity
+  section, under the sentence *"The publication package must replace the placeholder below…"*
+- a heading reading **"Funding disclosure required before publication"** followed by
+  *"State whether any GPU costs were reimbursed…"* — an instruction to the author, printed as
+  if it were a disclosure
+- *"Other model providers should be added if their systems made material contributions."*
+- an appendix stating the report *"intentionally uses placeholders instead of generating
+  visuals"* while shipping six real generated figures
+
+Sweep for the **class**, not the instance: imperative sentences addressed to whoever is
+preparing the document (`^State |^Include |^Add |should be added if|required before publication`),
+bracketed tokens, and any sentence describing what the package *will* contain.
+
+**Deleting is not the fix.** Removing the funding scaffolding took the one true sentence with it
+and left the report with no funding position at all — worse than the prompt, because a reader
+cannot distinguish self-funded from undisclosed. Replace scaffolding with the statement it was
+asking for.
+
+### A precondition the artifact states about itself must be true when it publishes
+
+Report No. 3 shipped an appendix headed **Pre-Publication Gate** reading *"The report should not
+receive a DOI until every item below is closed"* above 24 unchecked boxes — two of which
+required an independent external reviewer and had not been done. Publishing would have
+falsified a sentence the document contains, under the DOI it says should not exist yet.
+
+Marking it closed was unreachable; deleting it removed a standard the work had largely met. It
+was replaced with a record of **what was closed** and, plainly, **what was not performed**. A
+quieter instance sat in another appendix: *"intended to become machine-checked before
+publication."*
+
+Before release, read every sentence the document says about its own readiness and ask whether
+publishing makes it false. Then check that whatever replaces it does not over-claim: the list of
+closed items should be trimmed to what someone can actually stand behind.
+
+### The PDF being identical everywhere proves nothing about the web page
+
+The published PDF was verified byte-identical across the site, the archive and the repository —
+`md5 84e833f9…` on each, checked on each rather than inferred. **That check was correct and it
+certified nothing about the report page**, which renders from a separate markdown file that
+nothing was comparing to anything.
+
+That file had been staged from a draft and never refreshed through four rebuilds. For roughly
+two hours the canonical report page published, beside its own DOI, the pre-publication gate that
+had been replaced, the funding template prompt, the funding-program mentions that had been
+removed by decision, `DRAFT v0.3, not published`, and `Authors: TO BE SETTLED`.
+
+Then fixing it broke the figures, because the report's own relative image paths
+(`../figures/…`) are correct inside the package and meaningless on the web — and the site's
+figure directory was empty, so there was nothing to serve either way.
+
+**Every downstream surface renders from its own source. List them, and diff each against the
+published text before announcing:**
+
+```
+report page body   ← diff against reports/<id>/report/<report>.md
+report page figures← every <img> src resolves to a file that exists
+announcement post  ← claim check against release/CLAIMS.md
+archive metadata   ← description carries the scope qualifiers
+citation files     ← DOI, author list, version
+```
+
+A surface that renders from a *copy* of the report is a second artifact with its own decay.
+
+### Hand off a diagnosis with a test that does not require trusting it
+
+The font fix above was recommended wrongly. `Ligatures=NoContextual` was proposed, but fontspec
+maps that to `clig`, contextual *ligatures*, while the substitution came through `calt`,
+contextual *alternates* — two features, similar names, different things. The working setting is
+`RawFeature={-calt,-case}`.
+
+The brief was still actionable, because it shipped an acceptance command the recipient could run
+against the rebuilt artifact. They ran it, the proposed fix failed it, and they found the
+working setting themselves.
+
+A handoff that says only what to change transmits the author's confidence along with the
+instruction. One that says **how to prove it worked** fails loudly instead of shipping.
+
+Their regression control is the one to copy: map the corrupted characters in the *old*
+extraction to their intended values, then compare with the *new* extraction. Byte-identical
+across 120,751 characters proved the rebuild changed those glyphs and nothing else — which
+neither a visual diff nor a clean new extraction could establish alone.
+
+### Checks that report success they have not earned
+
+Three in one session, all in the verification itself rather than the work:
+
+- `npx tsc --noEmit | head -5 && echo "clean"` printed **clean** while the compiler was failing.
+  The `&&` chains off `head`. Check exit codes, not pipeline tails.
+- A test suite went green having exercised none of the change, because the change was in a
+  sibling script its fixture did not copy.
+- `set -e` did not halt a script after `mv` failed, and the following `cp` overwrote the target
+  anyway. It was harmless only by luck. **Look at the target before overwriting it.**
+
+Two further findings were phantoms from over-broad greps — hyphens that a second extractor
+showed were present, and a "missing locale" that was a different report matching the pattern.
+Both were disproved before reaching anyone. When a sweep reports a defect, reproduce it a second
+way before it costs someone a rebuild.
 
