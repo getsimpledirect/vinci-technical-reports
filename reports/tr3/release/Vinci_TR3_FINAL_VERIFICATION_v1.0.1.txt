@@ -1,0 +1,8 @@
+Vinci Technical Report No. 3 - packaging correction v1.0.1
+
+PDF: PASS - 38 pages rendered; wide results and appendix tables remain within the page.
+arXiv source: PASS - clean extraction and two-pass xelatex compilation; 38 pages.
+HTML/Markdown: PASS - malformed inline table delimiter removed.
+DOCX: editable source included; pagination varies by Word-compatible renderer. PDF is the layout authority.
+Scientific claims: unchanged from report Version 1.0.
+Publication gate: NOT CLEARED by packaging alone. Complete PUBLICATION_CHECKLIST.md, including funding disclosure and exact-artifact approval, before account-side publication.

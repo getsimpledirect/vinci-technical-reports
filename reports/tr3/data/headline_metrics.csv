@@ -1,0 +1,9 @@
+stage,seed,metric,value,direction
+SFT-only,1729,reasoning_reduction_vs_base_pct,-10.3,negative means longer
+SFT-only,2718,reasoning_reduction_vs_base_pct,4.3,positive means shorter
+SFT+DPO one epoch,1729,reasoning_reduction_vs_base_pct,-10.9,negative means longer
+SFT+DPO one epoch,2718,reasoning_reduction_vs_base_pct,4.9,positive means shorter
+DPO marginal over SFT,1729,reasoning_reduction_increment_pct,-0.6,negative means worse
+DPO marginal over SFT,2718,reasoning_reduction_increment_pct,0.6,positive means better
+two-epoch screen,1729,reasoning_reduction_vs_base_pct,10.9,screening result; trained attribution confounded
+two-epoch screen,2718,reasoning_reduction_vs_base_pct,24.5,screening result; trained attribution confounded

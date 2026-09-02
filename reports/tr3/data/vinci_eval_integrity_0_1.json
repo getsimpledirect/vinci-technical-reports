@@ -1,0 +1,77 @@
+{
+  "name": "Vinci Eval Integrity",
+  "version": "0.1",
+  "status_values": [
+    "PASS",
+    "FAIL",
+    "UNVERIFIED",
+    "NOT_APPLICABLE"
+  ],
+  "qualification_rule": "Any FAIL or UNVERIFIED check blocks qualified-evaluator language for model selection, optimization, release, or product claims.",
+  "checks": [
+    {
+      "id": "VEI-1",
+      "name": "Identity and statistical independence",
+      "requires": [
+        "exact artifact/model/authority identities",
+        "semantic-family or cluster metadata",
+        "declared independent unit"
+      ]
+    },
+    {
+      "id": "VEI-2",
+      "name": "Contract clarity",
+      "requires": [
+        "prompt-test-reference agreement",
+        "blind independent implementation where applicable",
+        "scored edge cases stated in contract"
+      ]
+    },
+    {
+      "id": "VEI-3",
+      "name": "Runtime/certification separation",
+      "requires": [
+        "visible runtime channel used only for repair/retry",
+        "protected score channel not exposed to policy",
+        "separate digests and loaders"
+      ]
+    },
+    {
+      "id": "VEI-4",
+      "name": "Bidirectional discrimination",
+      "requires": [
+        "independent wrong-program population",
+        "valid-alternative population",
+        "positive and negative controls"
+      ]
+    },
+    {
+      "id": "VEI-5",
+      "name": "Estimand, censoring, and retention integrity",
+      "requires": [
+        "cap exhaustion kept in denominator",
+        "raw completions retained before scoring",
+        "task/family weighting explicit",
+        "adaptive sampling excluded from pooled yield"
+      ]
+    },
+    {
+      "id": "VEI-6",
+      "name": "Production-path and authority binding",
+      "requires": [
+        "production selection path exercised",
+        "executed authority digest equals provenance",
+        "fail-closed on missing/mixed identity"
+      ]
+    },
+    {
+      "id": "VEI-7",
+      "name": "Exact-procedure power and independent requalification",
+      "requires": [
+        "power simulated against full decision procedure",
+        "cluster variance measured",
+        "post-repair population built by a different method"
+      ]
+    }
+  ]
+}

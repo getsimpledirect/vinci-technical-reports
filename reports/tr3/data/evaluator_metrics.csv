@@ -1,0 +1,10 @@
+surface,numerator,denominator,rate,unit,derivation
+original bank broad shortcuts,24,24,1.0,program,24 / 24
+replacement runtime broad shortcuts,154,322,0.4782608695652174,program,154 / 322
+replacement certification broad shortcuts,0,322,0.0,program,0 / 322
+replacement certification near-miss + partial,7,157,0.044585987261146494,program,(4 + 3) / (121 + 36)
+blind AST mutation protected bank,52,1862,0.027926960257787327,program,accepted_by_certification / provably_wrong_mutants
+blind AST mutation tasks with leak,19,40,0.475,task,tasks_with_at_least_one_leak / protected_tasks
+blind AST mutation tasks with no detected leak,21,40,0.525,task,(40 - 19) / 40; opposite polarity from known-flaw union
+cross-method known-flaw lower bound,21,40,0.525,task,(7 previously identified + 14 newly adjudicated outside that set) / 40
+reference implementations rejected by frozen grader,7,40,0.175,task,rejected_reference_solutions / protected_tasks

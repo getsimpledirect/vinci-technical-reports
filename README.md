@@ -7,8 +7,34 @@ technical reports.
 
 | No. | Title | Version | Published | DOI |
 |---|---|---|---|---|
+| 3 | [Runtime Pass Is Not Correctness](reports/tr3/) | 1.0 | 1 September 2026 | [10.5281/zenodo.22241477](https://doi.org/10.5281/zenodo.22241477) |
 | 2 | [Character Transfer Across Three Model Families](reports/tr2/) | 1.0 | 1 September 2026 | [10.5281/zenodo.22236690](https://doi.org/10.5281/zenodo.22236690) |
 | 1 | Transferring Character Post-Training to Mistral 7B | 1.0 | 13 August 2026 | — |
+
+## Technical Report No. 3
+
+**Runtime Pass Is Not Correctness**
+*A Negative Reasoning-Efficiency Post-Training Result and Verifier Audit on Qwen3.8-27B*
+
+George Pu · 1 September 2026 · Version 1.0
+
+**DOI** [10.5281/zenodo.22241477](https://doi.org/10.5281/zenodo.22241477) ·
+**Report page** https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness
+
+A conservative SFT+DPO recipe missed every reasoning-efficiency target, a serving control
+reproduced the apparent improvement on untrained weights, and the executable evaluator used
+to measure correctness accepted 24 of 24 deliberately incorrect shortcut programs. No model
+checkpoint, evaluator bank, or release candidate resulted.
+
+Development-tier evidence on one model lineage. The replacement verifier bank is **not
+qualified**. The superseded adequacy claim is **withdrawn**. Reported rates characterise the
+audited evaluation set and do not estimate ordinary product traffic. Appendix E records what
+was closed before release and states plainly what was not performed: no independent
+statistical review, no independent verifier or code review against the production path, and
+no external peer review or audit.
+
+The bound research records sit in a private repository; each is identified exactly by commit
+and blob SHA in `reports/tr3/data/evidence_bindings.json`.
 
 ## Technical Report No. 2
 

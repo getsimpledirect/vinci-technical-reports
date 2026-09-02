@@ -1,0 +1,3 @@
+condition,cap_hits,episodes,cap_hit_rate,restricted_mean_reasoning_tokens,tokens_per_strict_success
+untrained base @ xhigh,13,20,0.65,6407,21401
+untrained base @ medium,0,20,0.0,608,944

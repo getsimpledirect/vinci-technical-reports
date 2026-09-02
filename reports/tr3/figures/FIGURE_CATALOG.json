@@ -1,0 +1,32 @@
+[
+  {
+    "stem": "figure1_study_lineage",
+    "title": "Study lineage and final disposition",
+    "alt_text": "Eight-step lineage from the preserved P-BREVE-01 no-go through the R2 intervention, serving control, evaluator audits, and final no-release disposition."
+  },
+  {
+    "stem": "figure2_one_epoch_reduction",
+    "title": "Signed one-epoch reasoning reduction",
+    "alt_text": "Grouped bars for seeds 1729 and 2718 show SFT-only, full one-epoch SFT plus DPO, and the marginal DPO increment. Positive values mean fewer tokens; the plus 20 percent target was not reached at both seeds."
+  },
+  {
+    "stem": "figure3_serving_effort_control",
+    "title": "Serving-time effort control",
+    "alt_text": "Log-scale comparison of untrained base at xhigh and medium effort. Restricted mean reasoning length fell from 6,407 to 608 tokens and tokens per strict success fell from 21,401 to 944; cap exhaustion was observed at 65 percent versus zero of 20 episodes."
+  },
+  {
+    "stem": "figure4_evaluator_qualification",
+    "title": "Evaluator qualification and failure surface",
+    "alt_text": "Horizontal bars compare false-accept rates: 24 of 24 shortcuts passed the original bank; 154 of 322 passed replacement runtime; zero of 322 passed broad certification; 7 of 157 near-miss or partial programs passed; 52 of 1,862 wrong mutants passed the blind mutation audit."
+  },
+  {
+    "stem": "figure5_task_count_disambiguation",
+    "title": "Disambiguating the two 21-of-40 quantities",
+    "alt_text": "Three bars show 19 of 40 tasks with an AST leak, the complementary 21 of 40 with no detected AST leak, and the separate cross-method lower bound of at least 21 of 40 known-flaw tasks, composed from seven prior plus fourteen newly adjudicated tasks."
+  },
+  {
+    "stem": "figure6_vinci_eval_integrity",
+    "title": "Vinci Eval Integrity 0.1",
+    "alt_text": "Seven stacked checks cover identity and independence, contract clarity, channel separation, bidirectional discrimination, estimand integrity, production-path binding, and exact-procedure power with independent requalification."
+  }
+]

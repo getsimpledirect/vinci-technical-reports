@@ -1,0 +1,66 @@
+[
+  {
+    "role": "research evidence cutoff",
+    "path": "p-breve-01-r2/",
+    "git_commit": "7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d",
+    "blob_sha": null,
+    "url": "https://github.com/getsimpledirect/vinci-technical-reports/tree/main/reports/tr3",
+    "access": "public package (mirrors the aggregate evidence of this tree)"
+  },
+  {
+    "role": "registered full-recipe claim .015",
+    "path": "p-breve-01-r2/claims.jsonl",
+    "git_commit": "7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d",
+    "blob_sha": "b61210ec3d48fd6adfa0d3ae431e910ac0a65278",
+    "url": null,
+    "access": "private research repository; identified by git_commit and blob_sha"
+  },
+  {
+    "role": "final one-epoch decision packet",
+    "path": "p-breve-01-r2/runs/final-decision-packet-20260819.md",
+    "git_commit": "7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d",
+    "blob_sha": "a4231d263cb7401b2be77daed3bdfcdd6f78a15e",
+    "url": null,
+    "access": "private research repository; identified by git_commit and blob_sha"
+  },
+  {
+    "role": "original verifier adequacy audit",
+    "path": "p-breve-01-r2/docs/VERIFIER-ADEQUACY-AUDIT.md",
+    "git_commit": "7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d",
+    "blob_sha": "f76b043971a09d8fd12b2a03843a6b61680be337",
+    "url": null,
+    "access": "private research repository; identified by git_commit and blob_sha"
+  },
+  {
+    "role": "serving effort screen",
+    "path": "p-breve-01-r2/docs/R3B-NATIVE-EFFORT-SCREEN-RESULTS.md",
+    "git_commit": "7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d",
+    "blob_sha": "9b6f726e3987a90f2d3c8eccb45288b49f73c10f",
+    "url": null,
+    "access": "private research repository; identified by git_commit and blob_sha"
+  },
+  {
+    "role": "replacement bank qualification audit",
+    "path": "p-breve-01-r2/docs/VERIFIER-QUALIFICATION-BATCH2.md",
+    "git_commit": "7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d",
+    "blob_sha": "0d8164fe70d6e770b65f0eb18c6707c2c6255ba1",
+    "url": null,
+    "access": "private research repository; identified by git_commit and blob_sha"
+  },
+  {
+    "role": "blind mutation population",
+    "path": "p-breve-01-r2/docs/BLIND-ADVERSARIAL-POPULATION.md",
+    "git_commit": "7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d",
+    "blob_sha": "1bb4ea390b38eb4f90d1519933b4e850ede93065",
+    "url": null,
+    "access": "private research repository; identified by git_commit and blob_sha"
+  },
+  {
+    "role": "cluster-aware power analysis",
+    "path": "p-breve-01-r2/docs/CLUSTER-AWARE-POWER.md",
+    "git_commit": "7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d",
+    "blob_sha": "2b1e53883d04274a9489ddd8f30207933c4aaa7e",
+    "url": null,
+    "access": "private research repository; identified by git_commit and blob_sha"
+  }
+]

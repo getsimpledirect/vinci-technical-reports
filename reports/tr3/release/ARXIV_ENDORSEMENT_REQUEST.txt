@@ -1,0 +1,19 @@
+Subject: arXiv cs.CL endorsement request — Runtime Pass Is Not Correctness
+
+Hello,
+
+I am preparing an arXiv submission to cs.CL, with cs.LG as a cross-list:
+
+Runtime Pass Is Not Correctness: A Negative Reasoning-Efficiency Post-Training Result and Verifier Audit on Qwen3.8-27B
+George Pu — SimpleDirect / Vinci Research
+
+The paper reports a negative post-training result and an audit of executable-code evaluators. The one-epoch SFT+DPO recipe did not establish a reasoning-efficiency gain; a serving control confounded the apparent stronger-dose result; and both the original and replacement evaluators failed independent qualification in different ways. The release contains no model checkpoint or protected benchmark content.
+
+The manuscript and source package are available in the attached release candidate. The report is licensed CC BY 4.0 and is explicit that the evidence is development-tier, internally reviewed, and not externally peer reviewed.
+
+Would you be willing to endorse my submission for cs.CL if arXiv requests endorsement? I am happy to provide the exact PDF and source-package SHA-256 values used for submission.
+
+Thank you,
+George Pu
+SimpleDirect / Vinci Research
+https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness

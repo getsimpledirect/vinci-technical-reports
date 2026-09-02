@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the technical report."
+title: "Runtime Pass Is Not Correctness: A Negative Reasoning-Efficiency Post-Training Result and Verifier Audit on Qwen3.8-27B"
+type: report
+authors:
+  - family-names: Pu
+    given-names: George
+    orcid: ""
+version: "1.0"
+date-released: "2026-09-01"
+doi: "10.5281/zenodo.22241477"
+institution:
+  name: "SimpleDirect / Vinci Research"
+url: "https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness"
+repository-code: "https://github.com/getsimpledirect/vinci-technical-reports/tree/main/reports/tr3"
+license: CC-BY-4.0
+keywords:
+  - reasoning efficiency
+  - executable evaluation
+  - verifier validity
+  - Direct Preference Optimization
+  - mutation testing
+  - negative results

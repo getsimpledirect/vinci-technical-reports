@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "Runtime Pass Is Not Correctness: A Negative Reasoning-Efficiency Post-Training Result and Verifier Audit on Qwen3.8-27B",
+    "upload_type": "publication",
+    "publication_type": "technicalnote",
+    "publication_date": "2026-09-01",
+    "description": "P-BREVE-01-R2 reports a negative reasoning-efficiency post-training result and an evaluator-audit result on Qwen3.8-27B. No model, bank, or release candidate resulted. Scope: a development-tier result on one model lineage; the replacement verifier bank is not qualified; the superseded adequacy claim is withdrawn; reported rates characterise the audited evaluation set and do not estimate ordinary product traffic. No model checkpoint is recommended, released, or promoted on the basis of this report.",
+    "creators": [
+      {
+        "name": "Pu, George",
+        "affiliation": "SimpleDirect / Vinci Research"
+      }
+    ],
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "version": "1.0",
+    "language": "eng",
+    "keywords": [
+      "reasoning efficiency",
+      "Direct Preference Optimization",
+      "executable evaluation",
+      "verifier validity",
+      "mutation testing",
+      "negative results",
+      "Qwen3.8-27B"
+    ],
+    "related_identifiers": [
+      {
+        "identifier": "https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness",
+        "relation": "isIdenticalTo",
+        "scheme": "url"
+      },
+      {
+        "identifier": "https://github.com/getsimpledirect/vinci-technical-reports/tree/main/reports/tr3",
+        "relation": "isSupplementTo",
+        "scheme": "url"
+      },
+      {
+        "identifier": "https://github.com/getsimpledirect/vinci-technical-reports/tree/main/reports/tr3/data/evidence_bindings.json",
+        "relation": "isDerivedFrom",
+        "scheme": "url"
+      }
+    ],
+    "notes": "Development-tier evidence; internal review only; external peer review not performed. No model or evaluator bank is released.",
+    "doi": "10.5281/zenodo.22241477"
+  }
+}

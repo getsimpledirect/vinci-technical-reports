@@ -1,0 +1,18 @@
+[
+  {
+    "condition": "untrained base @ xhigh",
+    "cap_hits": 13,
+    "episodes": 20,
+    "cap_hit_rate": 0.65,
+    "restricted_mean_reasoning_tokens": 6407,
+    "tokens_per_strict_success": 21401
+  },
+  {
+    "condition": "untrained base @ medium",
+    "cap_hits": 0,
+    "episodes": 20,
+    "cap_hit_rate": 0.0,
+    "restricted_mean_reasoning_tokens": 608,
+    "tokens_per_strict_success": 944
+  }
+]

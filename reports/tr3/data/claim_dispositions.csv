@@ -1,0 +1,8 @@
+claim_id,registry_status,publication_disposition,permitted,excluded
+pbr2.g4.full-recipe-insufficient.015,exploratory,"retained, narrowed",Configured one-epoch recipe missed token-efficiency targets; token and termination measures stand.,Raw-code strict rate as an absolute correctness measure.
+pbr2.instrument.verifier-inadequate.009,development-supported,retained,Original executable-code bank failed adversarial qualification.,Any model-level conclusion from the audit alone.
+pbr2.policy.frontier-suspended.010,suspended,suspended,Historical record only.,0.844 correctness frontier as a current or product number.
+pbr2.bank.batch2-unqualified.011,contradicted,contradicted,Use only as correction history.,The claim’s reversed false-acceptance interpretation.
+pbr2.bank.batch2-qualification.014,development-supported,"retained, narrowed",Probe-population discrimination and reference-rejection measurements.,Deployment prevalence or a claim that the bank was qualified.
+pbr2.serving.effort-flag-dominates.012,development-supported,"retained, narrowed",Serving-setting termination and token-consumption shift on the screened shard.,A powered claim of matched-effort correctness equivalence.
+not registered,not measured,not measured,"No broad safety, product prevalence, Western-base transfer, or production-utility claim.",Any implication that those dimensions passed.

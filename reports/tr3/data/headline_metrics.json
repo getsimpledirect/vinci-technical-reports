@@ -1,0 +1,58 @@
+[
+  {
+    "stage": "SFT-only",
+    "seed": "1729",
+    "metric": "reasoning_reduction_vs_base_pct",
+    "value": -10.3,
+    "direction": "negative means longer"
+  },
+  {
+    "stage": "SFT-only",
+    "seed": "2718",
+    "metric": "reasoning_reduction_vs_base_pct",
+    "value": 4.3,
+    "direction": "positive means shorter"
+  },
+  {
+    "stage": "SFT+DPO one epoch",
+    "seed": "1729",
+    "metric": "reasoning_reduction_vs_base_pct",
+    "value": -10.9,
+    "direction": "negative means longer"
+  },
+  {
+    "stage": "SFT+DPO one epoch",
+    "seed": "2718",
+    "metric": "reasoning_reduction_vs_base_pct",
+    "value": 4.9,
+    "direction": "positive means shorter"
+  },
+  {
+    "stage": "DPO marginal over SFT",
+    "seed": "1729",
+    "metric": "reasoning_reduction_increment_pct",
+    "value": -0.6,
+    "direction": "negative means worse"
+  },
+  {
+    "stage": "DPO marginal over SFT",
+    "seed": "2718",
+    "metric": "reasoning_reduction_increment_pct",
+    "value": 0.6,
+    "direction": "positive means better"
+  },
+  {
+    "stage": "two-epoch screen",
+    "seed": "1729",
+    "metric": "reasoning_reduction_vs_base_pct",
+    "value": 10.9,
+    "direction": "screening result; trained attribution confounded"
+  },
+  {
+    "stage": "two-epoch screen",
+    "seed": "2718",
+    "metric": "reasoning_reduction_vs_base_pct",
+    "value": 24.5,
+    "direction": "screening result; trained attribution confounded"
+  }
+]

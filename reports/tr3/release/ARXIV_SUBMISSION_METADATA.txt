@@ -1,0 +1,26 @@
+TITLE
+Runtime Pass Is Not Correctness: A Negative Reasoning-Efficiency Post-Training Result and Verifier Audit on Qwen3.8-27B
+
+AUTHORS
+George Pu
+
+ABSTRACT
+Reasoning-capable language models can consume large inference budgets without delivering a usable answer. P-BREVE-01-R2 tested a small supervised fine-tuning stage followed by conservative length-debiased Direct Preference Optimization on Qwen3.8-27B. The configured one-epoch recipe did not meet its frozen efficiency target: signed reasoning reduction versus base was -10.9% at one seed, meaning longer output, and +4.9% at the other, against +20% at both seeds. A bounded two-epoch screen produced an apparent code-task dose response, but a serving control on untrained weights reproduced the termination shift, preventing clean trained-weight attribution. The original executable-code bank then failed adversarial qualification: 24 of 24 shortcut programs passed, and 80 nominal tasks represented eight repeated problems. A replacement runtime/certification design rejected all 322 broad shortcuts at certification but still accepted 7 of 157 near-miss or partial programs and 52 of 1,862 independently generated wrong mutants. We report the negative intervention result, the evaluator failures, the claim-correction process, and Vinci Eval Integrity 0.1, a seven-check evaluator-admission record. No model, bank, or release candidate resulted.
+
+COMMENTS
+Technical report; development-tier evidence; internal review only; external peer review not performed; includes reproducible figures and aggregate evidence tables.
+
+PRIMARY CATEGORY
+cs.CL (Computation and Language)
+
+CROSS-LIST
+cs.LG (Machine Learning)
+
+LICENSE
+CC BY 4.0
+
+REPORT NUMBER
+Vinci Technical Report No. 3, Version 1.0
+
+CANONICAL URL
+https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness

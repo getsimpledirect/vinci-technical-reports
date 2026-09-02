@@ -1,0 +1,9 @@
+role,path,git_commit,blob_sha,url,access
+research evidence cutoff,p-breve-01-r2/,7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d,,https://github.com/getsimpledirect/vinci-technical-reports/tree/main/reports/tr3,public package (mirrors the aggregate evidence of this tree)
+registered full-recipe claim .015,p-breve-01-r2/claims.jsonl,7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d,b61210ec3d48fd6adfa0d3ae431e910ac0a65278,,private research repository; identified by git_commit and blob_sha
+final one-epoch decision packet,p-breve-01-r2/runs/final-decision-packet-20260819.md,7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d,a4231d263cb7401b2be77daed3bdfcdd6f78a15e,,private research repository; identified by git_commit and blob_sha
+original verifier adequacy audit,p-breve-01-r2/docs/VERIFIER-ADEQUACY-AUDIT.md,7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d,f76b043971a09d8fd12b2a03843a6b61680be337,,private research repository; identified by git_commit and blob_sha
+serving effort screen,p-breve-01-r2/docs/R3B-NATIVE-EFFORT-SCREEN-RESULTS.md,7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d,9b6f726e3987a90f2d3c8eccb45288b49f73c10f,,private research repository; identified by git_commit and blob_sha
+replacement bank qualification audit,p-breve-01-r2/docs/VERIFIER-QUALIFICATION-BATCH2.md,7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d,0d8164fe70d6e770b65f0eb18c6707c2c6255ba1,,private research repository; identified by git_commit and blob_sha
+blind mutation population,p-breve-01-r2/docs/BLIND-ADVERSARIAL-POPULATION.md,7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d,1bb4ea390b38eb4f90d1519933b4e850ede93065,,private research repository; identified by git_commit and blob_sha
+cluster-aware power analysis,p-breve-01-r2/docs/CLUSTER-AWARE-POWER.md,7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d,2b1e53883d04274a9489ddd8f30207933c4aaa7e,,private research repository; identified by git_commit and blob_sha

@@ -1,0 +1,51 @@
+[
+  {
+    "claim_id": "pbr2.g4.full-recipe-insufficient.015",
+    "registry_status": "exploratory",
+    "publication_disposition": "retained, narrowed",
+    "permitted": "Configured one-epoch recipe missed token-efficiency targets; token and termination measures stand.",
+    "excluded": "Raw-code strict rate as an absolute correctness measure."
+  },
+  {
+    "claim_id": "pbr2.instrument.verifier-inadequate.009",
+    "registry_status": "development-supported",
+    "publication_disposition": "retained",
+    "permitted": "Original executable-code bank failed adversarial qualification.",
+    "excluded": "Any model-level conclusion from the audit alone."
+  },
+  {
+    "claim_id": "pbr2.policy.frontier-suspended.010",
+    "registry_status": "suspended",
+    "publication_disposition": "suspended",
+    "permitted": "Historical record only.",
+    "excluded": "0.844 correctness frontier as a current or product number."
+  },
+  {
+    "claim_id": "pbr2.bank.batch2-unqualified.011",
+    "registry_status": "contradicted",
+    "publication_disposition": "contradicted",
+    "permitted": "Use only as correction history.",
+    "excluded": "The claim’s reversed false-acceptance interpretation."
+  },
+  {
+    "claim_id": "pbr2.bank.batch2-qualification.014",
+    "registry_status": "development-supported",
+    "publication_disposition": "retained, narrowed",
+    "permitted": "Probe-population discrimination and reference-rejection measurements.",
+    "excluded": "Deployment prevalence or a claim that the bank was qualified."
+  },
+  {
+    "claim_id": "pbr2.serving.effort-flag-dominates.012",
+    "registry_status": "development-supported",
+    "publication_disposition": "retained, narrowed",
+    "permitted": "Serving-setting termination and token-consumption shift on the screened shard.",
+    "excluded": "A powered claim of matched-effort correctness equivalence."
+  },
+  {
+    "claim_id": "not registered",
+    "registry_status": "not measured",
+    "publication_disposition": "not measured",
+    "permitted": "No broad safety, product prevalence, Western-base transfer, or production-utility claim.",
+    "excluded": "Any implication that those dimensions passed."
+  }
+]
