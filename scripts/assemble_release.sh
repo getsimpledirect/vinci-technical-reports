@@ -41,9 +41,16 @@ EXPECTED_PDF_SHA256="${ASSEMBLY_PDF_SHA256:-${ACCEPTED_PDF_SHA256:-}}"
 PDF_SHA="$(shasum -a 256 "$PDF" | awk '{print $1}')"
 if [ -n "$EXPECTED_PDF_SHA256" ]; then
   [ "$PDF_SHA" = "$EXPECTED_PDF_SHA256" ] || fail "PDF digest $PDF_SHA is not the configured assembly digest $EXPECTED_PDF_SHA256"
+elif [ -e "$PKG/source/rebuild_all.sh" ]; then
+  # A package that rebuilds its PDF from source can only be approved by a
+  # digest: without one, the post-rebuild check below compares the rebuilt
+  # bytes against whatever was handed in, which proves self-consistency and
+  # approves nothing (review R13, finding N1). Refuse before any gate runs.
+  fail "no ASSEMBLY_PDF_SHA256 configured in $CONF; nothing approves these bytes. reports/$SLUG has a rebuild path (source/rebuild_all.sh), so the supplied PDF cannot stand in for an approved digest. Review the candidate and record its sha256 as ASSEMBLY_PDF_SHA256 in release.conf. No archive was written."
 fi
-# The digest every later step must still see. When no digest is configured the
-# supplied bytes are the gated bytes.
+# The digest every later step must still see. Only a package with NO rebuild
+# path (the PDF is supplied, never regenerated, so the manifest step cannot
+# replace it) may proceed on the supplied bytes alone.
 GATED_PDF_SHA256="${EXPECTED_PDF_SHA256:-$PDF_SHA}"
 command -v pdftotext >/dev/null || fail "pdftotext not found (brew install poppler)"
 TXT="$(mktemp)"; pdftotext "$PDF" "$TXT"
