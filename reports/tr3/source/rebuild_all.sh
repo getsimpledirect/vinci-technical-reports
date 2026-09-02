@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
+# Deterministic repository-forward TR3 builder. It cannot replace the accepted
+# PDF and contains no network, upload, tag, release, or publication operation.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$ROOT"
-python3 source/build_figures.py
-(
-  cd arxiv/source
-  xelatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex
-  xelatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex
-  cp main.pdf ../../report/Vinci_Technical_Report_No_3_v1.0.pdf
-)
-pandoc source/report_body.md --from=gfm+yaml_metadata_block --standalone --toc --toc-depth=3 --css source/report.css --embed-resources --resource-path . -o report/Vinci_Technical_Report_No_3.html
-pandoc source/report_body.md --from=gfm+yaml_metadata_block --reference-doc source/reference.docx --resource-path . --toc --toc-depth=3 -o report/Vinci_Technical_Report_No_3.docx
-printf 'Rebuilt public figures and report formats. Regenerate MANIFEST.json and CHECKSUMS.sha256 before release.\n'
+MODE="${1:---check}"
+case "$MODE" in
+  --check) MODE=check ;;
+  --write) MODE=write ;;
+  *) echo "usage: source/rebuild_all.sh [--check|--write]" >&2; exit 2 ;;
+esac
+
+# shellcheck disable=SC1091
+source "$ROOT/release.conf"
+export REPORT_VERSION PACKAGE_REVISION PACKAGE_DIR_NAME ARXIV_ZIP_NAME
+export ACCEPTED_PDF_SHA256 PDF_NAME ZIP_BASE
+exec python3 "$ROOT/source/package_release.py" "$MODE"

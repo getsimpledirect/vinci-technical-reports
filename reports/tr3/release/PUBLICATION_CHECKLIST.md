@@ -22,13 +22,18 @@
 - [x] arXiv source archive built and locally compiled.
 - [x] Package manifest and checksums generated last.
 
-## External publication actions
+## Published state (verified 2 September 2026)
 
-- [ ] Publish the canonical research page at `https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness`.
-- [ ] Add `reports/tr3/` to `getsimpledirect/vinci-technical-reports` and tag `tr3-v1.0.0`.
-- [ ] Upload the full package ZIP and PDF to Zenodo under CC BY 4.0; record the assigned DOI in GitHub, Zenodo metadata, and the research page.
-- [ ] Upload `arxiv/Vinci_TR3_arXiv_v1.0_source.zip` to arXiv with `cs.CL` primary and `cs.LG` cross-list.
+- [x] Canonical research page resolves at `https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness`.
+- [x] Public repository contains `reports/tr3/`; annotated tag and GitHub release `tr3-v1.0.0` resolve.
+- [x] Zenodo record `22241477` is published under DOI `10.5281/zenodo.22241477`.
+- [x] Accepted 43-page PDF is preserved at SHA-256 `054a4077193a797e8105224e710b0fc78741eb3f465ce1f994d9a1e960a32e1d`.
+
+Repository-forward package revision 1.0.3 corrects source/build consistency. It does not alter the immutable GitHub or Zenodo release and is not itself a publication decision.
+
+## Optional arXiv submission (not performed)
+
+- [ ] Decide whether to submit `arxiv/Vinci_TR3_arXiv_v1.0.3_source.zip` to arXiv with `cs.CL` primary and `cs.LG` cross-list.
 - [ ] Obtain a `cs.CL` endorsement if arXiv requests one; use `release/ARXIV_ENDORSEMENT_REQUEST.txt`.
 - [ ] Inspect the arXiv-generated preview page by page before submission.
-- [ ] Add the arXiv identifier to GitHub, Zenodo, and the research page after announcement; do not rebuild the report merely to print it.
-- [ ] Publish the blog/newsroom/newsletter and social copy only after the PDF and public repository links resolve.
+- [ ] Add an arXiv identifier to GitHub, Zenodo, and the research page only after a successful submission; do not rebuild the report merely to print it.

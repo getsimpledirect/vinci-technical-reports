@@ -12,19 +12,20 @@
 **Report licence:** CC BY 4.0  
 **Build-script licence:** Apache-2.0
 
-This package contains the complete public release candidate for Vinci Technical Report No. 3. It reports a negative reasoning-efficiency post-training result and a positive evaluator-audit result. The configured one-epoch SFT+DPO recipe did not establish a training-attributable efficiency gain. A stronger screened effect could not be attributed cleanly to trained weights after a serving-effort control. The original executable evaluator accepted trivial non-solutions; its replacement improved substantially but still failed independent qualification.
+This directory is the repository-forward package for the published Vinci Technical Report No. 3. It records corrections without changing the immutable GitHub and Zenodo v1.0 release. The report describes a negative reasoning-efficiency post-training result and a positive evaluator-audit result. The configured one-epoch SFT+DPO recipe did not establish a training-attributable efficiency gain. A stronger screened effect could not be attributed cleanly to trained weights after a serving-effort control. The original executable evaluator accepted trivial non-solutions; its replacement improved substantially but still failed independent qualification.
 
 ## Start here
 
 - `report/Vinci_Technical_Report_No_3_v1.0.pdf` — archival report.
 - `report/Vinci_Technical_Report_No_3.docx` — editable review copy.
 - `report/Vinci_Technical_Report_No_3.html` — self-contained web copy.
-- `report/Vinci_Technical_Report_No_3.md` — canonical human-readable manuscript.
+- `source/report_body.md` — sole editable manuscript authority.
+- `report/Vinci_Technical_Report_No_3.md` — generated human-readable copy.
 - `release/CLAIMS.md` and `release/LIMITATIONS.md` — public claim boundary.
 - `release/DATA_AND_PROVENANCE.md` — source bindings and derived-quantity rules.
-- `release/PUBLICATION_CHECKLIST.md` — external publication actions.
+- `release/PUBLICATION_CHECKLIST.md` — completed publication state and remaining optional actions.
 - `web/` — research page, blog, newsroom, newsletter, FAQ, and launch posts.
-- `arxiv/Vinci_TR3_arXiv_v1.0_source.zip` — arXiv-ready XeLaTeX source archive.
+- `arxiv/Vinci_TR3_arXiv_v1.0.3_source.zip` — corrected, deterministic arXiv-ready source archive; not submitted by this repair.
 
 ## Included
 
@@ -34,7 +35,7 @@ This package contains the complete public release candidate for Vinci Technical 
 - Machine-readable headline, serving-control, evaluator, claim-disposition, and evidence-binding tables.
 - Vinci Eval Integrity 0.1 in JSON and human-readable form.
 - Release notes, citation files, licences, public-export policy, reproducibility guide, Zenodo metadata, arXiv metadata and upload checklist, endorsement request copy, and GitHub release copy.
-- Build sources, arXiv sources, QA logs, package manifest, and SHA-256 checksums.
+- Build sources, arXiv sources, package manifest, and SHA-256 checksums.
 
 ## Deliberately excluded
 
@@ -51,4 +52,4 @@ This package contains the complete public release candidate for Vinci Technical 
 - Intended public repository location: https://github.com/getsimpledirect/vinci-technical-reports/tree/main/reports/tr3
 - Release tag: `tr3-v1.0.0`
 
-The ZIP SHA-256 is detached beside the archive and is intentionally not written back into the package, avoiding a circular checksum.
+Package revision 1.0.3 corrects the rebuild and source-package authority only; the scientific report remains Version 1.0. The accepted PDF is preserved byte-for-byte. Run `bash source/rebuild_all.sh --check` to verify the repository, or `bash source/rebuild_all.sh --write` to regenerate editable derivatives and inventories. Neither mode publishes, tags, uploads, or creates a Zenodo version.

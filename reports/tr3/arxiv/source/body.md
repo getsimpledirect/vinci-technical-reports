@@ -1,3 +1,10 @@
+---
+title: "Runtime Pass Is Not Correctness"
+subtitle: "A Negative Reasoning-Efficiency Post-Training Result and Verifier Audit on Qwen3.8-27B"
+author: "George Pu"
+date: "1 September 2026"
+---
+
 ## Abstract
 
 Reasoning-capable language models can consume large inference budgets without delivering a usable answer. P-BREVE-01-R2 tested whether a small supervised fine-tuning (SFT) stage followed by conservative length-debiased Direct Preference Optimization (DPO) could make `Qwen/Qwen3.8-27B` allocate reasoning effort more proportionally, terminate reliably, preserve correct delivery, and avoid learning a global “shorter is better” rule. The intervention used a BF16 rank-32 LoRA, 440 accepted SFT demonstrations, 700 accepted DPO pairs, and a frozen two-seed development evaluation. The original evaluation bank contained 400 tasks across direct, closed-form, executable-code, agentic, and answerability strata.
@@ -14,7 +21,7 @@ P-BREVE-01-R2 is therefore a negative model-intervention result and a positive e
 
 **Publication record.** Version 1.0; research evidence cutoff `7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d` (private research repository `getsimpledirect/vinci-gpu-research`, program directory `p-breve-01-r2/`); canonical report page: [https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness](https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness). The evidence cutoff is a research-record identity, not a claim that every execution manifest contained a Git commit.
 
-![Figure 1. Study lineage and final disposition. P-BREVE-01 remains a preserved no-go; P-BREVE-01-R2 produced a negative intervention result, a serving-control confound, and evaluator-audit findings. No model, bank, or release candidate resulted.](figures/figure1_study_lineage.pdf)
+![Figure 1. Study lineage and final disposition. P-BREVE-01 remains a preserved no-go; P-BREVE-01-R2 produced a negative intervention result, a serving-control confound, and evaluator-audit findings. No model, bank, or release candidate resulted.](figures/figure1_study_lineage.png)
 
 ## 1. Introduction
 
@@ -84,8 +91,6 @@ The identifier matters. R2 is not `P-BREVE-02`. The original charter reserves `P
 ### 3.2 Evidence tier and report cutoff
 
 All model results in this report are development-tier internal evidence. No sealed primary product-weighted holdout was opened, no external peer review was performed, and no independent external laboratory reproduced the result. Several evaluator audits were designed and run after defects were discovered rather than before the model experiment. They are valuable diagnostic evidence, not confirmatory evidence about a pre-registered auditor hypothesis.
-
-The final report must bind to one source commit and one evidence cutoff. This draft intentionally leaves that field unresolved. Continued evaluator engineering after the cutoff should be treated as successor work rather than allowed to reopen the completed model-intervention result indefinitely.
 
 ### 3.3 Model and serving stack
 
@@ -181,7 +186,7 @@ The completed full-recipe G4 result, measured on 18–19 August 2026, is now rep
 
 Content addressing prevented silent rewriting, but it did not guarantee semantic correctness. Several later findings involved the right digest over the wrong authority, the right source file with stale bytecode executing, or a fully reproducible test suite that accepted incorrect programs. Reproducibility and validity were therefore treated as separate properties.
 
-![Figure 2. Signed one-epoch reasoning reduction. Positive values mean fewer tokens and negative values mean more tokens. The full recipe missed the required +20% reduction at both seeds.](figures/figure2_one_epoch_reduction.pdf)
+![Figure 2. Signed one-epoch reasoning reduction. Positive values mean fewer tokens and negative values mean more tokens. The full recipe missed the required +20% reduction at both seeds.](figures/figure2_one_epoch_reduction.png)
 
 
 ## 4. Results
@@ -272,7 +277,7 @@ This control did **not** change the one-epoch verdict, which was already negativ
 
 The two-epoch adapter was retired. No checkpoint from the lineage was designated a model or product candidate.
 
-![Figure 3. Serving-time effort control. On the screened executable-code shard, changing untrained base weights from xhigh to medium moved cap exhaustion from 65% to 0/20 and sharply reduced token consumption. The matched-effort correctness comparison remained underpowered.](figures/figure3_serving_effort_control.pdf)
+![Figure 3. Serving-time effort control. On the screened executable-code shard, changing untrained base weights from xhigh to medium moved cap exhaustion from 65% to 0/20 and sharply reduced token consumption. The matched-effort correctness comparison remained underpowered.](figures/figure3_serving_effort_control.png)
 
 ### 4.5 The original executable-code evaluator accepted every broad shortcut attack
 
@@ -346,7 +351,7 @@ A claim record initially stated the seven-reference result backwards—as seven 
 
 ### 4.7 Independent mutation populations showed that targeted repairs did not generalize
 
-![Figure 5. Task-count disambiguation. Nineteen of forty tasks leaked under the AST population, leaving a complementary twenty-one with no detected AST leak; separately, seven prior tasks plus fourteen newly adjudicated tasks establish a cross-method lower bound of at least twenty-one known-flaw tasks.](figures/figure5_task_count_disambiguation.pdf)
+![Figure 5. Task-count disambiguation. Nineteen of forty tasks leaked under the AST population, leaving a complementary twenty-one with no detected AST leak; separately, seven prior tasks plus fourteen newly adjudicated tasks establish a cross-method lower bound of at least twenty-one known-flaw tasks.](figures/figure5_task_count_disambiguation.png)
 
 A first repair wave added certification cases derived from the witnessed near-miss failures. The specific mutants were then caught. A later audit deliberately changed the way failures were generated: it exhaustively applied first-order abstract-syntax mutations to reference programs, admitted only mutants that were provably wrong on generated inputs, and used controls to show that the tool could produce both zero-leak and non-zero-leak outcomes.
 
@@ -389,7 +394,7 @@ The result exposes a common repair failure. Adding a case that kills one mutant 
 
 This finding terminated the standalone 15-case repair proposal. The cases remained correct and necessary, but they were insufficient. No protected-bank mutation was authorized, and no subsequent model evaluation could proceed as though batch 2 were qualified.
 
-![Figure 4. Evaluator qualification and failure surface. The replacement certification channel rejected broad shortcuts but still admitted near-miss programs and independently generated wrong mutants.](figures/figure4_evaluator_qualification.pdf)
+![Figure 4. Evaluator qualification and failure surface. The replacement certification channel rejected broad shortcuts but still admitted near-miss programs and independently generated wrong mutants.](figures/figure4_evaluator_qualification.png)
 
 ### 4.8 The study repeatedly measured the wrong estimand before correcting it
 
@@ -884,7 +889,7 @@ The adversarial programs described here were designed to test correctness evalua
 
 ## Appendix A. Claim-to-Evidence Boundary
 
-![Figure 6. Vinci Eval Integrity 0.1. Seven checks convert the study’s evaluator failures into a reusable admission record.](figures/figure6_vinci_eval_integrity.pdf)
+![Figure 6. Vinci Eval Integrity 0.1. Seven checks convert the study’s evaluator failures into a reusable admission record.](figures/figure6_vinci_eval_integrity.png)
 
 This appendix will be machine-checked in a successor version. The “public sentence” column is deliberately narrower than the underlying internal record.
 

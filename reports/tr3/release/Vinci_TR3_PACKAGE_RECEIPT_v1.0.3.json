@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "report_version": "1.0",
+  "package_revision": "1.0.3",
+  "publication_status": "Version 1.0 is already published and immutable; this repository-forward repair is not published",
+  "source_authority": "source/report_body.md",
+  "renderer": "pandoc 3.10",
+  "qa": {
+    "semantic_contract": "passed across Markdown, HTML, DOCX, accepted PDF, arXiv Markdown, and compiled arXiv PDF",
+    "accepted_pdf_pages": 43,
+    "accepted_pdf_preserved": true,
+    "docx_embedded_figures": 6,
+    "html_embedded_figures": 6,
+    "arxiv_compile_pages": 34,
+    "arxiv_words_outside_page": 0
+  },
+  "artifact_sha256": {
+    "canonical_markdown": "dd7f6e8a7a12952faf959df114b5ee75c81bb6419e1476461f064fa1f167553c",
+    "generated_markdown": "dd7f6e8a7a12952faf959df114b5ee75c81bb6419e1476461f064fa1f167553c",
+    "html": "7942e5f3268f1dd5c31319e6c40b48f9bfa148e66e6411616c133d108aae77b7",
+    "docx": "ce6e88637c84b30b6141787eecaee4926a49974620cad6ac39b8bf589b1c4f15",
+    "accepted_pdf": "054a4077193a797e8105224e710b0fc78741eb3f465ce1f994d9a1e960a32e1d",
+    "arxiv_markdown": "1ad794effdd2dfe319266528e19e84d7011bd7a9ff2b69855488034af72f897a",
+    "arxiv_tex": "e190bdbff498a17954353d42864a8b5cf959565afa05c63ec3064f0cd1937ffa",
+    "arxiv_source_zip": "2694f4c2daccb1600744b6699af9012b3c1baeb08bbed5ca98ef78558298023d"
+  },
+  "remaining_publication_decision": "Optional arXiv submission and any new GitHub/Zenodo version require separate authority"
+}

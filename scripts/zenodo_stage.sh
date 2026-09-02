@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stage the TR2 v1.0 files and metadata onto the reserved Zenodo draft.
+# Stage one configured report's files and metadata onto its reserved Zenodo draft.
 #
 #   printf %s "$(pbpaste)" > ~/.zenodo-token && chmod 600 ~/.zenodo-token
 #   ./scripts/zenodo_stage.sh <report-slug> --dry-run   # GETs only, mutates nothing
@@ -27,6 +27,7 @@ CONF="$ROOT/reports/$SLUG/release.conf"
 # shellcheck disable=SC1090
 source "$CONF"
 DEP_ID="$ZENODO_DEP_ID"
+VERSION="${REPORT_VERSION:-${VERSION:-}}"
 PDF="$ROOT/reports/$SLUG/report/$PDF_NAME"
 ZIP="$ROOT/dist/$ZIP_BASE.zip"
 URL="$REPORT_URL"
@@ -35,6 +36,9 @@ DRY=0; [ "${2:-}" = "--dry-run" ] && DRY=1
 fail(){ echo "  FAIL: $*" >&2; exit 1; }
 ok(){   echo "  ok   $*"; }
 note(){ echo "  --   $*"; }
+
+[ -n "$DEP_ID" ] || fail "no active Zenodo draft is configured for $SLUG. A published record is immutable; create and authorize a new version before staging."
+: "${VERSION:?release.conf must set REPORT_VERSION}"
 
 TOKEN_FILE="${ZENODO_TOKEN_FILE:-$HOME/.zenodo-token}"
 if [ -z "${ZENODO_TOKEN:-}" ] && [ -r "$TOKEN_FILE" ]; then
@@ -184,29 +188,49 @@ print('  ok   record holds exactly the two intended files; nothing to delete')
 " || exit 1
 
 echo "== 5. metadata =="
-REPORT_TITLE="$REPORT_TITLE" ZENODO_KEYWORDS="$ZENODO_KEYWORDS" ZENODO_SCOPE="$ZENODO_SCOPE" LICENSE_ID="$LICENSE_ID" \
-  PUB_DATE="$PUB_DATE" VERSION="$VERSION" python3 - "$URL" > "$BODY.meta" <<'PYMETA'
+if [ -n "${ZENODO_METADATA_FILE:-}" ]; then
+  META_SOURCE="$ROOT/reports/$SLUG/$ZENODO_METADATA_FILE"
+  [ -r "$META_SOURCE" ] || fail "configured metadata file is missing: $META_SOURCE"
+  REPORT_TITLE="$REPORT_TITLE" VERSION="$VERSION" LICENSE_ID="$LICENSE_ID" SCOPE_PROBE="$SCOPE_PROBE" \
+    python3 - "$META_SOURCE" > "$BODY.meta" <<'PYMETA'
+import json,os,sys
+d=json.load(open(sys.argv[1])); m=d.get("metadata",d)
+errs=[]
+if m.get("title") != os.environ["REPORT_TITLE"]: errs.append("title differs from release.conf")
+if m.get("version") != os.environ["VERSION"]: errs.append("version differs from release.conf")
+if m.get("license") != os.environ["LICENSE_ID"]: errs.append("license differs from release.conf")
+if os.environ["SCOPE_PROBE"] not in (m.get("description") or ""): errs.append("scope probe missing")
+if not m.get("creators"): errs.append("creators are empty")
+if errs: sys.exit("  FAIL: metadata authority: " + "; ".join(errs))
+# A DOI is a record identity, not editable deposition metadata.
+m.pop("doi",None)
+print(json.dumps({"metadata":m},indent=2))
+PYMETA
+else
+  : "${ZENODO_CREATORS_JSON:?release.conf must set ZENODO_CREATORS_JSON or ZENODO_METADATA_FILE}"
+  : "${ZENODO_DESCRIPTION_LEAD:?release.conf must set ZENODO_DESCRIPTION_LEAD or ZENODO_METADATA_FILE}"
+  : "${ZENODO_AVAILABILITY_NOTE:?release.conf must set ZENODO_AVAILABILITY_NOTE or ZENODO_METADATA_FILE}"
+  REPORT_TITLE="$REPORT_TITLE" ZENODO_KEYWORDS="$ZENODO_KEYWORDS" ZENODO_SCOPE="$ZENODO_SCOPE" LICENSE_ID="$LICENSE_ID" \
+    ZENODO_CREATORS_JSON="$ZENODO_CREATORS_JSON" ZENODO_DESCRIPTION_LEAD="$ZENODO_DESCRIPTION_LEAD" \
+    ZENODO_AVAILABILITY_NOTE="$ZENODO_AVAILABILITY_NOTE" \
+    PUB_DATE="$PUB_DATE" VERSION="$VERSION" python3 - "$URL" > "$BODY.meta" <<'PYMETA'
 import json,os,sys
 url=sys.argv[1]
 scope=os.environ["ZENODO_SCOPE"]
-desc=("<p>We tested one frozen character post-training recipe across three model families. "
-      "It reduced unsupported assertions, but no family preserved grounded-answer accuracy "
-      "well enough to meet the pre-registered bar.</p>"
+desc=("<p>" + os.environ["ZENODO_DESCRIPTION_LEAD"] + "</p>"
       f"<p><strong>Scope.</strong> {scope}</p>"
-      "<p>This is an aggregate-only release. It does not contain item-level scored outputs, "
-      "judge ledgers, benchmark prompt text, model weights, or the primary-test holdout, and "
-      "does not support independent recomputation of the readout. See Appendix D of the report.</p>")
+      "<p>" + os.environ["ZENODO_AVAILABILITY_NOTE"] + "</p>")
 print(json.dumps({"metadata":{
  "upload_type":"publication","publication_type":"report",
  "title":os.environ["REPORT_TITLE"],
- "creators":[{"name":"Pu, George","affiliation":"SimpleDirect / Vinci Research"},
-             {"name":"Naik, Ayush","affiliation":"SimpleDirect / Vinci Research"}],
+ "creators":json.loads(os.environ["ZENODO_CREATORS_JSON"]),
  "description":desc,"publication_date":os.environ["PUB_DATE"],"version":os.environ["VERSION"],
  "language":"eng","access_right":"open","license":os.environ["LICENSE_ID"],
  "keywords":json.loads(os.environ["ZENODO_KEYWORDS"]),
  "related_identifiers":[{"identifier":url,"relation":"isIdenticalTo","scheme":"url"}],
  "notes":scope}},indent=2))
 PYMETA
+fi
 api PUT "$API/deposit/depositions/$DEP_ID" -H "Content-Type: application/json" -d @"$BODY.meta" >/dev/null
 rm -f "$BODY.meta"; ok "metadata written"
 

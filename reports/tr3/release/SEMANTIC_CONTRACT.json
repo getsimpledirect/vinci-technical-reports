@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "required_on_every_report_surface": [
+    "Runtime Pass Is Not Correctness",
+    "reasoning reduction versus base is signed so that positive values mean fewer tokens and negative values mean more tokens",
+    "154 of 322 broad shortcut probes",
+    "7 of 157 near-miss or partial programs",
+    "52 of 1,862",
+    "The study used company-controlled compute, funded by SimpleDirect",
+    "No external funding was received for the work reported here",
+    "No external peer review or independent external audit was performed for the report cutoff",
+    "Closed before release"
+  ],
+  "forbidden_on_any_report_or_source_surface": [
+    "This draft intentionally leaves that field unresolved",
+    "TO BE FROZEN",
+    "TO BE RULED",
+    "TO BE GENERATED",
+    "FUNDING DISCLOSURE REQUIRED",
+    "Other model providers should be added",
+    "intentionally uses placeholders",
+    "intended to become machine-checked before publication",
+    "should not receive a DOI until"
+  ],
+  "figure_count": 6,
+  "accepted_pdf_pages": 43
+}

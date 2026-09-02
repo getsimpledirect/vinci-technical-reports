@@ -92,8 +92,6 @@ The identifier matters. R2 is not `P-BREVE-02`. The original charter reserves `P
 
 All model results in this report are development-tier internal evidence. No sealed primary product-weighted holdout was opened, no external peer review was performed, and no independent external laboratory reproduced the result. Several evaluator audits were designed and run after defects were discovered rather than before the model experiment. They are valuable diagnostic evidence, not confirmatory evidence about a pre-registered auditor hypothesis.
 
-The final report must bind to one source commit and one evidence cutoff. This draft intentionally leaves that field unresolved. Continued evaluator engineering after the cutoff should be treated as successor work rather than allowed to reopen the completed model-intervention result indefinitely.
-
 ### 3.3 Model and serving stack
 
 The frozen substrate was `Qwen/Qwen3.8-27B` at revision [1]:

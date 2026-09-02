@@ -20,6 +20,6 @@ Permitted: “The configured recipe did not establish a training-attributable re
 
 Not permitted: “The model became more correct,” “overthinking was solved,” “medium is proven equivalent,” or “the replacement bank passed.”
 
-## External identifiers
+## External identifiers and package correction
 
-The GitHub release, Zenodo DOI, and arXiv identifier are assigned after upload. Their absence from the PDF is deliberate rather than an unresolved manuscript placeholder.
+Version 1.0 is published at DOI `10.5281/zenodo.22241477` and GitHub tag `tr3-v1.0.0`. The DOI's absence from the accepted PDF is deliberate, not an unresolved placeholder. Repository-forward package revision 1.0.3 repairs the build/source authority and does not modify the immutable release or create a new Zenodo version. No arXiv identifier has been assigned.
