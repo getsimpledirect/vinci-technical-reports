@@ -6,9 +6,10 @@
 # Report-specific values live in reports/<slug>/release.conf. This script holds
 # none: adding a report means adding a config, not editing logic here.
 #
-# Verifies the PDF, installs it, regenerates the manifest LAST, checks the
-# manifest covers the tree, then builds the public ZIP and its detached
-# checksum. Creates no tag, publishes nothing, changes no visibility.
+# Verifies the PDF, installs it, regenerates derivatives and the manifest LAST,
+# re-verifies that the PDF the rebuild left in the tree still carries the gated
+# digest, checks the manifest covers the tree, then builds the public ZIP and its
+# detached checksum. Creates no tag, publishes nothing, changes no visibility.
 set -euo pipefail
 
 SLUG="${1:?usage: assemble_release.sh <report-slug> /path/to/report.pdf}"
@@ -29,13 +30,21 @@ NAME="$ZIP_BASE"
 fail(){ echo "  FAIL: $*" >&2; exit 1; }
 ok(){   echo "  ok   $*"; }
 
+# A refusal anywhere below must leave NO archive behind, including one from an
+# earlier run of this script, so a stale dist/ ZIP can never be mistaken for the
+# output of a run that was refused.
+rm -f "$DIST/$NAME.zip" "$DIST/$NAME.zip.sha256"
+
 echo "== 1. verify the PDF before it goes anywhere =="
 [ -f "$PDF" ] || fail "no such file: $PDF"
 EXPECTED_PDF_SHA256="${ASSEMBLY_PDF_SHA256:-${ACCEPTED_PDF_SHA256:-}}"
+PDF_SHA="$(shasum -a 256 "$PDF" | awk '{print $1}')"
 if [ -n "$EXPECTED_PDF_SHA256" ]; then
-  PDF_SHA="$(shasum -a 256 "$PDF" | awk '{print $1}')"
   [ "$PDF_SHA" = "$EXPECTED_PDF_SHA256" ] || fail "PDF digest $PDF_SHA is not the configured assembly digest $EXPECTED_PDF_SHA256"
 fi
+# The digest every later step must still see. When no digest is configured the
+# supplied bytes are the gated bytes.
+GATED_PDF_SHA256="${EXPECTED_PDF_SHA256:-$PDF_SHA}"
 command -v pdftotext >/dev/null || fail "pdftotext not found (brew install poppler)"
 TXT="$(mktemp)"; pdftotext "$PDF" "$TXT"
 PAGES=$(pdfinfo "$PDF" | awk '/^Pages:/{print $2}')
@@ -104,6 +113,15 @@ rm -f "$PKG/report/PDF_NOT_BUILT.md";                    ok "removed PDF_NOT_BUI
 
 echo "== 3. manifest LAST, then prove it covers the tree =="
 ( cd "$PKG" && if [ -x source/rebuild_all.sh ] && [ -f source/package_release.py ]; then bash source/rebuild_all.sh --write >/dev/null; else python3 source/build_manifest.py >/dev/null; fi )
+# The rebuild regenerates the candidate PDF from the canonical manuscript and can
+# overwrite the file verified in step 1. Step 1 gated the bytes that were handed
+# in; the archive carries the bytes that are in the tree NOW. Gate those. If the
+# manuscript drifted from the approved candidate, the rebuilt PDF differs, and
+# packaging it would ship bytes nobody approved under a digest that no longer
+# describes them. Refuse before any ZIP is written (step 4 is the only writer).
+POST_PDF_SHA="$(shasum -a 256 "$TARGET_PDF" | awk '{print $1}')"
+[ "$POST_PDF_SHA" = "$GATED_PDF_SHA256" ] || fail "rebuild changed the assembly PDF: $TARGET_PDF is now $POST_PDF_SHA, not the gated $GATED_PDF_SHA256. The tree now holds regenerated derivatives; review them and re-approve a new digest in release.conf, or restore the tree. No archive was written."
+ok "assembly PDF unchanged by rebuild ($POST_PDF_SHA)"
 ( cd "$PKG" && MANIFEST_FILE="$MANIFEST_FILE" CHECKSUM_FILE="$CHECKSUM_FILE" python3 - <<'PY'
 import json,os,sys
 manifest=os.environ['MANIFEST_FILE']; checksums=os.environ['CHECKSUM_FILE']

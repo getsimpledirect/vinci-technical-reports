@@ -370,8 +370,8 @@
     },
     {
       "path": "release/REPRODUCIBILITY.md",
-      "size_bytes": 1522,
-      "sha256": "2ac0b5056531d5c27b428d40110a6b8bbd7d2f43f671600f31e0ec6799509129"
+      "size_bytes": 5380,
+      "sha256": "e51d2f5047e18ffe97d44d9c2581770a66d8aed9db193f52d7e4087086e70321"
     },
     {
       "path": "release/SEMANTIC_CONTRACT.json",

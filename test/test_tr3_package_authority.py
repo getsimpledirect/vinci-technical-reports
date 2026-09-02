@@ -142,6 +142,43 @@ class Tr3PackageAuthorityTest(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr.decode())
             self.assertEqual(accepted.read_bytes(), b"replacement-pdf")
 
+    def test_assembly_refuses_rebuilt_pdf_that_no_longer_matches_the_gated_digest(self) -> None:
+        """scripts/assemble_release.sh gates the supplied candidate, then rebuilds.
+
+        The rebuild regenerates the candidate from the manuscript, so a manuscript
+        that drifted from the approved candidate yields different bytes AFTER the
+        gate. Before the repair the archive shipped those bytes under the old
+        digest (review R9, finding 1). The gate must apply to the bytes that enter
+        the archive: refuse, name the mechanism, write no archive. The unmodified
+        tree is the positive control through the same entry point.
+        """
+        conf = (PKG / "release.conf").read_text()
+        gated = conf.split('ASSEMBLY_PDF_SHA256="')[1].split('"')[0]
+        with tempfile.TemporaryDirectory(prefix="tr3-assembly-gate.") as temp_name:
+            root = Path(temp_name) / "repo"
+            shutil.copytree(ROOT / "scripts", root / "scripts")
+            shutil.copytree(PKG, root / "reports" / "tr3", ignore=shutil.ignore_patterns("__pycache__", ".DS_Store"))
+            candidate = root / "reports" / "tr3" / "report" / os.environ.get("CANDIDATE_PDF_NAME", "Vinci_Technical_Report_No_3_v1.0.3-candidate.pdf")
+            historical = root / "reports" / "tr3" / "report" / "Vinci_Technical_Report_No_3_v1.0.pdf"
+            command = ["bash", "scripts/assemble_release.sh", "tr3", str(candidate.relative_to(root))]
+            env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
+
+            positive = subprocess.run(command, cwd=root, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            self.assertEqual(positive.returncode, 0, positive.stdout + positive.stderr)
+            self.assertIn(f"assembly PDF unchanged by rebuild ({gated})", positive.stdout)
+            self.assertEqual(digest(candidate), gated)
+            self.assertTrue(list((root / "dist").glob("*.zip")), "positive control must write the archive")
+
+            manuscript = root / "reports" / "tr3" / "source" / "report_body.md"
+            manuscript.write_text(manuscript.read_text() + "\nThis sentence exists only in the mutation control.\n")
+            mutated = subprocess.run(command, cwd=root, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            self.assertNotEqual(mutated.returncode, 0)
+            self.assertIn("rebuild changed the assembly PDF", mutated.stderr)
+            self.assertIn(f"not the gated {gated}", mutated.stderr)
+            self.assertNotEqual(digest(candidate), gated, "the drifted manuscript must actually produce different bytes")
+            self.assertEqual(list((root / "dist").glob("*.zip*")), [], "a refused assembly must leave no archive, not even the earlier one")
+            self.assertEqual(digest(historical), os.environ.get("HISTORICAL_PDF_SHA256", digest(PKG / "report" / "Vinci_Technical_Report_No_3_v1.0.pdf")))
+
     def test_manifest_has_one_count_and_one_version_axis(self) -> None:
         manifest = json.loads((PKG / "MANIFEST.json").read_text())
         self.assertEqual(manifest["report_version"], "1.0")
