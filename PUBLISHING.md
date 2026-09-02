@@ -181,6 +181,40 @@ old, broken script and *requires* it to lose the file. When a fixture changed an
 script started failing earlier for a different reason, that control went red and reported the
 loss of coverage — while every other test stayed green.
 
+
+### Report No. 3 added a fifth: a gate that could not fire
+
+The report linked a private repository. A `FORBID` rule on that URL passed — on a PDF that
+contained the link. `pdftotext` returns a hyperlink's *visible label*, never its target, and the
+label here was the bare repository name, which the corrected report still legitimately prints as
+provenance. So the text rule had only two possible futures: never fire, or reject the correct
+build. It was inert by construction, and it read as green.
+
+The property was testable, just not in extracted text. Link targets live in `/URI` annotations
+inside compressed object streams; `scripts/pdf_uris.py` inflates them, and reports opt in with
+`PDF_FORBID_URI`.
+
+**When a check passes on an artifact you know is defective, that is the finding.** Not a pass.
+
+Two further traps surfaced while closing it:
+
+- **Reusing another report's gates.** Report No. 2's title line reads `Version 1.0 <bullet>
+  1 September 2026`. Report No. 3's title page prints title, subtitle, author, date — and no
+  version line at all. Copying the regex would have rejected every correct build, repeating the
+  original defect in a new report. **Gate on the artifact in front of you.**
+- **A green suite that never ran the change.** The mock suite exercises `zenodo_stage.sh`; the
+  new gate lives in `assemble_release.sh`. It passed, and covered nothing. A test names the file
+  it actually executes, not the repository it lives in.
+
+The gate is closed by a pair sharing one entry point, one real PDF, and text gates that pass in
+both cases, so nothing answers earlier: the forbidden pattern is rejected *by name*, and an
+absent pattern lets the gate run and report passing. Without the second case, a blanket refusal
+would look identical to a working guard.
+
+Writing that test found a latent crash unrelated to it: under `set -u` on bash 3.2, an empty
+`PDF_FORBID` array aborts the run before any link check. **Exercising a guard tests the path to
+it, not only the guard.**
+
 ---
 
 ## Constraints you write become indistinguishable from constraints you inherit
