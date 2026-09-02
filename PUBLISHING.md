@@ -270,3 +270,25 @@ site page, launch copy, follow-up notices on every prior surface the result narr
 The last line is the one most easily forgotten. A new result that narrows an old one leaves
 the old claim live everywhere it was ever stated — the earlier report, its blog post and
 headline, its model cards, and any mirror you do not control.
+
+### And the fix for it was wrong the first time
+
+The repair recommended for the private-use defect was
+`\setsansfont{Inter}[Ligatures=NoContextual, RawFeature={-case}]`. It does not
+work. fontspec's `Ligatures=NoContextual` disables `clig`, contextual
+*ligatures*; the substitution that reached Inter's PUA alternates came through
+`calt`, contextual *alternates*. Two features, similar names, different things.
+The working setting is `RawFeature={-calt,-case}`.
+
+It was caught only because the brief carried a fallback and, more importantly,
+an acceptance test the recipient could run without trusting the diagnosis. A
+handoff that says what to change should also say how the recipient proves it
+worked, precisely so a wrong instruction fails loudly instead of shipping.
+
+The rebuild's own regression control is the one worth copying: map the two PUA
+code points in the OLD extraction to the characters they were meant to be, and
+compare with the NEW extraction. Byte-identical, 120,751 characters each -- so
+the rebuild changed exactly those glyphs and nothing else. A visual diff alone
+could not have shown that (7 pages changed, at most 0.0168% of pixels), and a
+clean new extraction alone would not have ruled out silent edits elsewhere.
+
