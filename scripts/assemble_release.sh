@@ -42,11 +42,11 @@ ok 'no draft markers present'
 # The template prints "Version 1.0 <bullet> 1 September 2026". Gating on a
 # hyphen rejected the real PDF while passing nothing — match the separator the
 # template actually emits, and tolerate either.
-for s in "${PDF_FORBID[@]}"; do
+for s in ${PDF_FORBID[@]+"${PDF_FORBID[@]}"}; do   # empty-array safe (bash 3.2 + set -u)
   grep -qF "$s" "$TXT" && fail "PDF contains \"$s\" -- this looks like a draft, not the final build"
 done
 ok "no draft markers (${#PDF_FORBID[@]} checked)"
-for r in "${PDF_REQUIRE_REGEX[@]}"; do
+for r in ${PDF_REQUIRE_REGEX[@]+"${PDF_REQUIRE_REGEX[@]}"}; do
   grep -qE "$r" "$TXT" || fail "PDF is missing required content: /$r/"
 done
 ok "all ${#PDF_REQUIRE_REGEX[@]} required strings present"
@@ -55,7 +55,7 @@ ok "all ${#PDF_REQUIRE_REGEX[@]} required strings present"
 # Reports needing this declare PDF_FORBID_URI; those that do not are unaffected.
 if declare -p PDF_FORBID_URI >/dev/null 2>&1 && [ "${#PDF_FORBID_URI[@]}" -gt 0 ]; then
   URIS="$(python3 "$(dirname "$0")/pdf_uris.py" "$PDF")"
-  for u in "${PDF_FORBID_URI[@]}"; do
+  for u in ${PDF_FORBID_URI[@]+"${PDF_FORBID_URI[@]}"}; do
     grep -q "$u" <<<"$URIS" && fail "PDF links to a forbidden target matching \"$u\""
   done
   ok "no forbidden link targets (${#PDF_FORBID_URI[@]} pattern(s), $(grep -c . <<<"$URIS") link(s) scanned)"
