@@ -1,18 +1,26 @@
 #!/usr/bin/env bash
 # Finish the TR2 v1.0 release once the archival PDF exists.
 #
-#   ./scripts/assemble_release.sh /path/to/Vinci_Technical_Report_No_2.pdf
+#   ./scripts/assemble_release.sh <report-slug> /path/to/report.pdf
+#
+# Report-specific values live in reports/<slug>/release.conf. This script holds
+# none: adding a report means adding a config, not editing logic here.
 #
 # Verifies the PDF, installs it, regenerates the manifest LAST, checks the
 # manifest covers the tree, then builds the public ZIP and its detached
 # checksum. Creates no tag, publishes nothing, changes no visibility.
 set -euo pipefail
 
-PDF="${1:?usage: assemble_release.sh /path/to/Vinci_Technical_Report_No_2.pdf}"
+SLUG="${1:?usage: assemble_release.sh <report-slug> /path/to/report.pdf}"
+PDF="${2:?usage: assemble_release.sh <report-slug> /path/to/report.pdf}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PKG="$ROOT/reports/tr2"
+PKG="$ROOT/reports/$SLUG"
+CONF="$PKG/release.conf"
+[ -r "$CONF" ] || { echo "  FAIL: no release.conf at $CONF" >&2; exit 1; }
+# shellcheck disable=SC1090
+source "$CONF"
 DIST="$ROOT/dist"
-NAME="Vinci-TR2-Character-Transfer-v1.0-public"
+NAME="$ZIP_BASE"
 
 fail(){ echo "  FAIL: $*" >&2; exit 1; }
 ok(){   echo "  ok   $*"; }
@@ -22,7 +30,7 @@ echo "== 1. verify the PDF before it goes anywhere =="
 command -v pdftotext >/dev/null || fail "pdftotext not found (brew install poppler)"
 TXT="$(mktemp)"; pdftotext "$PDF" "$TXT"
 PAGES=$(pdfinfo "$PDF" | awk '/^Pages:/{print $2}')
-[ "${PAGES:-0}" -ge 8 ] || fail "only ${PAGES:-0} pages; expected 8 or more"
+[ "${PAGES:-0}" -ge "${MIN_PAGES:-8}" ] || fail "only ${PAGES:-0} pages; expected ${MIN_PAGES:-8} or more"
 ok "$PAGES pages"
 # Presence of "Version 1.0" is NOT a usable gate: the v0.9 draft contains that
 # string inside the old appendix title "Publication Corrections Required Before
@@ -34,12 +42,15 @@ ok 'no draft markers present'
 # The template prints "Version 1.0 <bullet> 1 September 2026". Gating on a
 # hyphen rejected the real PDF while passing nothing — match the separator the
 # template actually emits, and tolerate either.
-grep -qE "Version 1\.0 (-|\xe2\x80\xa2|.) 1 September 2026" "$TXT" \
-  || fail 'title block does not read "Version 1.0 <sep> 1 September 2026"'
-ok 'title block is the v1.0 line'
-grep -q "Outstanding Evidence Work" "$TXT" || fail 'Appendix D is not the v1.0 "Outstanding Evidence Work"'
-ok 'Appendix D is the v1.0 text'
-grep -q "10.5281/zenodo.22236690" "$TXT" || echo "  WARN the DOI does not appear in the PDF text"
+for s in "${PDF_FORBID[@]}"; do
+  grep -qF "$s" "$TXT" && fail "PDF contains \"$s\" -- this looks like a draft, not the final build"
+done
+ok "no draft markers (${#PDF_FORBID[@]} checked)"
+for r in "${PDF_REQUIRE_REGEX[@]}"; do
+  grep -qE "$r" "$TXT" || fail "PDF is missing required content: /$r/"
+done
+ok "all ${#PDF_REQUIRE_REGEX[@]} required strings present"
+grep -qF "$DOI" "$TXT" || echo "  WARN the DOI $DOI does not appear in the PDF text"
 if pdffonts "$PDF" | tail -n +3 | awk '$0!=""{if($(NF-3)!="yes") bad=1} END{exit bad?1:0}'; then
   ok "all fonts embedded"; else fail "a font is not embedded"; fi
 LINKS=$(python3 - "$PDF" <<'PY'
@@ -55,8 +66,8 @@ elif [ "$LINKS" -eq 0 ]; then echo "  WARN zero link annotations — was autolin
 else echo "  note link check skipped (pypdf not installed)"; fi
 
 echo "== 2. install it and drop the placeholder =="
-cp "$PDF" "$PKG/report/Vinci_Technical_Report_No_2.pdf"; ok "installed into reports/tr2/report/"
-rm -f "$PKG/report/PDF_NOT_BUILT.md";                    ok "removed PDF_NOT_BUILT.md"
+cp "$PDF" "$PKG/report/$PDF_NAME"; ok "installed into reports/$SLUG/report/"
+rm -f "$PKG/report/PDF_NOT_BUILT.md";                    ok "removed PDF_NOT_BUILT.md (if present)"
 
 echo "== 3. manifest LAST, then prove it covers the tree =="
 ( cd "$PKG" && python3 source/build_manifest.py >/dev/null )
@@ -74,7 +85,7 @@ PY
 
 echo "== 4. public ZIP and detached checksum =="
 mkdir -p "$DIST"; rm -f "$DIST/$NAME.zip" "$DIST/$NAME.zip.sha256"
-( cd "$PKG/.." && zip -qr "$DIST/$NAME.zip" "tr2" -x '*.DS_Store' )
+( cd "$PKG/.." && zip -qr "$DIST/$NAME.zip" "$SLUG" -x '*.DS_Store' )
 ( cd "$DIST" && shasum -a 256 "$NAME.zip" > "$NAME.zip.sha256" )
 ok "dist/$NAME.zip  ($(du -h "$DIST/$NAME.zip" | cut -f1))"
 ( cd "$DIST" && shasum -a 256 -c "$NAME.zip.sha256" >/dev/null ) && ok "detached checksum verifies"

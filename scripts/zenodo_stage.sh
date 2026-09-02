@@ -2,8 +2,10 @@
 # Stage the TR2 v1.0 files and metadata onto the reserved Zenodo draft.
 #
 #   printf %s "$(pbpaste)" > ~/.zenodo-token && chmod 600 ~/.zenodo-token
-#   ./scripts/zenodo_stage.sh --dry-run     # GETs only, mutates nothing
-#   ./scripts/zenodo_stage.sh
+#   ./scripts/zenodo_stage.sh <report-slug> --dry-run   # GETs only, mutates nothing
+#   ./scripts/zenodo_stage.sh <report-slug>
+#
+# Report-specific values live in reports/<slug>/release.conf.
 #
 # NEVER PUBLISHES. Publishing needs the deposit:actions scope and the publish
 # endpoint; this script calls neither. Scope the token to deposit:write and the
@@ -17,13 +19,18 @@
 # rather than none.
 set -euo pipefail
 
-DEP_ID=22236690
 API=https://zenodo.org/api
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PDF="$ROOT/reports/tr2/report/Vinci_Technical_Report_No_2.pdf"
-ZIP="$ROOT/dist/Vinci-TR2-Character-Transfer-v1.0-public.zip"
-URL="https://www.getsimpledirect.com/research/papers/character-transfer-across-three-model-families"
-DRY=0; [ "${1:-}" = "--dry-run" ] && DRY=1
+SLUG="${1:?usage: zenodo_stage.sh <report-slug> [--dry-run]}"
+CONF="$ROOT/reports/$SLUG/release.conf"
+[ -r "$CONF" ] || { echo "  FAIL: no release.conf at $CONF" >&2; exit 1; }
+# shellcheck disable=SC1090
+source "$CONF"
+DEP_ID="$ZENODO_DEP_ID"
+PDF="$ROOT/reports/$SLUG/report/$PDF_NAME"
+ZIP="$ROOT/dist/$ZIP_BASE.zip"
+URL="$REPORT_URL"
+DRY=0; [ "${2:-}" = "--dry-run" ] && DRY=1
 
 fail(){ echo "  FAIL: $*" >&2; exit 1; }
 ok(){   echo "  ok   $*"; }
@@ -62,11 +69,12 @@ echo "== 0. local artifacts =="
 [ -f "$ZIP" ] || fail "no public ZIP — run assemble_release.sh first"
 command -v pdftotext >/dev/null || fail "pdftotext not found (brew install poppler)"
 pdftotext "$PDF" "$BODY.txt"
-grep -q "Version 0.9"                   "$BODY.txt" && fail 'that PDF contains "Version 0.9" — it is the draft'
-# The template prints a bullet, not a hyphen; gating on the hyphen rejected the
-# real PDF. Same defect existed in assemble_release.sh — fixed in both.
-grep -qE "Version 1\.0 (-|.) 1 September 2026" "$BODY.txt" || fail 'title block is not the v1.0 line'
-grep -q "Outstanding Evidence Work"      "$BODY.txt" || fail 'Appendix D is not the v1.0 text'
+for s in "${PDF_FORBID[@]}"; do
+  grep -qF "$s" "$BODY.txt" && fail "that PDF contains \"$s\" -- it is a draft"
+done
+for r in "${PDF_REQUIRE_REGEX[@]}"; do
+  grep -qE "$r" "$BODY.txt" || fail "PDF is missing required content: /$r/"
+done
 rm -f "$BODY.txt"
 ok "PDF is the v1.0 build"
 PDF_MD5=$(md5_of "$PDF"); ZIP_MD5=$(md5_of "$ZIP")
@@ -84,10 +92,10 @@ for f in d.get('files',[]): print('  --   existing: %s md5:%s' % (f['filename'],
 # Identity gate. Everything after this point writes. If API or DEP_ID were
 # ever wrong, or a bucket link pointed elsewhere, uploads would land on someone
 # else's record and every later check would pass against the wrong target.
-printf '%s' "$DEP" | DEP_ID="$DEP_ID" python3 -c "
+printf '%s' "$DEP" | DEP_ID="$DEP_ID" DOI="$DOI" python3 -c "
 import json,os,sys
 d=json.load(sys.stdin)
-want_id=os.environ['DEP_ID']; want_doi='10.5281/zenodo.22236690'
+want_id=os.environ['DEP_ID']; want_doi=os.environ['DOI']
 got_id=str(d.get('id') or d.get('record_id') or '')
 if got_id != want_id: sys.exit('  FAIL: deposition id is %r, expected %r' % (got_id, want_id))
 m=d.get('metadata',{})
@@ -176,12 +184,11 @@ print('  ok   record holds exactly the two intended files; nothing to delete')
 " || exit 1
 
 echo "== 5. metadata =="
-python3 - "$URL" > "$BODY.meta" <<'PYMETA'
-import json,sys
+REPORT_TITLE="$REPORT_TITLE" ZENODO_KEYWORDS="$ZENODO_KEYWORDS" ZENODO_SCOPE="$ZENODO_SCOPE" LICENSE_ID="$LICENSE_ID" \
+  PUB_DATE="$PUB_DATE" VERSION="$VERSION" python3 - "$URL" > "$BODY.meta" <<'PYMETA'
+import json,os,sys
 url=sys.argv[1]
-scope=("Development-tier validation evidence only. Refusal adjustment is Judge-B-only. "
-       "Capability preservation was not evaluated. No external audit was performed. "
-       "The primary holdout remains sealed. No model checkpoint is recommended for release.")
+scope=os.environ["ZENODO_SCOPE"]
 desc=("<p>We tested one frozen character post-training recipe across three model families. "
       "It reduced unsupported assertions, but no family preserved grounded-answer accuracy "
       "well enough to meet the pre-registered bar.</p>"
@@ -191,15 +198,12 @@ desc=("<p>We tested one frozen character post-training recipe across three model
       "does not support independent recomputation of the readout. See Appendix D of the report.</p>")
 print(json.dumps({"metadata":{
  "upload_type":"publication","publication_type":"report",
- "title":("Character Transfer Across Three Model Families: Reduced unsupported assertions, "
-          "impaired grounded answering, and a failed utility-preservation bar"),
+ "title":os.environ["REPORT_TITLE"],
  "creators":[{"name":"Pu, George","affiliation":"SimpleDirect / Vinci Research"},
              {"name":"Naik, Ayush","affiliation":"SimpleDirect / Vinci Research"}],
- "description":desc,"publication_date":"2026-09-01","version":"1.0",
- "language":"eng","access_right":"open","license":"cc-by-4.0",
- "keywords":["character post-training","Direct Preference Optimization","unsupported assertions",
-             "answer preservation","cross-family transfer","LLM-as-a-judge",
-             "evaluation reliability","negative result"],
+ "description":desc,"publication_date":os.environ["PUB_DATE"],"version":os.environ["VERSION"],
+ "language":"eng","access_right":"open","license":os.environ["LICENSE_ID"],
+ "keywords":json.loads(os.environ["ZENODO_KEYWORDS"]),
  "related_identifiers":[{"identifier":url,"relation":"isIdenticalTo","scheme":"url"}],
  "notes":scope}},indent=2))
 PYMETA
@@ -207,17 +211,17 @@ api PUT "$API/deposit/depositions/$DEP_ID" -H "Content-Type: application/json" -
 rm -f "$BODY.meta"; ok "metadata written"
 
 echo "== 6. assert the end state (non-zero exit if anything is wrong) =="
-api GET "$API/deposit/depositions/$DEP_ID" | DESIRED="$DESIRED" python3 -c "
+api GET "$API/deposit/depositions/$DEP_ID" | DESIRED="$DESIRED" VERSION="$VERSION" LICENSE_ID="$LICENSE_ID" SCOPE_PROBE="$SCOPE_PROBE" python3 -c "
 import json,os,sys
 d=json.load(sys.stdin); m=d.get('metadata',{})
 want=dict(x.split(':',1) for x in os.environ['DESIRED'].split())
 have={f['filename']: f['checksum'].replace('md5:','') for f in d.get('files',[])}
 errs=[]
 if d.get('submitted'):          errs.append('record is submitted/published')
-if m.get('version')!='1.0':     errs.append('version is %r, expected 1.0' % m.get('version'))
-if m.get('license')!='cc-by-4.0': errs.append('licence is %r' % m.get('license'))
-if 'No model checkpoint is recommended for release' not in (m.get('description') or ''):
-    errs.append('scope line missing from description')
+if m.get('version')!=os.environ['VERSION']: errs.append('version is %r, expected %r' % (m.get('version'), os.environ['VERSION']))
+if m.get('license')!=os.environ['LICENSE_ID']: errs.append('licence is %r, expected %r' % (m.get('license'), os.environ['LICENSE_ID']))
+if os.environ['SCOPE_PROBE'] not in (m.get('description') or ''):
+    errs.append('configured scope line missing from description')
 if set(have)!=set(want):        errs.append('files are %s, expected %s' % (sorted(have), sorted(want)))
 for n,c in want.items():
     if have.get(n)!=c: errs.append('%s checksum %s, expected %s' % (n, have.get(n), c))

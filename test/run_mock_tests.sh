@@ -14,9 +14,30 @@ trap cleanup EXIT
 # used tr2.pdf and silently tested nothing.
 PDF_NAME=Vinci_Technical_Report_No_2.pdf
 ZIP_NAME=Vinci-TR2-Character-Transfer-v1.0-public.zip
-python3 "$ROOT/test/make_test_pdf.py" "$TMP/$PDF_NAME"
-head -c 4096 /dev/urandom > "$TMP/$ZIP_NAME"
-[ -s "$TMP/$PDF_NAME" ] || { echo "could not synthesise a test PDF"; exit 1; }
+mkdir -p "$TMP/repo/reports/mockrep/report" "$TMP/repo/dist" "$TMP/repo/scripts"
+cat > "$TMP/repo/reports/mockrep/release.conf" <<CONF
+REPORT_TITLE="Mock Report"
+REPORT_NUMBER="Mock"
+VERSION="1.0"
+PUB_DATE="2026-09-01"
+PDF_NAME="$PDF_NAME"
+ZIP_BASE="${ZIP_NAME%.zip}"
+ZENODO_DEP_ID="22236690"
+DOI="10.5281/zenodo.22236690"
+REPORT_URL="https://example.invalid/mock"
+PDF_REQUIRE_REGEX=( "Version 1\\.0 (-|.) 1 September 2026" "Outstanding Evidence Work" )
+PDF_FORBID=( "Version 0.9" "publication draft" )
+MIN_PAGES=1
+ZENODO_KEYWORDS='["mock"]'
+# Deliberately NOT TR2 wording. If the script still hardcodes TR2's scope
+# string, this suite goes red -- which is how the earlier false green was caught.
+ZENODO_SCOPE="Mock scope line: this bank is unqualified and nothing is released."
+LICENSE_ID="cc-by-4.0"
+SCOPE_PROBE="this bank is unqualified"
+CONF
+python3 "$ROOT/test/make_test_pdf.py" "$TMP/repo/reports/mockrep/report/$PDF_NAME"
+head -c 4096 /dev/urandom > "$TMP/repo/dist/$ZIP_NAME"
+[ -s "$TMP/repo/reports/mockrep/report/$PDF_NAME" ] || { echo "could not synthesise a test PDF"; exit 1; }
 
 FAILURES=0
 start_mock(){ [ -n "$MOCK_PID" ] && kill "$MOCK_PID" 2>/dev/null; sleep 0.3
@@ -24,9 +45,11 @@ start_mock(){ [ -n "$MOCK_PID" ] && kill "$MOCK_PID" 2>/dev/null; sleep 0.3
 files_now(){ curl -s -H "Authorization: Bearer mock" \
   http://127.0.0.1:8899/api/deposit/depositions/22236690 \
   | python3 -c "import json,sys;print(','.join(sorted(f['filename'] for f in json.load(sys.stdin)['files'])))"; }
-invoke(){ sed -e "s#^API=.*#API=http://127.0.0.1:8899/api#" \
-              -e "s#^PDF=.*#PDF=$TMP/$PDF_NAME#" -e "s#^ZIP=.*#ZIP=$TMP/$ZIP_NAME#" "$1" > "$TMP/s.sh"
-          ZENODO_ALLOW_HOST="${ZENODO_ALLOW_HOST-127.0.0.1}" ZENODO_TOKEN=mock ZENODO_TOKEN_FILE=/nonexistent bash "$TMP/s.sh" >"$TMP/out" 2>&1; echo $?; }
+invoke(){ # invoke <script> ; uses the throwaway report config under $TMP/repo
+          sed -e "s#^API=.*#API=http://127.0.0.1:8899/api#" "$1" > "$TMP/repo/scripts/s.sh"
+          ZENODO_ALLOW_HOST="${ZENODO_ALLOW_HOST-127.0.0.1}" ZENODO_TOKEN=mock \
+            ZENODO_TOKEN_FILE=/nonexistent bash "$TMP/repo/scripts/s.sh" mockrep >"$TMP/out" 2>&1; echo $?; }
+
 check(){ # check <label> <actual> <expected>
   if [ "$2" = "$3" ]; then printf '  PASS  %-46s %s\n' "$1" "$2"
   else printf '  FAIL  %-46s got %s want %s\n' "$1" "$2" "$3"; FAILURES=$((FAILURES+1)); sed 's/^/        /' "$TMP/out" | tail -6; fi; }
@@ -75,12 +98,40 @@ check "  ...and uploaded nothing"     "$(files_now)" "$PDF_NAME"
 # Regression control: the old script must LOSE the PDF here. If this stops
 # failing, the harness has stopped reproducing the defect and proves nothing.
 if git -C "$ROOT" cat-file -e 23187b7:scripts/zenodo_stage.sh 2>/dev/null; then
-  git -C "$ROOT" show 23187b7:scripts/zenodo_stage.sh > "$TMP/old.sh"
+  git -C "$ROOT" show 23187b7:scripts/zenodo_stage.sh > "$TMP/repo/scripts/old.sh"
   # 23187b7 gates on the hyphen form. Feed it a hyphen PDF, or it aborts at the
   # title check and never reaches the delete bug this control must reproduce.
-  python3 "$ROOT/test/make_test_pdf.py" "$TMP/$PDF_NAME" "-"
+  mkdir -p "$TMP/repo/reports/mockrep/report" "$TMP/repo/dist" "$TMP/repo/scripts"
+cat > "$TMP/repo/reports/mockrep/release.conf" <<CONF
+REPORT_TITLE="Mock Report"
+REPORT_NUMBER="Mock"
+VERSION="1.0"
+PUB_DATE="2026-09-01"
+PDF_NAME="$PDF_NAME"
+ZIP_BASE="${ZIP_NAME%.zip}"
+ZENODO_DEP_ID="22236690"
+DOI="10.5281/zenodo.22236690"
+REPORT_URL="https://example.invalid/mock"
+PDF_REQUIRE_REGEX=( "Version 1\\.0 (-|.) 1 September 2026" "Outstanding Evidence Work" )
+PDF_FORBID=( "Version 0.9" "publication draft" )
+MIN_PAGES=1
+ZENODO_KEYWORDS='["mock"]'
+# Deliberately NOT TR2 wording. If the script still hardcodes TR2's scope
+# string, this suite goes red -- which is how the earlier false green was caught.
+ZENODO_SCOPE="Mock scope line: this bank is unqualified and nothing is released."
+LICENSE_ID="cc-by-4.0"
+SCOPE_PROBE="this bank is unqualified"
+CONF
+python3 "$ROOT/test/make_test_pdf.py" "$TMP/repo/reports/mockrep/report/$PDF_NAME" "-"
   start_mock --id-stable
-  invoke "$TMP/old.sh" >/dev/null
+  # 23187b7 predates release.conf: it takes no slug and reads hardcoded paths,
+  # so it is invoked the way it expects. The control has to run the OLD script as
+  # it actually was, or it stops reproducing the defect it exists to demonstrate.
+  sed -e "s#^API=.*#API=http://127.0.0.1:8899/api#" \
+      -e "s#^PDF=.*#PDF=$TMP/repo/reports/mockrep/report/$PDF_NAME#" \
+      -e "s#^ZIP=.*#ZIP=$TMP/repo/dist/$ZIP_NAME#" "$TMP/repo/scripts/old.sh" > "$TMP/oldrun.sh"
+  ZENODO_ALLOW_HOST=127.0.0.1 ZENODO_TOKEN=mock ZENODO_TOKEN_FILE=/nonexistent \
+    bash "$TMP/oldrun.sh" >/dev/null 2>&1
   got=$(files_now)
   if [ "$got" = "$ZIP_NAME" ]; then
     printf '  PASS  %-46s old script lost the PDF, as it must\n' "control: 23187b7 reproduces the defect"
