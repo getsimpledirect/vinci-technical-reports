@@ -12,7 +12,11 @@ PDF="${1:-$HOME/Downloads/Vinci_TR3_Runtime_Pass_Is_Not_Correctness_v1.0.1/repor
 
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 mkdir -p "$TMP/repo/scripts" "$TMP/repo/reports/fixture"
-cp "$ROOT/scripts/assemble_release.sh" "$ROOT/scripts/pdf_uris.py" "$TMP/repo/scripts/"
+# Copy EVERY script assemble_release.sh calls. It gained an unconditional
+# pdf_text_sanity.py check; omitting it made this suite fail in the earlier
+# gate instead of the one under test, which reads as a URI-gate regression.
+cp "$ROOT/scripts/assemble_release.sh" "$ROOT/scripts/pdf_uris.py" \
+   "$ROOT/scripts/pdf_text_sanity.py" "$TMP/repo/scripts/"
 
 conf(){ cat > "$TMP/repo/reports/fixture/release.conf" <<EOF
 REPORT_TITLE="fixture"; REPORT_NUMBER="fixture"; VERSION="1.0"; PUB_DATE="2026-09-01"
