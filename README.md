@@ -91,6 +91,12 @@ unzip -q Vinci-TR2-Character-Transfer-v1.0-public.zip && cd tr2
 shasum -a 256 -c checksums.sha256
 ```
 
+### Report No. 3 repository-forward correction
+
+The immutable Report No. 3 v1.0 archive is independently verifiable, but its package sources are not the build authority they appeared to be. The accepted 43-page PDF is final and remains unchanged. The archived Markdown, HTML, and DOCX retained one unresolved-draft paragraph that is absent from the PDF; the arXiv ZIP and parallel TeX retained older placeholders and funding instructions; and the archived rebuild script compiled that stale source and overwrote the accepted PDF. Its manifest also mixed package revisions and file-count definitions.
+
+Repository-forward package revision 1.0.3 removes that divergence, makes `reports/tr3/source/report_body.md` the sole editable manuscript, generates every editable derivative and arXiv source from it, preserves the accepted PDF by exact digest, and adds old-defect discrimination tests. It does not alter the GitHub or Zenodo release or create a new version. See `reports/tr3/release/PACKAGING_CORRECTION_v1.0.3.md`.
+
 `reports/tr2/` in this repository tracks the published package. It is **not** byte-for-byte
 identical to the archive on Zenodo, and the difference is recorded rather than silent.
 

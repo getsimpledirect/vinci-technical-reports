@@ -1,13 +1,12 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
-%
 \documentclass[
-  9pt,
-  letterpaper,
 ]{article}
+\usepackage{xcolor}
+\usepackage[margin=0.78in]{geometry}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -21,8 +20,6 @@
 \usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Sans}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -40,9 +37,8 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\usepackage[margin=0.78in]{geometry}
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -54,36 +50,45 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
   pdftitle={Runtime Pass Is Not Correctness},
   pdfauthor={George Pu},
-  colorlinks=true,
-  linkcolor={MidnightBlue},
-  filecolor={Maroon},
-  citecolor={Blue},
-  urlcolor={MidnightBlue},
+  hidelinks,
   pdfcreator={LaTeX via pandoc}}
+
+\ifXeTeX
+\special{pdf:trailerid [ <69659651b77959bb620ddb464f487242> <69659651b77959bb620ddb464f487242> ]}
+\fi
+\ifPDFTeX
+\pdftrailerid{}
+\pdftrailer{/ID [ <69659651b77959bb620ddb464f487242> <69659651b77959bb620ddb464f487242> ]}
+\fi
+\ifLuaTeX
+\pdfvariable trailerid {[ <69659651b77959bb620ddb464f487242> <69659651b77959bb620ddb464f487242> ]}
+\fi
 
 \title{Runtime Pass Is Not Correctness}
 \usepackage{etoolbox}
@@ -101,12 +106,18 @@ Verifier Audit on Qwen3.8-27B}
 \maketitle
 
 {
-\hypersetup{linkcolor=}
 \setcounter{tocdepth}{3}
 \tableofcontents
 }
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\begin{quote}
+\textbf{Unpublished corrected candidate --- package revision 1.0.3.}
+This repository-forward derivative has not been published, tagged,
+uploaded to Zenodo, or submitted to arXiv. The published v1.0 PDF
+remains a frozen historical artifact and contains residual
+pre-finalization instructions that are corrected in this candidate.
+\end{quote}
+
+\subsection{Abstract}\label{abstract}
 
 Reasoning-capable language models can consume large inference budgets
 without delivering a usable answer. P-BREVE-01-R2 tested whether a small
@@ -191,16 +202,16 @@ mutation testing; hidden tests; negative results; open-weight language
 models
 
 \textbf{Publication record.} Version 1.0; research evidence cutoff
-\href{https://github.com/getsimpledirect/vinci-gpu-research/tree/7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d/p-breve-01-r2}{\texttt{7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d}};
-canonical report page:
+\texttt{7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d} (private research
+repository \texttt{getsimpledirect/vinci-gpu-research}, program
+directory \texttt{p-breve-01-r2/}); canonical report page:
 \href{https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness}{\url{https://www.getsimpledirect.com/research/papers/runtime-pass-is-not-correctness}}.
 The evidence cutoff is a research-record identity, not a claim that
 every execution manifest contained a Git commit.
 
-\includegraphics{figures/figure1_study_lineage.png}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 1. Study lineage and final disposition. P-BREVE-01 remains a preserved no-go; P-BREVE-01-R2 produced a negative intervention result, a serving-control confound, and evaluator-audit findings. No model, bank, or release candidate resulted.}]{figures/figure1_study_lineage.png}}
 
-\hypertarget{1-introduction}{%
-\subsection{1. Introduction}\label{1-introduction}}
+\subsection{1. Introduction}\label{1-introduction}
 
 Large reasoning models can improve difficult-task performance by
 generating long intermediate traces, but the same mechanism can spend
@@ -304,12 +315,10 @@ bank is qualified. It establishes that this recipe did not earn its
 intended claim and that the measurement system required deeper
 qualification than the original program had imposed.
 
-\hypertarget{2-related-work}{%
-\subsection{2. Related Work}\label{2-related-work}}
+\subsection{2. Related Work}\label{2-related-work}
 
-\hypertarget{21-adaptive-reasoning-and-early-stopping}{%
 \subsubsection{2.1 Adaptive reasoning and early
-stopping}\label{21-adaptive-reasoning-and-early-stopping}}
+stopping}\label{21-adaptive-reasoning-and-early-stopping}
 
 Difficulty-adaptive inference provides a direct alternative to
 weight-level post-training. DiffAdapt selects among easy, normal, and
@@ -333,9 +342,8 @@ effect, together with the strength of the \texttt{medium} serving
 control, pushes the evidence toward controller-first investigation
 rather than stronger preference tuning on the same base.
 
-\hypertarget{22-direct-preference-optimization-and-length-control}{%
 \subsubsection{2.2 Direct Preference Optimization and length
-control}\label{22-direct-preference-optimization-and-length-control}}
+control}\label{22-direct-preference-optimization-and-length-control}
 
 DPO provides a supervised classification objective for fitting a policy
 to pairwise preferences relative to a reference model, avoiding a
@@ -362,9 +370,8 @@ pairs did not show the intended gain, while the code stratum without
 such pairs produced the largest apparent dose response under
 \texttt{xhigh}.
 
-\hypertarget{23-executable-rewards-public-tests-and-reward-hacking}{%
 \subsubsection{2.3 Executable rewards, public tests, and reward
-hacking}\label{23-executable-rewards-public-tests-and-reward-hacking}}
+hacking}\label{23-executable-rewards-public-tests-and-reward-hacking}
 
 Code-generation systems often treat passing tests as an objective
 measure of correctness. That interpretation depends on the tests.
@@ -387,9 +394,8 @@ reward-hacking behaviour in 57.1\% of tested frontier-agent runs
 a program can maximize the observable proxy while violating the intended
 task, and the proxy itself may not reveal the violation.
 
-\hypertarget{24-mutation-testing-as-evaluator-qualification}{%
 \subsubsection{2.4 Mutation testing as evaluator
-qualification}\label{24-mutation-testing-as-evaluator-qualification}}
+qualification}\label{24-mutation-testing-as-evaluator-qualification}
 
 Mutation testing evaluates a test suite by introducing controlled faults
 and measuring which faults the suite detects {[}11{]}. Applied to model
@@ -406,13 +412,11 @@ Neither method was exhaustive. Their value came from finding different
 defects. The combined record shows why evaluator qualification cannot
 rely on one mutation family, one author, or one repair population.
 
-\hypertarget{3-study-lineage-and-protocol}{%
 \subsection{3. Study Lineage and
-Protocol}\label{3-study-lineage-and-protocol}}
+Protocol}\label{3-study-lineage-and-protocol}
 
-\hypertarget{31-p-breve-01-and-the-r2-recovery-study}{%
 \subsubsection{3.1 P-BREVE-01 and the R2 recovery
-study}\label{31-p-breve-01-and-the-r2-recovery-study}}
+study}\label{31-p-breve-01-and-the-r2-recovery-study}
 
 P-BREVE-01 was an earlier bounded study on the same pinned Qwen3.8-27B
 substrate. Its revised first-pass gate ended in a no-go before training.
@@ -425,9 +429,8 @@ charter reserves \texttt{P-BREVE-02} for a future locked-recipe
 reproduction on a Western 24--32B base. The present report covers the
 Qwen recovery lineage only and does not consume that future identifier.
 
-\hypertarget{32-evidence-tier-and-report-cutoff}{%
 \subsubsection{3.2 Evidence tier and report
-cutoff}\label{32-evidence-tier-and-report-cutoff}}
+cutoff}\label{32-evidence-tier-and-report-cutoff}
 
 All model results in this report are development-tier internal evidence.
 No sealed primary product-weighted holdout was opened, no external peer
@@ -437,15 +440,8 @@ were discovered rather than before the model experiment. They are
 valuable diagnostic evidence, not confirmatory evidence about a
 pre-registered auditor hypothesis.
 
-The final report must bind to one source commit and one evidence cutoff.
-This draft intentionally leaves that field unresolved. Continued
-evaluator engineering after the cutoff should be treated as successor
-work rather than allowed to reopen the completed model-intervention
-result indefinitely.
-
-\hypertarget{33-model-and-serving-stack}{%
 \subsubsection{3.3 Model and serving
-stack}\label{33-model-and-serving-stack}}
+stack}\label{33-model-and-serving-stack}
 
 The frozen substrate was \texttt{Qwen/Qwen3.8-27B} at revision {[}1{]}:
 
@@ -467,11 +463,11 @@ instruction and served as the neutral baseline. \texttt{low} injected a
 brief-reasoning instruction. An absent effort value resolved to
 \texttt{xhigh}.
 
-\hypertarget{34-intervention}{%
-\subsubsection{3.4 Intervention}\label{34-intervention}}
+\subsubsection{3.4 Intervention}\label{34-intervention}
 
 The intervention was frozen as follows.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.48\linewidth}p{0.23\linewidth}p{0.23\linewidth}@{}}
 \toprule\noalign{}
 Component & SFT & DPO \\
@@ -492,15 +488,15 @@ DPO beta & --- & 0.10 \\
 Length coefficient & --- & 0.05 \\
 Reference policy & --- & exact accepted SFT checkpoint \\
 \end{longtable}
+}
 
 SFT loss applied only to assistant reasoning, final-answer, and
 tool-call tokens. System, user, and tool-result tokens were masked. DPO
 prompts and tool-result spans were likewise masked. Silent truncation
 was prohibited.
 
-\hypertarget{35-data-construction-and-acceptance}{%
 \subsubsection{3.5 Data construction and
-acceptance}\label{35-data-construction-and-acceptance}}
+acceptance}\label{35-data-construction-and-acceptance}
 
 The data program generated 2,000 rollout rows from a declared 600-prompt
 training-only pool plus inherited, re-verified anchors. The accepted SFT
@@ -510,6 +506,7 @@ rather than interpreted as passes.
 
 The accepted DPO set contained two classes:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.48\linewidth}p{0.18\linewidth}p{0.28\linewidth}@{}}
 \toprule\noalign{}
 Pair type & Count & Intended function \\
@@ -523,6 +520,7 @@ Guardrail & 482 & Prefer correct, complete, verified behaviour over
 shorter but defective behaviour \\
 \textbf{Total} & \textbf{700} & \\
 \end{longtable}
+}
 
 The chosen response was not shorter in 56.6\% of accepted pairs.
 Guardrail pairs represented 68.9\% of the corpus. These properties made
@@ -530,12 +528,12 @@ a corpus-wide length shortcut less attractive, but they did not
 guarantee that each semantic family carried a useful efficiency
 gradient.
 
-\hypertarget{36-original-evaluation-bank}{%
 \subsubsection{3.6 Original evaluation
-bank}\label{36-original-evaluation-bank}}
+bank}\label{36-original-evaluation-bank}
 
 The frozen R2-G4 development bank contained 400 nominal tasks:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.72\linewidth}p{0.22\linewidth}@{}}
 \toprule\noalign{}
 Stratum & Nominal tasks \\
@@ -550,6 +548,7 @@ Agentic tool use & 80 \\
 Answerability & 80 \\
 \textbf{Total} & \textbf{400} \\
 \end{longtable}
+}
 
 Base and adapter conditions were evaluated on matched tasks under two
 fixed inference seeds, 1729 and 2718. Each arm therefore contained 800
@@ -577,9 +576,8 @@ Correctness-dependent gates are reported here only as historical design
 requirements. After the executable-code bank failed adversarial
 qualification, they could no longer support model-level conclusions.
 
-\hypertarget{37-bounded-dose-and-serving-control-screens}{%
 \subsubsection{3.7 Bounded dose and serving-control
-screens}\label{37-bounded-dose-and-serving-control-screens}}
+screens}\label{37-bounded-dose-and-serving-control-screens}
 
 After the one-epoch recipe failed, the program authorized one bounded
 dose-response test from the same SFT checkpoint and the same 700 pairs.
@@ -589,6 +587,7 @@ serving condition remained fixed.
 A later six-arm serving-control screen crossed checkpoint identity with
 effort configuration:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.34\linewidth}p{0.28\linewidth}p{0.32\linewidth}@{}}
 \toprule\noalign{}
 Arm & Checkpoint & Effort \\
@@ -603,15 +602,15 @@ A4 & Base & thinking disabled \\
 A5 & Two-epoch DPO & \texttt{xhigh} \\
 A6 & Two-epoch DPO & \texttt{medium} \\
 \end{longtable}
+}
 
 The screen used one shared 100-episode shard: 50 nominal tasks, two
 decoding seeds, and 20 episodes per stratum. It was explicitly
 underpowered for a five-point strict-success non-inferiority claim. Its
 formal decision state was \texttt{INDETERMINATE}.
 
-\hypertarget{38-artifact-and-claim-governance}{%
 \subsubsection{3.8 Artifact and claim
-governance}\label{38-artifact-and-claim-governance}}
+governance}\label{38-artifact-and-claim-governance}
 
 Training, serving, and evaluation artifacts were content-addressed and
 bound to model, template, adapter, bank, schedule, and authority
@@ -621,7 +620,7 @@ suspended. This became important after an evaluator audit changed which
 portions of earlier claims remained interpretable.
 
 The completed full-recipe G4 result, measured on 18--19 August 2026, is
-now represented by claim \texttt{pbr2.g4.full-recipe-insufficient.015}.
+now represented by claim \path{pbr2.g4.full-recipe-insufficient.015}.
 The claim was registered late on 1 September without new measurement. It
 preserves the oracle-independent token and termination findings while
 excluding the raw-code strict rate from interpretation because the bank
@@ -641,15 +640,13 @@ executing, or a fully reproducible test suite that accepted incorrect
 programs. Reproducibility and validity were therefore treated as
 separate properties.
 
-\includegraphics{figures/figure2_one_epoch_reduction.png}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 2. Signed one-epoch reasoning reduction. Positive values mean fewer tokens and negative values mean more tokens. The full recipe missed the required +20\% reduction at both seeds.}]{figures/figure2_one_epoch_reduction.png}}
 
-\hypertarget{4-results}{%
-\subsection{4. Results}\label{4-results}}
+\subsection{4. Results}\label{4-results}
 
-\hypertarget{41-the-intervention-executed-but-execution-was-not-the-scientific-endpoint}{%
 \subsubsection{4.1 The intervention executed, but execution was not the
 scientific
-endpoint}\label{41-the-intervention-executed-but-execution-was-not-the-scientific-endpoint}}
+endpoint}\label{41-the-intervention-executed-but-execution-was-not-the-scientific-endpoint}
 
 The accepted training package contained 440 SFT demonstrations and 700
 DPO pairs. All eight rollout shards completed and the accepted sets
@@ -687,10 +684,9 @@ whether loss declined, or whether the evaluation jobs returned exit code
 zero. It is whether the intervention produced a task-conditional
 efficiency improvement under a valid measurement instrument.
 
-\hypertarget{42-the-configured-one-epoch-sft-to-dpo-recipe-missed-every-positive-efficiency-target}{%
 \subsubsection{4.2 The configured one-epoch SFT-to-DPO recipe missed
 every positive-efficiency
-target}\label{42-the-configured-one-epoch-sft-to-dpo-recipe-missed-every-positive-efficiency-target}}
+target}\label{42-the-configured-one-epoch-sft-to-dpo-recipe-missed-every-positive-efficiency-target}
 
 The primary configured recipe compared the frozen base, the accepted SFT
 adapter, and the one-epoch SFT+DPO adapter on the same nominal 400-task
@@ -706,6 +702,7 @@ Displayed token medians are rounded; percentage changes reproduce the
 frozen scorer from underlying records and therefore need not equal
 ratios of the displayed integers exactly.}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.34\linewidth}p{0.20\linewidth}p{0.20\linewidth}p{0.20\linewidth}@{}}
 \toprule\noalign{}
 Metric & Seed 1729 & Seed 2718 & Frozen target \\
@@ -726,6 +723,7 @@ Base cap-exhaustion rate & 12.8\% & 13.2\% & --- \\
 SFT+DPO cap-exhaustion rate & 10.2\% & 12.0\% & no increase; reduction
 desirable \\
 \end{longtable}
+}
 
 The recipe failed the reasoning-reduction target at both seeds. At seed
 1729 it increased the median reasoning length. At seed 2718 it reduced
@@ -757,10 +755,9 @@ that another data distribution would fail, or that another model lineage
 would behave identically. It rejects the configured recipe at the
 evidence tier and thresholds actually used.
 
-\hypertarget{43-a-stronger-dpo-dose-produced-an-apparent-code-stratum-response-under-xhigh}{%
 \subsubsection{\texorpdfstring{4.3 A stronger DPO dose produced an
 apparent code-stratum response under
-\texttt{xhigh}}{4.3 A stronger DPO dose produced an apparent code-stratum response under xhigh}}\label{43-a-stronger-dpo-dose-produced-an-apparent-code-stratum-response-under-xhigh}}
+\texttt{xhigh}}{4.3 A stronger DPO dose produced an apparent code-stratum response under xhigh}}\label{43-a-stronger-dpo-dose-produced-an-apparent-code-stratum-response-under-xhigh}
 
 After the one-epoch null, the program authorized one bounded dose test.
 The SFT checkpoint, 700 DPO pairs, objective, adapter scope, and
@@ -779,6 +776,7 @@ reasoning limit.
 \textbf{Table 2. Executable-code token and termination measurements
 under \texttt{reasoning\_effort=xhigh}.}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.48\linewidth}p{0.23\linewidth}p{0.23\linewidth}@{}}
 \toprule\noalign{}
 Arm & p25 reasoning tokens & Observed cap-exhaustion rate \\
@@ -790,6 +788,7 @@ Base & 5,359 & 63.7\% \\
 SFT+DPO, 1 epoch & 3,628 & 55.6\% \\
 SFT+DPO, 2 epochs & 2,604 & 48.8\% \\
 \end{longtable}
+}
 
 The p25 and cap-exhaustion measures moved monotonically with DPO dose.
 Four other strata had p25 reasoning values around 48--60 tokens and
@@ -809,10 +808,9 @@ source of the termination improvement.
 The raw measurements in Table 2 remain part of the record. The causal
 interpretation does not.
 
-\hypertarget{44-a-serving-control-reproduced-the-termination-improvement-on-untrained-weights}{%
 \subsubsection{4.4 A serving control reproduced the termination
 improvement on untrained
-weights}\label{44-a-serving-control-reproduced-the-termination-improvement-on-untrained-weights}}
+weights}\label{44-a-serving-control-reproduced-the-termination-improvement-on-untrained-weights}
 
 The pinned Qwen chat template did not treat \texttt{reasoning\_effort}
 as passive metadata. At \texttt{xhigh}, it injected a natural-language
@@ -835,6 +833,7 @@ Termination and reasoning-cost differences were nevertheless large.
 restricted mean reasoning length at the frozen cap. Zero observed cap
 hits means 0 of 20 episodes, not a population rate of exactly zero.}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.34\linewidth}p{0.20\linewidth}p{0.20\linewidth}p{0.20\linewidth}@{}}
 \toprule\noalign{}
 Checkpoint and effort & Observed cap hits & Cap-exhaustion rate & RMST,
@@ -850,6 +849,7 @@ Base @ thinking disabled & 0/20 & 0.00 & 0 \\
 Two-epoch DPO @ \texttt{xhigh} & 8/20 & 0.40 & 5,103 \\
 Two-epoch DPO @ \texttt{medium} & 0/20 & 0.00 & 579 \\
 \end{longtable}
+}
 
 Changing untrained base weights from \texttt{xhigh} to \texttt{medium}
 reduced observed cap exhaustion by 65 percentage points and RMST by
@@ -877,12 +877,11 @@ trained-weight benefit was withdrawn.
 The two-epoch adapter was retired. No checkpoint from the lineage was
 designated a model or product candidate.
 
-\includegraphics{figures/figure3_serving_effort_control.png}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 3. Serving-time effort control. On the screened executable-code shard, changing untrained base weights from xhigh to medium moved cap exhaustion from 65\% to 0/20 and sharply reduced token consumption. The matched-effort correctness comparison remained underpowered.}]{figures/figure3_serving_effort_control.png}}
 
-\hypertarget{45-the-original-executable-code-evaluator-accepted-every-broad-shortcut-attack}{%
 \subsubsection{4.5 The original executable-code evaluator accepted every
 broad shortcut
-attack}\label{45-the-original-executable-code-evaluator-accepted-every-broad-shortcut-attack}}
+attack}\label{45-the-original-executable-code-evaluator-accepted-every-broad-shortcut-attack}
 
 The evaluator audit covered 26 tasks spanning all eight content-distinct
 executable-code families. It graded 562 candidate programs through the
@@ -901,6 +900,7 @@ Three attacks were constructed for each semantic family.
 
 \textbf{Table 4. Broad shortcut probes against the original bank.}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.48\linewidth}p{0.30\linewidth}p{0.16\linewidth}@{}}
 \toprule\noalign{}
 Probe class & Behaviour & Result \\
@@ -917,6 +917,7 @@ Shape or fingerprint branch & Selects an answer from \texttt{len},
 passed \\
 \textbf{Total} & & \textbf{24/24 passed} \\
 \end{longtable}
+}
 
 The most revealing probe branched only on input length. Each family's
 three cases had different lengths, so length uniquely identified the
@@ -983,10 +984,9 @@ intentionally exploited the reward. It establishes that the score could
 not distinguish genuine correctness from a readily reachable
 non-solution.
 
-\hypertarget{46-a-runtimecertification-split-improved-broad-shortcut-rejection-but-remained-unqualified}{%
 \subsubsection{4.6 A runtime/certification split improved broad-shortcut
 rejection but remained
-unqualified}\label{46-a-runtimecertification-split-improved-broad-shortcut-rejection-but-remained-unqualified}}
+unqualified}\label{46-a-runtimecertification-split-improved-broad-shortcut-rejection-but-remained-unqualified}
 
 The replacement design separated two functions that the original bank
 had collapsed:
@@ -1022,6 +1022,7 @@ rendered ratios.
 \textbf{Table 5. Qualification results for the batch-2
 runtime/certification design.}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.48\linewidth}p{0.23\linewidth}p{0.23\linewidth}@{}}
 \toprule\noalign{}
 Population or quantity & Runtime channel & Certification channel \\
@@ -1038,10 +1039,10 @@ falsely rejected} \\
 Correct bank reference programs rejected by frozen AST authority &
 affected before behavioural execution & \textbf{7/40 rejected
 (17.5\%)} \\
-\texttt{P(certification\ pass\ given\ runtime\ pass)} on the designed
-probe population & --- & \textbf{64/296 = 0.216}, 95\% CI {[}0.171,
-0.268{]} \\
+`P(certification pass & runtime pass)` on the designed probe population
+& --- \\
 \end{longtable}
+}
 
 The split worked against the attack that destroyed the original bank.
 Nearly half of the broad shortcuts passed the visible runtime cases, but
@@ -1081,12 +1082,11 @@ claim. That correction is included here because it demonstrates the
 danger of summarizing a bidirectional verifier audit without naming the
 direction of each error.
 
-\hypertarget{47-independent-mutation-populations-showed-that-targeted-repairs-did-not-generalize}{%
 \subsubsection{4.7 Independent mutation populations showed that targeted
 repairs did not
-generalize}\label{47-independent-mutation-populations-showed-that-targeted-repairs-did-not-generalize}}
+generalize}\label{47-independent-mutation-populations-showed-that-targeted-repairs-did-not-generalize}
 
-\includegraphics{figures/figure5_task_count_disambiguation.png}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 5. Task-count disambiguation. Nineteen of forty tasks leaked under the AST population, leaving a complementary twenty-one with no detected AST leak; separately, seven prior tasks plus fourteen newly adjudicated tasks establish a cross-method lower bound of at least twenty-one known-flaw tasks.}]{figures/figure5_task_count_disambiguation.png}}
 
 A first repair wave added certification cases derived from the witnessed
 near-miss failures. The specific mutants were then caught. A later audit
@@ -1107,6 +1107,7 @@ protected batch-2 bank.
 
 \textbf{Table 6. Blind mutation qualification.}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.48\linewidth}p{0.23\linewidth}p{0.23\linewidth}@{}}
 \toprule\noalign{}
 Quantity & Batch-3 staging & Batch-2 protected \\
@@ -1121,18 +1122,21 @@ Pooled false-accept rate & 2.09\% & 2.79\% \\
 Tasks with at least one leak & 11/20 & 19/40 \\
 Distinct certification gaps & 17 & 33 \\
 \end{longtable}
+}
 
 \textbf{Source and derivation record for the protected-bank counts:}
-\texttt{p-breve-01-r2/docs/BLIND-ADVERSARIAL-POPULATION.md}, section
+\path{p-breve-01-r2/docs/BLIND-ADVERSARIAL-POPULATION.md}, section
 ``The protected bank leaks worse than staging.'' Version 1.0 verified
-the source at working commit
+the source at evidence-cutoff commit
 \texttt{7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d}, file blob
 \texttt{1bb4ea390b38eb4f90d1519933b4e850ede93065}. The report rendering
 \texttt{52/1,862} is derived from the adjacent protected-bank cells
 \texttt{accepted\ by\ certification\ =\ 52} and
 \texttt{provably-wrong\ mutants\ =\ 1,862}; it is not a separately
-stored observation. The final publication manifest must rebind the
-source cells and derivation to the merged evidence-cutoff commit.
+stored observation. The repository-forward package binds that source
+identity in \texttt{data/evidence\_bindings.json} and the rendered
+numerator, denominator, rate, and derivation in
+\texttt{data/evaluator\_metrics.json}.
 
 The affected-task lower bound is a set union, not a complement and not
 the mutation count alone. The witness-driven method had previously
@@ -1151,6 +1155,7 @@ counts must never appear without qualifiers.
 
 \textbf{Table 6A. Disambiguating the two \texttt{21/40} counts.}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.48\linewidth}p{0.18\linewidth}p{0.28\linewidth}@{}}
 \toprule\noalign{}
 Label used in this report & Derivation & Meaning \\
@@ -1168,6 +1173,7 @@ is defect-free \\
 & A known certification flaw was established by at least one of the two
 non-exhaustive methods \\
 \end{longtable}
+}
 
 Neither method is exhaustive, so the cross-method 21 is a lower bound on
 affected tasks, not an estimate of total defect prevalence.
@@ -1185,20 +1191,18 @@ cases remained correct and necessary, but they were insufficient. No
 protected-bank mutation was authorized, and no subsequent model
 evaluation could proceed as though batch 2 were qualified.
 
-\includegraphics{figures/figure4_evaluator_qualification.png}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 4. Evaluator qualification and failure surface. The replacement certification channel rejected broad shortcuts but still admitted near-miss programs and independently generated wrong mutants.}]{figures/figure4_evaluator_qualification.png}}
 
-\hypertarget{48-the-study-repeatedly-measured-the-wrong-estimand-before-correcting-it}{%
 \subsubsection{4.8 The study repeatedly measured the wrong estimand
 before correcting
-it}\label{48-the-study-repeatedly-measured-the-wrong-estimand-before-correcting-it}}
+it}\label{48-the-study-repeatedly-measured-the-wrong-estimand-before-correcting-it}
 
 The evaluator defects were accompanied by statistical and data-retention
 defects. They are not incidental implementation notes; each changed
 which scientific sentence a number could support.
 
-\hypertarget{481-cap-exhaustion-was-excluded-from-the-denominator}{%
 \paragraph{4.8.1 Cap exhaustion was excluded from the
-denominator}\label{481-cap-exhaustion-was-excluded-from-the-denominator}}
+denominator}\label{481-cap-exhaustion-was-excluded-from-the-denominator}
 
 The first calibration scorer effectively estimated:
 
@@ -1231,9 +1235,8 @@ the former, the task can be discarded as too easy. Under the latter, it
 falls inside the intended difficulty band. The denominator therefore
 changes bank membership, not merely a displayed percentage.
 
-\hypertarget{482-medians-were-censored-on-the-stratum-that-mattered}{%
 \paragraph{4.8.2 Medians were censored on the stratum that
-mattered}\label{482-medians-were-censored-on-the-stratum-that-mattered}}
+mattered}\label{482-medians-were-censored-on-the-stratum-that-mattered}
 
 In executable code, 55--64\% of episodes in several arms hit the
 8,192-token cap. The observed median reasoning length was therefore
@@ -1257,10 +1260,9 @@ statistic could not measure its declared construct in the stratum where
 censoring exceeded one half. A successor study must pre-register
 censoring-aware endpoints before observing intervention outcomes.
 
-\hypertarget{483-nominal-task-identifiers-were-not-independent-experimental-units}{%
 \paragraph{4.8.3 Nominal task identifiers were not independent
 experimental
-units}\label{483-nominal-task-identifiers-were-not-independent-experimental-units}}
+units}\label{483-nominal-task-identifiers-were-not-independent-experimental-units}
 
 The original code bank counted two decoding seeds within a task and ten
 renamed clones within a family as though all task identifiers
@@ -1279,10 +1281,9 @@ evaluation harness.
 Seeds estimate within-task variation. They do not create new tasks.
 Renamed copies estimate nothing about cross-problem generalization.
 
-\hypertarget{484-the-analytical-power-calculation-did-not-represent-the-frozen-decision-procedure}{%
 \paragraph{4.8.4 The analytical power calculation did not represent the
 frozen decision
-procedure}\label{484-the-analytical-power-calculation-did-not-represent-the-frozen-decision-procedure}}
+procedure}\label{484-the-analytical-power-calculation-did-not-represent-the-frozen-decision-procedure}
 
 The planned CAP\_STRESS design used 18 tasks and 42 seeds per task and
 was described as targeting 90\% power. A later simulator called the
@@ -1306,10 +1307,9 @@ decision rule, using the same cluster structure and all conjunctive
 gates. An analytic approximation to one component is an upper bound at
 best.
 
-\hypertarget{49-reproducible-artifacts-selected-the-wrong-authority-and-exposed-hidden-information}{%
 \subsubsection{4.9 Reproducible artifacts selected the wrong authority
 and exposed hidden
-information}\label{49-reproducible-artifacts-selected-the-wrong-authority-and-exposed-hidden-information}}
+information}\label{49-reproducible-artifacts-selected-the-wrong-authority-and-exposed-hidden-information}
 
 Content-addressed artifacts and extensive tests prevented several forms
 of silent drift. They did not ensure that the production path used the
@@ -1364,15 +1364,15 @@ that were used or recorded. It does not establish that those bytes
 represented the intended authority, estimand, information boundary, or
 transaction.
 
-\hypertarget{410-final-claim-disposition}{%
 \subsubsection{4.10 Final claim
-disposition}\label{410-final-claim-disposition}}
+disposition}\label{410-final-claim-disposition}
 
 The study's final contribution is easier to understand by separating
 retained measurements from interpretations that were withdrawn. The
 labels below are publication dispositions, not replacements for the
 claims-registry state machine.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.48\linewidth}p{0.46\linewidth}@{}}
 \toprule\noalign{}
 Report-local label & Meaning \\
@@ -1396,9 +1396,11 @@ answering the question \\
 \textbf{Rejected} & A release or portfolio disposition was affirmatively
 denied \\
 \end{longtable}
+}
 
 \textbf{Table 7. Claim disposition at the proposed report cutoff.}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.34\linewidth}p{0.28\linewidth}p{0.32\linewidth}@{}}
 \toprule\noalign{}
 Claim or interpretation & Final disposition & Reason \\
@@ -1408,7 +1410,7 @@ Claim or interpretation & Final disposition & Reason \\
 \endlastfoot
 The completed one-epoch full-recipe G4 result shows that the frozen
 efficiency targets were not met & \textbf{Retained, narrowed
-(\texttt{pbr2.g4.full-recipe-insufficient.015})} & The token and
+(\path{pbr2.g4.full-recipe-insufficient.015})} & The token and
 termination components stand; the raw-code strict component is excluded
 because the correctness bank was condemned \\
 The configured one-epoch SFT+DPO recipe materially reduces reasoning &
@@ -1446,17 +1448,16 @@ A model checkpoint is suitable for release & \textbf{Rejected} & Adapter
 retired; no qualified bank, protected holdout, cross-domain promotion
 gate, or external review \\
 \end{longtable}
+}
 
 The result is not that nothing was learned. It is that the strongest
 surviving findings concern the serving configuration and the evaluator,
 not a successful trained model.
 
-\hypertarget{5-discussion}{%
-\subsection{5. Discussion}\label{5-discussion}}
+\subsection{5. Discussion}\label{5-discussion}
 
-\hypertarget{51-the-cheapest-adequate-control-should-precede-weight-updates}{%
 \subsubsection{5.1 The cheapest adequate control should precede weight
-updates}\label{51-the-cheapest-adequate-control-should-precede-weight-updates}}
+updates}\label{51-the-cheapest-adequate-control-should-precede-weight-updates}
 
 P-BREVE began with a weight-level intervention because the target
 behaviour appeared to require task-conditional reasoning allocation. The
@@ -1500,10 +1501,9 @@ rule-based or learned controller captures most of the gain without
 retraining each model family, it is likely to be easier to validate,
 deploy, and transfer.
 
-\hypertarget{52-runtime-success-is-a-workflow-signal-not-a-correctness-certificate}{%
 \subsubsection{5.2 Runtime success is a workflow signal, not a
 correctness
-certificate}\label{52-runtime-success-is-a-workflow-signal-not-a-correctness-certificate}}
+certificate}\label{52-runtime-success-is-a-workflow-signal-not-a-correctness-certificate}
 
 The replacement bank's runtime channel accepted 47.8\% of broad
 shortcuts. This is not surprising and is not necessarily a defect in
@@ -1534,10 +1534,9 @@ workflow can improve a public metric by exploiting data leakage. In each
 case, a useful local signal becomes dangerous when promoted into final
 authority.
 
-\hypertarget{53-coverage-should-be-measured-by-killed-alternatives-not-category-labels}{%
 \subsubsection{5.3 Coverage should be measured by killed alternatives,
 not category
-labels}\label{53-coverage-should-be-measured-by-killed-alternatives-not-category-labels}}
+labels}\label{53-coverage-should-be-measured-by-killed-alternatives-not-category-labels}
 
 Several failed certification sets contained many examples of the right
 apparent category. They included empty inputs, ties, boundary-like
@@ -1559,10 +1558,9 @@ reference is not equivalent to wrongness. It must also change after
 repair, because a test suite built from one mutant family can overfit
 that family.
 
-\hypertarget{54-evaluator-qualification-is-part-of-the-experiment-not-post-hoc-hygiene}{%
 \subsubsection{5.4 Evaluator qualification is part of the experiment,
 not post hoc
-hygiene}\label{54-evaluator-qualification-is-part-of-the-experiment-not-post-hoc-hygiene}}
+hygiene}\label{54-evaluator-qualification-is-part-of-the-experiment-not-post-hoc-hygiene}
 
 The original bank was evaluated after training. That order was
 backwards. The study spent substantial compute and produced detailed
@@ -1598,10 +1596,9 @@ its own failure budget and stop condition. A model experiment should not
 be allowed to repair its evaluator indefinitely after observing which
 tasks or metrics favor the intervention.
 
-\hypertarget{55-a-negative-intervention-result-can-still-advance-the-research-program}{%
 \subsubsection{5.5 A negative intervention result can still advance the
 research
-program}\label{55-a-negative-intervention-result-can-still-advance-the-research-program}}
+program}\label{55-a-negative-intervention-result-can-still-advance-the-research-program}
 
 The configured recipe failed, the stronger adapter was retired, and no
 release candidate emerged. Those facts do not make the work
@@ -1635,9 +1632,8 @@ contradicted claim should not disappear from the ledger. A report should
 distinguish a result that failed from a number that became
 uninterpretable because its instrument failed.
 
-\hypertarget{56-the-durable-research-direction-is-verified-adaptive-reasoning}{%
 \subsubsection{5.6 The durable research direction is verified adaptive
-reasoning}\label{56-the-durable-research-direction-is-verified-adaptive-reasoning}}
+reasoning}\label{56-the-durable-research-direction-is-verified-adaptive-reasoning}
 
 The model checkpoint is the least valuable artifact of this lineage. The
 stronger direction is a system that allocates reasoning based on task
@@ -1665,12 +1661,10 @@ quality. The result nevertheless narrows the next experiment. Stronger
 DPO on the same data and serving default is not the priority. Qualifying
 the evaluator and establishing a controller baseline are.
 
-\hypertarget{6-limitations}{%
-\subsection{6. Limitations}\label{6-limitations}}
+\subsection{6. Limitations}\label{6-limitations}
 
-\hypertarget{61-development-evidence-not-confirmation}{%
 \subsubsection{6.1 Development evidence, not
-confirmation}\label{61-development-evidence-not-confirmation}}
+confirmation}\label{61-development-evidence-not-confirmation}
 
 The report is based on internal development data and internally operated
 infrastructure. No external laboratory reproduced the training or
@@ -1680,9 +1674,8 @@ original model results were visible. They support the diagnosis of the
 instruments used; they do not turn the model experiment into a
 pre-registered confirmatory study.
 
-\hypertarget{62-one-model-lineage-and-one-narrow-intervention-family}{%
 \subsubsection{6.2 One model lineage and one narrow intervention
-family}\label{62-one-model-lineage-and-one-narrow-intervention-family}}
+family}\label{62-one-model-lineage-and-one-narrow-intervention-family}
 
 The model evidence concerns one exact Qwen3.8-27B revision, one LoRA
 target scope, one small SFT stage, one accepted DPO corpus, and a
@@ -1696,9 +1689,8 @@ enough to stop repeating the same recipe without a changed hypothesis.
 It is not evidence that preference optimization cannot improve reasoning
 efficiency in general.
 
-\hypertarget{63-the-original-correctness-evaluator-was-invalid}{%
 \subsubsection{6.3 The original correctness evaluator was
-invalid}\label{63-the-original-correctness-evaluator-was-invalid}}
+invalid}\label{63-the-original-correctness-evaluator-was-invalid}
 
 This is the report's central limitation and one of its main findings.
 Any original semantic-success, strict-correctness, policy-ranking, or
@@ -1713,9 +1705,8 @@ matched tasks do not make relative correctness safe when policies differ
 in their propensity to emit shortcuts, alternate forms, or edge-case
 errors.
 
-\hypertarget{64-the-serving-control-screen-was-small-and-clustered}{%
 \subsubsection{6.4 The serving-control screen was small and
-clustered}\label{64-the-serving-control-screen-was-small-and-clustered}}
+clustered}\label{64-the-serving-control-screen-was-small-and-clustered}
 
 The code-stratum serving comparison contained 20 episodes from ten
 nominal tasks and two decoding seeds. Observing 0 of 20 cap hits at
@@ -1729,9 +1720,8 @@ candidate because it exposes a dominant uncontrolled serving factor. It
 does not prove that the adapter and base are behaviourally equivalent
 under every task or metric.
 
-\hypertarget{65-the-banks-were-enriched-and-cannot-estimate-product-prevalence}{%
 \subsubsection{6.5 The banks were enriched and cannot estimate product
-prevalence}\label{65-the-banks-were-enriched-and-cannot-estimate-product-prevalence}}
+prevalence}\label{65-the-banks-were-enriched-and-cannot-estimate-product-prevalence}
 
 Tasks were selected to expose reasoning-efficiency, cap-exhaustion,
 discrimination, and verification phenomena. Such a bank is useful for
@@ -1744,9 +1734,8 @@ rate was approximately 6\% within that selected wave. Neither number
 estimates product incidence. A product-impact claim requires a
 separately sampled, product-weighted bank.
 
-\hypertarget{66-safety-and-broad-capability-were-not-measured-adequately}{%
 \subsubsection{6.6 Safety and broad capability were not measured
-adequately}\label{66-safety-and-broad-capability-were-not-measured-adequately}}
+adequately}\label{66-safety-and-broad-capability-were-not-measured-adequately}
 
 The replacement bank was executable code. It could measure code delivery
 under its qualified portions and nothing broader. It did not measure
@@ -1764,9 +1753,8 @@ The agentic harness leak additionally made pre-scrub safety comparisons
 unclean. Model behaviour after seeing a hidden assertion cannot be
 treated as behaviour under a protected evaluator.
 
-\hypertarget{67-cap-exhaustion-does-not-identify-the-internal-mechanism}{%
 \subsubsection{6.7 Cap exhaustion does not identify the internal
-mechanism}\label{67-cap-exhaustion-does-not-identify-the-internal-mechanism}}
+mechanism}\label{67-cap-exhaustion-does-not-identify-the-internal-mechanism}
 
 A cap-exhausted episode proves that the model spent the available
 generation budget and failed to deliver a final answer. It does not
@@ -1779,9 +1767,8 @@ The report therefore uses operational language---budget exhaustion,
 non-delivery, and termination---not a mechanistic claim about what the
 model internally knew.
 
-\hypertarget{68-mutation-populations-were-incomplete-by-construction}{%
 \subsubsection{6.8 Mutation populations were incomplete by
-construction}\label{68-mutation-populations-were-incomplete-by-construction}}
+construction}\label{68-mutation-populations-were-incomplete-by-construction}
 
 Human-designed shortcuts, witness-driven near misses, and first-order
 AST mutations found different defects. None is exhaustive. AST mutation
@@ -1795,9 +1782,8 @@ strongest implication is qualitative: the bank failed a necessary
 qualification test. They are not estimates of how frequently arbitrary
 wrong programs would pass.
 
-\hypertarget{69-some-calibration-outputs-could-not-be-reconstructed-fully}{%
 \subsubsection{6.9 Some calibration outputs could not be reconstructed
-fully}\label{69-some-calibration-outputs-could-not-be-reconstructed-fully}}
+fully}\label{69-some-calibration-outputs-could-not-be-reconstructed-fully}
 
 An early record format persisted a completion hash without retaining the
 completion itself. As a result, some task identities for invalid
@@ -1812,9 +1798,8 @@ The final evidence map should identify every figure derived from
 complete retained outputs and every figure based on aggregate reports
 only.
 
-\hypertarget{610-agent-assisted-research-is-not-independent-validation}{%
 \subsubsection{6.10 Agent-assisted research is not independent
-validation}\label{610-agent-assisted-research-is-not-independent-validation}}
+validation}\label{610-agent-assisted-research-is-not-independent-validation}
 
 AI systems contributed substantially to implementation, adversarial
 review, mutation generation, documentation, and analysis. Multiple model
@@ -1827,13 +1812,11 @@ human author remains responsible for the protocol, claim boundaries,
 corrections, and publication decision. An AI-generated review cannot be
 cited as external peer review simply because it used a different model.
 
-\hypertarget{7-recommendations-and-successor-work}{%
 \subsection{7. Recommendations and Successor
-Work}\label{7-recommendations-and-successor-work}}
+Work}\label{7-recommendations-and-successor-work}
 
-\hypertarget{71-close-the-model-intervention-and-separate-evaluator-work}{%
 \subsubsection{7.1 Close the model intervention and separate evaluator
-work}\label{71-close-the-model-intervention-and-separate-evaluator-work}}
+work}\label{71-close-the-model-intervention-and-separate-evaluator-work}
 
 P-BREVE-01-R2 should close as a documented negative post-training result
 with a linked evaluator-failure study. Continuing to repair the code
@@ -1859,10 +1842,9 @@ identifier, charter, budget, and claims ledger.
 identifier is already reserved for a future locked-recipe reproduction
 on a Western 24--32B base.
 
-\hypertarget{72-freeze-a-report-cutoff-rather-than-waiting-for-a-perfect-evaluator}{%
 \subsubsection{7.2 Freeze a report cutoff rather than waiting for a
 perfect
-evaluator}\label{72-freeze-a-report-cutoff-rather-than-waiting-for-a-perfect-evaluator}}
+evaluator}\label{72-freeze-a-report-cutoff-rather-than-waiting-for-a-perfect-evaluator}
 
 The report should bind to one repository commit and one evidence cutoff.
 Findings after that point should enter an erratum only if they
@@ -1874,9 +1856,8 @@ requirement. It is a recipe for a paper that never closes. The report's
 conclusion is partly that no qualified replacement instrument existed at
 cutoff.
 
-\hypertarget{73-adopt-vinci-eval-integrity-01-before-model-outcomes}{%
 \subsubsection{7.3 Adopt Vinci Eval Integrity 0.1 before model
-outcomes}\label{73-adopt-vinci-eval-integrity-01-before-model-outcomes}}
+outcomes}\label{73-adopt-vinci-eval-integrity-01-before-model-outcomes}
 
 The reusable output of the evaluator work is \textbf{Vinci Eval
 Integrity 0.1}, a seven-check admission record for executable
@@ -1944,9 +1925,8 @@ status, evidence digest, and explicit failure condition. Passing seven
 prose assertions is not passing the standard. Neither P-BREVE bank
 cleared all seven checks at the proposed report cutoff.
 
-\hypertarget{74-make-mutation-qualification-bidirectional}{%
 \subsubsection{7.4 Make mutation qualification
-bidirectional}\label{74-make-mutation-qualification-bidirectional}}
+bidirectional}\label{74-make-mutation-qualification-bidirectional}
 
 A verifier must reject wrong programs and accept legitimate
 alternatives. A test suite that kills every mutant by rejecting common
@@ -1979,9 +1959,8 @@ Repair authors must not generate the only population that validates
 their repair. At least one post-repair population should be produced
 through an independent construction method.
 
-\hypertarget{75-compare-controllers-before-retraining}{%
 \subsubsection{7.5 Compare controllers before
-retraining}\label{75-compare-controllers-before-retraining}}
+retraining}\label{75-compare-controllers-before-retraining}
 
 The next model experiment should begin with a serving-policy baseline. A
 simple controller can use task features, confidence, tool state, elapsed
@@ -2008,9 +1987,8 @@ value beyond a controller. A controller that reduces cost without
 per-lineage retraining has a more favorable transfer and deployment
 profile.
 
-\hypertarget{76-separate-mechanism-and-product-banks}{%
 \subsubsection{7.6 Separate mechanism and product
-banks}\label{76-separate-mechanism-and-product-banks}}
+banks}\label{76-separate-mechanism-and-product-banks}
 
 A mechanism bank should be enriched for effort-responsive, cap-stress,
 and verifier-challenging cases. A product bank should be sampled from
@@ -2021,9 +1999,8 @@ product bank estimates user impact. A large effect on selected
 cap-stress tasks can justify continued mechanism research and still have
 negligible product prevalence.
 
-\hypertarget{77-add-cross-domain-promotion-gates}{%
 \subsubsection{7.7 Add cross-domain promotion
-gates}\label{77-add-cross-domain-promotion-gates}}
+gates}\label{77-add-cross-domain-promotion-gates}
 
 No future P-BREVE checkpoint should become a product or release
 candidate on code efficiency alone. Promotion should require separately
@@ -2050,10 +2027,9 @@ frozen checks for:
 The code mechanism bank can support a narrow research claim. It cannot
 certify broad capability preservation or safety.
 
-\hypertarget{78-run-p-breve-02-only-after-the-instrument-and-comparator-are-fixed}{%
 \subsubsection{7.8 Run P-BREVE-02 only after the instrument and
 comparator are
-fixed}\label{78-run-p-breve-02-only-after-the-instrument-and-comparator-are-fixed}}
+fixed}\label{78-run-p-breve-02-only-after-the-instrument-and-comparator-are-fixed}
 
 The reserved Western-base replication can be valuable, but only after
 three preconditions are met:
@@ -2075,9 +2051,8 @@ P-BREVE-02 should test transfer of a frozen method, not become another
 recovery loop that changes data, dose, comparator, and evaluator after
 each result.
 
-\hypertarget{79-publish-the-negative-and-corrective-artifacts}{%
 \subsubsection{7.9 Publish the negative and corrective
-artifacts}\label{79-publish-the-negative-and-corrective-artifacts}}
+artifacts}\label{79-publish-the-negative-and-corrective-artifacts}
 
 Subject to licensing, privacy, and protection constraints, the public
 package should include:
@@ -2112,43 +2087,51 @@ Releasing the audit tooling and negative evidence is more scientifically
 useful than distributing a checkpoint whose claimed benefit was not
 established.
 
-\hypertarget{8-reproducibility-and-evidence-availability}{%
 \subsection{8. Reproducibility and Evidence
-Availability}\label{8-reproducibility-and-evidence-availability}}
+Availability}\label{8-reproducibility-and-evidence-availability}
 
-\hypertarget{81-source-identity}{%
-\subsubsection{8.1 Source identity}\label{81-source-identity}}
-
-The publication package must replace the placeholder below with a full
-commit SHA after the manuscript, evidence manifest, and claim table are
-frozen.
+\subsubsection{8.1 Source identity}\label{81-source-identity}
 
 \begin{itemize}
 \tightlist
 \item
   Research repository: \texttt{getsimpledirect/vinci-gpu-research}
+  (private)
 \item
   Program directory: \texttt{p-breve-01-r2/}
 \item
   Technical-report repository:
-  \texttt{getsimpledirect/vinci-technical-reports}
+  \texttt{getsimpledirect/vinci-technical-reports} (public)
 \item
-  Publication source commit: \textbf{{[}TO BE FROZEN{]}}
+  Report evidence cutoff:
+  \texttt{7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d}
 \item
-  Report evidence cutoff: \textbf{{[}TO BE RULED{]}}
+  Published v1.0 source commit:
+  \texttt{128dea8b4013cdb3398c98edab5dc930e24c51d2}, recorded by tag
+  \texttt{tr3-v1.0.0}
 \item
-  PDF and source digests: \textbf{{[}TO BE GENERATED AFTER CONTENT
-  APPROVAL{]}}
+  Artifact digests: recorded in \texttt{CHECKSUMS.sha256} at the package
+  root
 \end{itemize}
 
-\hypertarget{82-recomputable-analyses}{%
+Per-artifact evidence bindings, including the blob SHA of each
+underlying record, are listed in \texttt{data/evidence\_bindings.json}.
+The bound records reside in the private research repository; the commit
+and blob SHAs identify them exactly and are verifiable by anyone granted
+access to that repository.
+
 \subsubsection{8.2 Recomputable
-analyses}\label{82-recomputable-analyses}}
+analyses}\label{82-recomputable-analyses}
 
-The core evaluator analyses are represented by committed scripts and
-content-addressed outputs. The final release manifest should bind at
-least the following:
+The core evaluator analyses were run from the following private
+implementations. Their evidence identities are fixed in
+\texttt{data/evidence\_bindings.json}; the public aggregate values and
+derivations distributed with this report are fixed in
+\texttt{data/evaluator\_metrics.json},
+\texttt{data/headline\_metrics.json}, and
+\texttt{data/serving\_control.json}.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.34\linewidth}p{0.28\linewidth}p{0.32\linewidth}@{}}
 \toprule\noalign{}
 Analysis & Primary implementation & Required public output \\
@@ -2176,16 +2159,18 @@ identity \\
 Claims reconciliation & \texttt{claims.jsonl} plus registry validator &
 complete tier history and supersession map \\
 \end{longtable}
+}
 
 The original verifier audit was run with explicit zero-tolerance
 thresholds rather than hidden defaults. The batch-2 qualification
-similarly recorded the exact frozen authority hashes on every run.
-Publication scripts should refuse to render if a cited evidence digest
-is missing or if a table value differs from its machine-readable source.
+similarly recorded the exact frozen authority hashes on every run. For
+this repository-forward candidate, the package inventory binds the
+distributed evidence records and rendered surfaces by SHA-256; the
+private-record commit and blob identities remain independently listed in
+\texttt{data/evidence\_bindings.json}.
 
-\hypertarget{83-protected-and-unavailable-materials}{%
 \subsubsection{8.3 Protected and unavailable
-materials}\label{83-protected-and-unavailable-materials}}
+materials}\label{83-protected-and-unavailable-materials}
 
 Not every artifact can or should be public.
 
@@ -2215,12 +2200,14 @@ replication on a fresh protected bank}. The former may be possible from
 released summaries and probes. The latter was not completed in this
 study.
 
-\hypertarget{84-recommended-publication-manifest}{%
-\subsubsection{8.4 Recommended publication
-manifest}\label{84-recommended-publication-manifest}}
+\subsubsection{8.4 Publication manifest
+standard}\label{84-publication-manifest-standard}
 
-The final report package should contain one machine-readable manifest
-with:
+At report cutoff, the program adopted the following archival-manifest
+standard. The public package records its distributed-file inventory in
+\texttt{MANIFEST.json} and \texttt{CHECKSUMS.sha256}; restricted
+research identities remain in the evidence register described in Section
+8.1.
 
 \begin{itemize}
 \tightlist
@@ -2258,8 +2245,7 @@ Hash values without their algorithms are insufficient. This program
 produced a false checkpoint-mutation alarm by comparing two valid but
 algorithmically different tree digests over the same bytes.
 
-\hypertarget{9-conclusion}{%
-\subsection{9. Conclusion}\label{9-conclusion}}
+\subsection{9. Conclusion}\label{9-conclusion}
 
 P-BREVE-01-R2 did not produce a successful reasoning-efficiency model.
 The configured one-epoch SFT-to-DPO recipe missed its reasoning and
@@ -2298,10 +2284,10 @@ censoring-aware endpoints, and strict separation between runtime
 feedback and certification authority.
 
 No model, evaluator bank, or product claim from P-BREVE-01-R2 is
-recommended for release. The report itself is the release candidate.
+recommended for release. The report was selected as the
+program\textquotesingle s sole public release artifact.
 
-\hypertarget{author-contributions}{%
-\subsection{Author Contributions}\label{author-contributions}}
+\subsection{Author Contributions}\label{author-contributions}
 
 George Pu is the sole scholarly author.
 
@@ -2315,9 +2301,8 @@ protocol decisions, interpretation, corrections, and publication claims.
 AI-system assistance and non-author contributions are disclosed below
 and do not constitute scholarly authorship.
 
-\hypertarget{competing-interests-funding-and-ai-assistance}{%
 \subsection{Competing Interests, Funding, and AI
-Assistance}\label{competing-interests-funding-and-ai-assistance}}
+Assistance}\label{competing-interests-funding-and-ai-assistance}
 
 George Pu is the founder of SimpleDirect / Vinci Research, which
 designed and operated P-BREVE. The study evaluated internally developed
@@ -2325,13 +2310,11 @@ training and evaluation infrastructure and could affect Vinci's research
 positioning. No model checkpoint from the study is being marketed or
 recommended for deployment.
 
-The study used company-controlled compute. \textbf{{[}FUNDING DISCLOSURE
-REQUIRED: state whether any GPU costs were reimbursed or expected to be
-reimbursed under the Government of Canada AI Compute Access Fund or
-another program; include award or agreement identifiers and the funder's
-role, if any. State explicitly that the funder had no role in study
-design, analysis, interpretation, or publication decision unless that is
-not true.{]}}
+The study used company-controlled compute, funded by SimpleDirect.
+
+No external funding was received for the work reported here, and no
+funder had any role in study design, analysis, interpretation, or the
+decision to publish.
 
 No external peer review or independent external audit was performed for
 the report cutoff.
@@ -2339,16 +2322,14 @@ the report cutoff.
 AI systems from OpenAI and Anthropic assisted with software
 implementation, research planning, data and artifact checks, adversarial
 review, mutation generation, analysis packaging, documentation,
-consistency review, and manuscript drafting. Other model providers
-should be added if their systems made material contributions.
-AI-generated outputs were treated as proposals or evidence-processing
-assistance, not as scholarly authorship or independent validation. The
-human author remains responsible for protocol decisions, factual
-verification, corrections, interpretation, and publication claims.
+consistency review, and manuscript drafting. AI-generated outputs were
+treated as proposals or evidence-processing assistance, not as scholarly
+authorship or independent validation. The human author remains
+responsible for protocol decisions, factual verification, corrections,
+interpretation, and publication claims.
 
-\hypertarget{ethics-and-safety-statement}{%
 \subsection{Ethics and Safety
-Statement}\label{ethics-and-safety-statement}}
+Statement}\label{ethics-and-safety-statement}
 
 The study involved no human subjects and did not collect personal data
 for the reported analyses. It evaluated open-weight language-model
@@ -2362,8 +2343,7 @@ correctness evaluators in a controlled code sandbox. They are ordinary
 task-specific shortcuts, not malware, and the report omits
 infrastructure credentials and private operational details.
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 {[}1{]} Qwen Team. ``Qwen3.8.'' Official model release and model
 documentation, August 2026. Model identifier used in this study:
@@ -2415,24 +2395,27 @@ Development of Mutation Testing.'' \emph{IEEE Transactions on Software
 Engineering} 37, no. 5 (2011): 649--678.
 \url{https://doi.org/10.1109/TSE.2010.62}.
 
-\hypertarget{appendix-a-claim-to-evidence-boundary}{%
 \subsection{Appendix A. Claim-to-Evidence
-Boundary}\label{appendix-a-claim-to-evidence-boundary}}
+Boundary}\label{appendix-a-claim-to-evidence-boundary}
 
-\includegraphics{figures/figure6_vinci_eval_integrity.png}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 6. Vinci Eval Integrity 0.1. Seven checks convert the study's evaluator failures into a reusable admission record.}]{figures/figure6_vinci_eval_integrity.png}}
 
-This appendix is intended to become machine-checked before publication.
-The ``public sentence'' column is deliberately narrower than the
-underlying internal record.
+This appendix is the final human-readable claim-to-evidence boundary for
+the v1.0 analysis. The ``public sentence'' column is deliberately
+narrower than the underlying internal record, and the distributed claim
+dispositions are machine-readable in
+\texttt{data/claim\_dispositions.json}.
 
-\hypertarget{a1-derived-quantity-register}{%
 \subsubsection{A.1 Derived-quantity
-register}\label{a1-derived-quantity-register}}
+register}\label{a1-derived-quantity-register}
 
 A source hash proves which bytes were read; it does not by itself define
 how adjacent fields were assembled into a report-level ratio or union.
-The final manifest should encode the following derivations directly.
+The package records the following derivations directly in
+\texttt{data/evaluator\_metrics.json}; this table is their report
+rendering.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.28\linewidth}p{0.25\linewidth}p{0.21\linewidth}p{0.20\linewidth}@{}}
 \toprule\noalign{}
 Report rendering & Source fields & Deterministic derivation & Required
@@ -2464,14 +2447,15 @@ identified witness tasks \texttt{=\ 7}; newly adjudicated tasks outside
 that set \texttt{=\ 14} & \texttt{(7\ +\ 14)\ ÷\ 40} & \textbf{known
 flaw under at least one method; lower bound} \\
 \end{longtable}
+}
 
 The two \texttt{21/40} renderings have opposite polarity and must never
 be cited without their qualifier.
 
-\hypertarget{a2-public-claim-boundary}{%
 \subsubsection{A.2 Public claim
-boundary}\label{a2-public-claim-boundary}}
+boundary}\label{a2-public-claim-boundary}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.28\linewidth}p{0.25\linewidth}p{0.21\linewidth}p{0.20\linewidth}@{}}
 \toprule\noalign{}
 Public sentence & Evidence class & Supporting artifact family &
@@ -2528,11 +2512,12 @@ No checkpoint is recommended for release & Program disposition &
 roadmap, status, claims registry & ``The base model is unsafe'' or ``the
 method can never work'' \\
 \end{longtable}
+}
 
-\hypertarget{appendix-b-correction-and-withdrawal-timeline}{%
 \subsection{Appendix B. Correction and Withdrawal
-Timeline}\label{appendix-b-correction-and-withdrawal-timeline}}
+Timeline}\label{appendix-b-correction-and-withdrawal-timeline}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.34\linewidth}p{0.28\linewidth}p{0.32\linewidth}@{}}
 \toprule\noalign{}
 Date, 2026 & Event & Claim consequence \\
@@ -2570,15 +2555,17 @@ claim restored \\
 Report cutoff & Model intervention closed; evaluator work separated & No
 model, bank, or release candidate \\
 \end{longtable}
+}
 
-The final version should replace approximate day-level entries with
-exact commits and artifact hashes generated mechanically from the
-repository history.
+This chronology intentionally remains day-level context rather than a
+commit ledger. Exact identities for the report source, evidence cutoff,
+underlying evidence blobs, and distributed artifacts are recorded in
+Section 8.1, \texttt{data/evidence\_bindings.json},
+\texttt{MANIFEST.json}, and \texttt{CHECKSUMS.sha256}.
 
-\hypertarget{appendix-c-vinci-eval-integrity-01--seven-check-admission-record}{%
 \subsection{Appendix C. Vinci Eval Integrity 0.1 --- Seven-Check
 Admission
-Record}\label{appendix-c-vinci-eval-integrity-01--seven-check-admission-record}}
+Record}\label{appendix-c-vinci-eval-integrity-01--seven-check-admission-record}
 
 Vinci Eval Integrity 0.1 packages the program's evaluator lessons into a
 reusable admission record. Each row must carry \texttt{status},
@@ -2587,6 +2574,7 @@ and \texttt{last\_verified}. The standard is conjunctive: one failed or
 unverified row prevents a bank from being called qualified for
 model-selection, optimization, release, or product claims.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}p{0.28\linewidth}p{0.25\linewidth}p{0.21\linewidth}p{0.20\linewidth}@{}}
 \toprule\noalign{}
 ID & Check & Minimum sealed evidence & Fail condition \\
@@ -2631,22 +2619,22 @@ method and origin & Power is inferred from a component formula, seeds
 are counted as tasks, or the repair population validates its own
 patch \\
 \end{longtable}
+}
 
 The detailed implementation checklist may evolve under later versions,
 but these seven checks should remain separately reportable. Combining
 them into a single ``evaluation passed'' flag would recreate the
 compression error this report documents.
 
-\hypertarget{appendix-d-proposed-figures-and-tables}{%
 \subsection{Appendix D. Proposed Figures and
-Tables}\label{appendix-d-proposed-figures-and-tables}}
+Tables}\label{appendix-d-proposed-figures-and-tables}
 
-The content draft intentionally uses placeholders instead of generating
-visuals before the claim surface is approved.
+This appendix records the specification for each figure and table. The
+six figures specified here were generated from the frozen result set by
+\texttt{source/build\_figures.py} and appear in the body of this report.
 
-\hypertarget{figure-1--study-lineage-and-claim-disposition}{%
 \subsubsection{Figure 1 --- Study lineage and claim
-disposition}\label{figure-1--study-lineage-and-claim-disposition}}
+disposition}\label{figure-1--study-lineage-and-claim-disposition}
 
 A left-to-right state diagram:
 
@@ -2660,9 +2648,8 @@ A left-to-right state diagram:
 Show \texttt{P-BREVE-02} as a separate reserved future branch, not the
 endpoint of R2.
 
-\hypertarget{figure-2--experimental-and-audit-design}{%
 \subsubsection{Figure 2 --- Experimental and audit
-design}\label{figure-2--experimental-and-audit-design}}
+design}\label{figure-2--experimental-and-audit-design}
 
 Two layers:
 
@@ -2676,9 +2663,8 @@ Two layers:
   near-miss probes, valid alternatives, and blind mutations.
 \end{itemize}
 
-\hypertarget{figure-3--serving-control-on-executable-code}{%
 \subsubsection{Figure 3 --- Serving control on executable
-code}\label{figure-3--serving-control-on-executable-code}}
+code}\label{figure-3--serving-control-on-executable-code}
 
 Use two separate panels or figures rather than dual axes:
 
@@ -2693,9 +2679,8 @@ Use two separate panels or figures rather than dual axes:
 Display confidence intervals or the observed denominators. Do not plot
 0/20 as an exact zero without uncertainty.
 
-\hypertarget{figure-4--verifier-qualification-funnel}{%
 \subsubsection{Figure 4 --- Verifier qualification
-funnel}\label{figure-4--verifier-qualification-funnel}}
+funnel}\label{figure-4--verifier-qualification-funnel}
 
 Show:
 
@@ -2711,7 +2696,7 @@ Show:
 \item
   blind protected audit: 52/1,862 mutants accepted across 19/40 AST-leak
   tasks, derived from adjacent protected-bank cells in
-  \texttt{p-breve-01-r2/docs/BLIND-ADVERSARIAL-POPULATION.md};
+  \path{p-breve-01-r2/docs/BLIND-ADVERSARIAL-POPULATION.md};
 \item
   cross-method known-flaw union: seven previously identified tasks plus
   fourteen newly adjudicated outside that set, yielding at least 21/40;
@@ -2721,9 +2706,8 @@ Show:
   polarity.
 \end{itemize}
 
-\hypertarget{figure-5--final-claim-boundary}{%
 \subsubsection{Figure 5 --- Final claim
-boundary}\label{figure-5--final-claim-boundary}}
+boundary}\label{figure-5--final-claim-boundary}
 
 Three columns:
 
@@ -2740,82 +2724,21 @@ Three columns:
   overthinking mechanism, cross-lineage transfer.
 \end{itemize}
 
-\hypertarget{appendix-e-pre-publication-gate}{%
-\subsection{Appendix E. Pre-Publication
-Gate}\label{appendix-e-pre-publication-gate}}
+\subsection{Appendix E. Release
+preconditions}\label{appendix-e-release-preconditions}
 
-The report should not receive a DOI until every item below is closed.
+\textbf{Closed before release.} Artifact digests are recorded in
+\texttt{CHECKSUMS.sha256}; every \texttt{21/40} quantity is qualified as
+either AST-no-leak or cross-method known-flaw union; competing interests
+and funding are disclosed.
 
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  Report number and title ruled.
-\item[$\square$]
-  Program closure and evidence cutoff ruled.
-\item[$\square$]
-  Exact source commit frozen.
-\item[$\square$]
-  Sole author recorded consistently as George Pu in front matter, title
-  block, contribution statement, DOI metadata, and artifact manifest.
-\item[$\square$]
-  Sole-author CRediT statement approved by George Pu after the final
-  source exists.
-\item[$\square$]
-  Funding and compute-reimbursement disclosures complete.
-\item[$\square$]
-  Every numerical table generated from machine-readable evidence.
-\item[$\square$]
-  Every signed metric rendered from a canonical definition containing
-  formula, comparator, unit, positive direction, and zero
-  interpretation.
-\item[$\square$]
-  The one-epoch −10.9\% and two-epoch +10.9\% seed-1729 values are
-  arm-labeled everywhere, including the abstract and DOI metadata.
-\item[$\square$]
-  Claim \texttt{pbr2.g4.full-recipe-insufficient.015} is present in the
-  frozen claims-registry snapshot and bound to the final decision
-  packet.
-\item[$\square$]
-  The 154/322, 7/157, and 52/1,862 renderings each bind the exact
-  numerator field, denominator field, derivation formula, source path,
-  commit, and blob hash.
-\item[$\square$]
-  Every \texttt{21/40} occurrence is labeled as either AST-no-leak or
-  cross-method known-flaw union; no unqualified \texttt{21/40} remains.
-\item[$\square$]
-  Every withdrawn or suspended number searched across the manuscript and
-  appendices.
-\item[$\square$]
-  No correctness figure from the condemned bank appears without a
-  historical warning.
-\item[$\square$]
-  No 0/n observation described as a known zero population rate.
-\item[$\square$]
-  No nominal task count used without its family/cluster unit.
-\item[$\square$]
-  Reported confidence intervals reproduce from the frozen script and
-  seed.
-\item[$\square$]
-  Protected cases and private infrastructure details removed.
-\item[$\square$]
-  Public artifact manifest lists every omitted component and why.
-\item[$\square$]
-  Independent statistical review completed by a person or group not
-  responsible for the original analysis.
-\item[$\square$]
-  Independent verifier/code review completed against the production
-  path.
-\item[$\square$]
-  Hostile claim audit asks what each sentence would imply to a reader
-  who sees only the abstract.
-\item[$\square$]
-  Final Markdown, PDF, HTML, DOCX, figures, and manifest hashed.
-\item[$\square$]
-  George Pu approves the exact final source commit and artifact hashes
-  after generation.
-\item[$\square$]
-  DOI metadata matches the final title, sole-author identity, date,
-  version, abstract, and license.
-\end{itemize}
+\textbf{Not performed.} External review by a person or group not
+responsible for the original analysis, and independent verifier and code
+review against the production path, were not performed. This report is
+internal development evidence and is labelled as such throughout.
+
+The published v1.0 source commit is
+\texttt{128dea8b4013cdb3398c98edab5dc930e24c51d2} and its release tag is
+\texttt{tr3-v1.0.0}; both are also recorded in the release metadata.
 
 \end{document}

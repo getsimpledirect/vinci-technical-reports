@@ -1,6 +1,6 @@
 # arXiv Upload Checklist
 
-- [ ] Upload `Vinci_TR3_arXiv_v1.0_source.zip`.
+- [ ] Upload `Vinci_TR3_arXiv_v1.0.3_source.zip` only after a separate submission decision.
 - [ ] Confirm `main.tex` and `00README.json` are at archive root.
 - [ ] Use XeLaTeX; no shell escape is required.
 - [ ] Select CC BY 4.0.

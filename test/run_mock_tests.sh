@@ -19,6 +19,7 @@ cat > "$TMP/repo/reports/mockrep/release.conf" <<CONF
 REPORT_TITLE="Mock Report"
 REPORT_NUMBER="Mock"
 VERSION="1.0"
+REPORT_VERSION="1.0"
 PUB_DATE="2026-09-01"
 PDF_NAME="$PDF_NAME"
 ZIP_BASE="${ZIP_NAME%.zip}"
@@ -32,6 +33,9 @@ ZENODO_KEYWORDS='["mock"]'
 # Deliberately NOT TR2 wording. If the script still hardcodes TR2's scope
 # string, this suite goes red -- which is how the earlier false green was caught.
 ZENODO_SCOPE="Mock scope line: this bank is unqualified and nothing is released."
+ZENODO_CREATORS_JSON='[{"name":"Tester, Mock","affiliation":"Example"}]'
+ZENODO_DESCRIPTION_LEAD="Mock report description."
+ZENODO_AVAILABILITY_NOTE="Mock availability note."
 LICENSE_ID="cc-by-4.0"
 SCOPE_PROBE="this bank is unqualified"
 CONF
@@ -106,6 +110,7 @@ cat > "$TMP/repo/reports/mockrep/release.conf" <<CONF
 REPORT_TITLE="Mock Report"
 REPORT_NUMBER="Mock"
 VERSION="1.0"
+REPORT_VERSION="1.0"
 PUB_DATE="2026-09-01"
 PDF_NAME="$PDF_NAME"
 ZIP_BASE="${ZIP_NAME%.zip}"
@@ -119,6 +124,9 @@ ZENODO_KEYWORDS='["mock"]'
 # Deliberately NOT TR2 wording. If the script still hardcodes TR2's scope
 # string, this suite goes red -- which is how the earlier false green was caught.
 ZENODO_SCOPE="Mock scope line: this bank is unqualified and nothing is released."
+ZENODO_CREATORS_JSON='[{"name":"Tester, Mock","affiliation":"Example"}]'
+ZENODO_DESCRIPTION_LEAD="Mock report description."
+ZENODO_AVAILABILITY_NOTE="Mock availability note."
 LICENSE_ID="cc-by-4.0"
 SCOPE_PROBE="this bank is unqualified"
 CONF

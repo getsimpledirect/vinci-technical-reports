@@ -1,10 +1,10 @@
 # arXiv source
 
-Compile from this directory with:
+Generated from `source/report_body.md`. Compile with two XeLaTeX passes:
 
-```bash
+```sh
 xelatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex
 xelatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-The source is self-contained and requires no shell escape or external downloads.
+The archive is self-contained and requires no shell escape or external downloads.

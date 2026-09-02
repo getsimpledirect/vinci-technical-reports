@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "required_on_every_report_surface": [
+    "Unpublished corrected candidate — package revision 1.0.3",
+    "Runtime Pass Is Not Correctness",
+    "reasoning reduction versus base is signed so that positive values mean fewer tokens and negative values mean more tokens",
+    "154 of 322 broad shortcut probes",
+    "7 of 157 near-miss or partial programs",
+    "52 of 1,862",
+    "The study used company-controlled compute, funded by SimpleDirect",
+    "No external funding was received for the work reported here",
+    "No external peer review or independent external audit was performed for the report cutoff",
+    "Closed before release"
+  ],
+  "forbidden_on_any_report_or_source_surface": [
+    "This draft intentionally leaves that field unresolved",
+    "TO BE FROZEN",
+    "TO BE RULED",
+    "TO BE GENERATED",
+    "FUNDING DISCLOSURE REQUIRED",
+    "Other model providers should be added",
+    "intentionally uses placeholders",
+    "intended to become machine-checked before publication",
+    "should not receive a DOI until",
+    "The final publication manifest must rebind",
+    "The final release manifest should bind",
+    "Publication scripts should refuse to render",
+    "This appendix will be machine-checked in a successor version",
+    "The final manifest should encode the following derivations directly",
+    "The final version should replace approximate day-level entries"
+  ],
+  "known_historical_v1_pdf_divergence": [
+    {
+      "page": 20,
+      "marker": "The final publication manifest must rebind"
+    },
+    {
+      "page": 29,
+      "marker": "The final release manifest should bind"
+    },
+    {
+      "page": 29,
+      "marker": "Publication scripts should refuse to render"
+    },
+    {
+      "page": 38,
+      "marker": "This appendix will be machine-checked in a successor version"
+    },
+    {
+      "page": 38,
+      "marker": "The final manifest should encode the following derivations directly"
+    },
+    {
+      "page": 40,
+      "marker": "The final version should replace approximate day-level entries"
+    }
+  ],
+  "figure_count": 6,
+  "historical_v1_pdf_pages": 43
+}
