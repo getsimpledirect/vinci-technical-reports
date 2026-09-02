@@ -68,8 +68,13 @@ conf '"vinci-gpu-research"' 1; OUT="$(run "$FIXTURE")"
 grep -q 'forbidden target matching "vinci-gpu-research"' <<<"$OUT" \
   && say PASS "negative: forbidden link target rejected" "gate fired" \
   || say FAIL "negative: forbidden link target rejected" "$(head -3 <<<"$OUT"|tr '\n' ' ')"
-[ "$(grep -c 'FAIL' <<<"$OUT")" = 1 ] && grep -q "free of private-use code points" <<<"$OUT" \
-  && say PASS "negative: earlier gates passed; URI gate is the refusal" "one FAIL line" \
+# The ONE FAIL line must be the URI gate's own message. Counting FAIL lines is
+# not enough: with the URI gate deleted, the font gate supplies a single FAIL
+# and a count-only check reads "URI gate is the refusal" for a script that has
+# no URI gate (review R13, finding N2).
+URI_FAIL='  FAIL: PDF links to a forbidden target matching "vinci-gpu-research"'
+[ "$(grep 'FAIL' <<<"$OUT")" = "$URI_FAIL" ] && grep -q "free of private-use code points" <<<"$OUT" \
+  && say PASS "negative: earlier gates passed; URI gate is the refusal" "the one FAIL line is the URI-gate message" \
   || say FAIL "negative: earlier gates passed; URI gate is the refusal" "$(grep FAIL <<<"$OUT"|tr '\n' ' ')"
 
 # POSITIVE REACHABILITY: same PDF, same path, a pattern it does not contain.
