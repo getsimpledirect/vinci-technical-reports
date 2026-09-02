@@ -14,7 +14,8 @@
 
 ## Files and QA
 
-- [x] PDF, DOCX, HTML, and Markdown generated.
+- [x] Corrected unpublished candidate PDF, DOCX, HTML, and Markdown generated from one source.
+- [x] Historical v1.0 PDF hash is frozen and its residual pre-finalization language is disclosed; it is not certified as corrected.
 - [x] Six figures generated in PNG, SVG, and PDF.
 - [x] PDF text and release-marker checks completed.
 - [x] PDF pages rendered to a contact sheet.
@@ -33,7 +34,7 @@ Repository-forward package revision 1.0.3 corrects source/build consistency. It 
 
 ## Optional arXiv submission (not performed)
 
-- [ ] Decide whether to submit `arxiv/Vinci_TR3_arXiv_v1.0.3_source.zip` to arXiv with `cs.CL` primary and `cs.LG` cross-list.
+- [ ] Decide whether to submit `arxiv/Vinci_TR3_arXiv_v1.0.3_candidate_source.zip` to arXiv with `cs.CL` primary and `cs.LG` cross-list.
 - [ ] Obtain a `cs.CL` endorsement if arXiv requests one; use `release/ARXIV_ENDORSEMENT_REQUEST.txt`.
 - [ ] Inspect the arXiv-generated preview page by page before submission.
 - [ ] Add an arXiv identifier to GitHub, Zenodo, and the research page only after a successful submission; do not rebuild the report merely to print it.

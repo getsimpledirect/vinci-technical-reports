@@ -2,16 +2,16 @@
   "schema_version": 1,
   "report_version": "1.0",
   "package_revision": "1.0.3",
-  "package": "Vinci_TR3_Runtime_Pass_Is_Not_Correctness_v1.0.3",
+  "package": "Vinci_TR3_Runtime_Pass_Is_Not_Correctness_v1.0.3_candidate",
   "publication_record": "10.5281/zenodo.22241477",
   "publication_source_commit": "128dea8b4013cdb3398c98edab5dc930e24c51d2",
   "source_authority": "source/report_body.md",
-  "accepted_pdf_sha256": "054a4077193a797e8105224e710b0fc78741eb3f465ce1f994d9a1e960a32e1d",
+  "historical_pdf_sha256": "054a4077193a797e8105224e710b0fc78741eb3f465ce1f994d9a1e960a32e1d",
   "inventory_excludes": [
     "CHECKSUMS.sha256",
     "MANIFEST.json"
   ],
-  "file_count": 98,
+  "file_count": 100,
   "files": [
     {
       "path": "CITATION.bib",
@@ -30,13 +30,13 @@
     },
     {
       "path": "README.md",
-      "size_bytes": 3947,
-      "sha256": "3d5350aafbd22754f2e93a85c172fc7444bd5dd108b17e9bda50b0128f6952f9"
+      "size_bytes": 4357,
+      "sha256": "806a97b538da5b6269ae10bd4efa3dbf7dae65ebcc6521e4421e28e585d9c3d6"
     },
     {
-      "path": "arxiv/Vinci_TR3_arXiv_v1.0.3_source.zip",
-      "size_bytes": 936603,
-      "sha256": "2694f4c2daccb1600744b6699af9012b3c1baeb08bbed5ca98ef78558298023d"
+      "path": "arxiv/Vinci_TR3_arXiv_v1.0.3_candidate_source.zip",
+      "size_bytes": 937444,
+      "sha256": "2ec45e5a2772b79dfc7352926b48ed2de52f7a719156b3efce3c82800c30ddcb"
     },
     {
       "path": "arxiv/source/00README.json",
@@ -50,8 +50,8 @@
     },
     {
       "path": "arxiv/source/body.md",
-      "size_bytes": 105134,
-      "sha256": "1ad794effdd2dfe319266528e19e84d7011bd7a9ff2b69855488034af72f897a"
+      "size_bytes": 106356,
+      "sha256": "5eb671d900402dc9956efd9592ea1e08d439e6d68b71d04c0e857ffb0dbce766"
     },
     {
       "path": "arxiv/source/figures/figure1_study_lineage.pdf",
@@ -115,8 +115,8 @@
     },
     {
       "path": "arxiv/source/main.tex",
-      "size_bytes": 121872,
-      "sha256": "e190bdbff498a17954353d42864a8b5cf959565afa05c63ec3064f0cd1937ffa"
+      "size_bytes": 123259,
+      "sha256": "424b515a2000a84351e958e4902155c8ba51760558639aa50bf53ded6896b12e"
     },
     {
       "path": "data/claim_dispositions.csv",
@@ -329,6 +329,11 @@
       "sha256": "bd26789e14ab910766b545d7399f388dc36312b80040de73df3a378d23d2ea20"
     },
     {
+      "path": "release/HISTORICAL_V1_PDF_DIVERGENCE.json",
+      "size_bytes": 930,
+      "sha256": "671f648d733408ec05390958e02da1450fca9344bd7f9fc62b4a388d8b93b25b"
+    },
+    {
       "path": "release/LIMITATIONS.md",
       "size_bytes": 1908,
       "sha256": "1a61877b3faa4df37a44dc8ac32eddec7b06a60152043b7e4f8159b8ba6b9945"
@@ -345,13 +350,13 @@
     },
     {
       "path": "release/PACKAGING_CORRECTION_v1.0.3.md",
-      "size_bytes": 1786,
-      "sha256": "2b311cd38c6debc26f0941c840749962e138767a080744508a0fc4ece2717cfa"
+      "size_bytes": 2274,
+      "sha256": "9f074448ee5981056753043b9cac4ca3a23da732d7b0612df611770b93a1720c"
     },
     {
       "path": "release/PUBLICATION_CHECKLIST.md",
-      "size_bytes": 2292,
-      "sha256": "2b9cf0b3f2cf81cb0cf7d9b689b27b88d43edd80d94db1da801537fa11e8c9dd"
+      "size_bytes": 2482,
+      "sha256": "bc31dbd48eba1ebe88f4678354163c664cc30a23ab7fa6c98b001da47cefc4dd"
     },
     {
       "path": "release/PUBLIC_EXPORT_POLICY.md",
@@ -370,8 +375,8 @@
     },
     {
       "path": "release/SEMANTIC_CONTRACT.json",
-      "size_bytes": 1051,
-      "sha256": "ab9439e53de0e86851ac7627b2be988f02d4948d9e812ea39abc26482eecaa10"
+      "size_bytes": 2140,
+      "sha256": "dc979dcc88109dc8b65d4ce14f40202e7de722d1f4f9a0f75d4118ae73382654"
     },
     {
       "path": "release/VINCI_EVAL_INTEGRITY_0_1.md",
@@ -390,8 +395,8 @@
     },
     {
       "path": "release/Vinci_TR3_PACKAGE_RECEIPT_v1.0.3.json",
-      "size_bytes": 1466,
-      "sha256": "a747489efa56d8af028b6c605fbad8569f42c79dd5a786f430ba40236330f69a"
+      "size_bytes": 1699,
+      "sha256": "d10b69f6263aaf75b5e72cf1566ad3cbaeb8930ef1ab4724f5507a17a59d706a"
     },
     {
       "path": "release/ZENODO_METADATA.json",
@@ -400,23 +405,28 @@
     },
     {
       "path": "release.conf",
-      "size_bytes": 4022,
-      "sha256": "9b8e5ba076e7a372258579804cc9b1201fc03bc47ffba0d9a5136eddd77bd3bf"
+      "size_bytes": 4980,
+      "sha256": "419d97baaef25c1ed3bc1affd38acd9e0772f88e5ba61e7b4afd0e3e1a21dd7a"
     },
     {
       "path": "report/Vinci_Technical_Report_No_3.docx",
-      "size_bytes": 927811,
-      "sha256": "ce6e88637c84b30b6141787eecaee4926a49974620cad6ac39b8bf589b1c4f15"
+      "size_bytes": 928360,
+      "sha256": "6c83aab7c61695bf586fd709ae99e33db61b3bc440501d3ece2c1df32d5b4ed2"
     },
     {
       "path": "report/Vinci_Technical_Report_No_3.html",
-      "size_bytes": 1512526,
-      "sha256": "7942e5f3268f1dd5c31319e6c40b48f9bfa148e66e6411616c133d108aae77b7"
+      "size_bytes": 1513963,
+      "sha256": "b608b62eaab53a4a19f14856564254541519542bdc03d340fa4604d57ca545a8"
     },
     {
       "path": "report/Vinci_Technical_Report_No_3.md",
-      "size_bytes": 105152,
-      "sha256": "dd7f6e8a7a12952faf959df114b5ee75c81bb6419e1476461f064fa1f167553c"
+      "size_bytes": 106374,
+      "sha256": "0d1b050e2ea997dc38132703a3d46d21a51e46b26085c53efc910a0ff0899ee0"
+    },
+    {
+      "path": "report/Vinci_Technical_Report_No_3_v1.0.3-candidate.pdf",
+      "size_bytes": 1108451,
+      "sha256": "0cccfa2716af7d77cb14754182076d55cd2ac6c3a648a1453beab8dbb11df2a2"
     },
     {
       "path": "report/Vinci_Technical_Report_No_3_v1.0.pdf",
@@ -425,8 +435,8 @@
     },
     {
       "path": "source/BUILD.md",
-      "size_bytes": 955,
-      "sha256": "fe42dd543e0aafbcbfed25a6f522f2c0dbd159f89172efc0a6632d94d378420d"
+      "size_bytes": 1101,
+      "sha256": "fe4aeec7fd5f93b956bdf5189358350654a615493817d71f68036c49528e625b"
     },
     {
       "path": "source/LICENSE",
@@ -440,13 +450,13 @@
     },
     {
       "path": "source/package_release.py",
-      "size_bytes": 23239,
-      "sha256": "fe2e8b316a4df0a4e860b813e5dbbf79632eab95d8718b561edf7bef5bf09997"
+      "size_bytes": 27674,
+      "sha256": "e2a730b1dccefebe919c07a7c173266b4f317baa354a9495be79cbbe314d3193"
     },
     {
       "path": "source/rebuild_all.sh",
-      "size_bytes": 631,
-      "sha256": "9d257f1b1d1a2c7d20c166e7182ea4888953ec8d29f2c4be87a91513c60d95c2"
+      "size_bytes": 672,
+      "sha256": "7f8caec8124e1d5068ae840f5951010f0aa672cc71bcc433f6cc6535b41224a0"
     },
     {
       "path": "source/reference.docx",
@@ -460,8 +470,8 @@
     },
     {
       "path": "source/report_body.md",
-      "size_bytes": 105152,
-      "sha256": "dd7f6e8a7a12952faf959df114b5ee75c81bb6419e1476461f064fa1f167553c"
+      "size_bytes": 106374,
+      "sha256": "0d1b050e2ea997dc38132703a3d46d21a51e46b26085c53efc910a0ff0899ee0"
     },
     {
       "path": "web/ALT_TEXT.md",

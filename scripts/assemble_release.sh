@@ -31,9 +31,10 @@ ok(){   echo "  ok   $*"; }
 
 echo "== 1. verify the PDF before it goes anywhere =="
 [ -f "$PDF" ] || fail "no such file: $PDF"
-if [ -n "${ACCEPTED_PDF_SHA256:-}" ]; then
+EXPECTED_PDF_SHA256="${ASSEMBLY_PDF_SHA256:-${ACCEPTED_PDF_SHA256:-}}"
+if [ -n "$EXPECTED_PDF_SHA256" ]; then
   PDF_SHA="$(shasum -a 256 "$PDF" | awk '{print $1}')"
-  [ "$PDF_SHA" = "$ACCEPTED_PDF_SHA256" ] || fail "PDF digest $PDF_SHA is not the accepted immutable digest $ACCEPTED_PDF_SHA256"
+  [ "$PDF_SHA" = "$EXPECTED_PDF_SHA256" ] || fail "PDF digest $PDF_SHA is not the configured assembly digest $EXPECTED_PDF_SHA256"
 fi
 command -v pdftotext >/dev/null || fail "pdftotext not found (brew install poppler)"
 TXT="$(mktemp)"; pdftotext "$PDF" "$TXT"
@@ -93,12 +94,12 @@ if   [ "$LINKS" -gt 0 ]; then ok "$LINKS link annotations (autolink_bare_uris wo
 elif [ "$LINKS" -eq 0 ]; then echo "  WARN zero link annotations — was autolink_bare_uris passed to pandoc?"
 else echo "  note link check skipped (pypdf not installed)"; fi
 
-echo "== 2. install it and drop the placeholder =="
-TARGET_PDF="$PKG/report/$PDF_NAME"
+echo "== 2. install the configured assembly PDF and drop the placeholder =="
+TARGET_PDF="$PKG/report/${ASSEMBLY_PDF_NAME:-$PDF_NAME}"
 if [ "$(cd "$(dirname "$PDF")" && pwd)/$(basename "$PDF")" != "$(cd "$(dirname "$TARGET_PDF")" && pwd)/$(basename "$TARGET_PDF")" ]; then
   cp "$PDF" "$TARGET_PDF"
 fi
-ok "accepted PDF present in reports/$SLUG/report/"
+ok "configured assembly PDF present in reports/$SLUG/report/"
 rm -f "$PKG/report/PDF_NOT_BUILT.md";                    ok "removed PDF_NOT_BUILT.md (if present)"
 
 echo "== 3. manifest LAST, then prove it covers the tree =="

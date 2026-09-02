@@ -5,6 +5,12 @@ author: "George Pu"
 date: "1 September 2026"
 ---
 
+> **Unpublished corrected candidate — package revision 1.0.3.** This
+> repository-forward derivative has not been published, tagged, uploaded to
+> Zenodo, or submitted to arXiv. The published v1.0 PDF remains a frozen
+> historical artifact and contains residual pre-finalization instructions that
+> are corrected in this candidate.
+
 ## Abstract
 
 Reasoning-capable language models can consume large inference budgets without delivering a usable answer. P-BREVE-01-R2 tested whether a small supervised fine-tuning (SFT) stage followed by conservative length-debiased Direct Preference Optimization (DPO) could make `Qwen/Qwen3.8-27B` allocate reasoning effort more proportionally, terminate reliably, preserve correct delivery, and avoid learning a global “shorter is better” rule. The intervention used a BF16 rank-32 LoRA, 440 accepted SFT demonstrations, 700 accepted DPO pairs, and a frozen two-seed development evaluation. The original evaluation bank contained 400 tasks across direct, closed-form, executable-code, agentic, and answerability strata.
@@ -370,7 +376,7 @@ The same unchanged mutation process was then applied to the 40-task protected ba
 | Tasks with at least one leak | 11/20 | 19/40 |
 | Distinct certification gaps | 17 | 33 |
 
-**Source and derivation record for the protected-bank counts:** `p-breve-01-r2/docs/BLIND-ADVERSARIAL-POPULATION.md`, section “The protected bank leaks worse than staging.” Version 1.0 verified the source at working commit `7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d`, file blob `1bb4ea390b38eb4f90d1519933b4e850ede93065`. The report rendering `52/1,862` is derived from the adjacent protected-bank cells `accepted by certification = 52` and `provably-wrong mutants = 1,862`; it is not a separately stored observation. The final publication manifest must rebind the source cells and derivation to the merged evidence-cutoff commit.
+**Source and derivation record for the protected-bank counts:** `p-breve-01-r2/docs/BLIND-ADVERSARIAL-POPULATION.md`, section “The protected bank leaks worse than staging.” Version 1.0 verified the source at evidence-cutoff commit `7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d`, file blob `1bb4ea390b38eb4f90d1519933b4e850ede93065`. The report rendering `52/1,862` is derived from the adjacent protected-bank cells `accepted by certification = 52` and `provably-wrong mutants = 1,862`; it is not a separately stored observation. The repository-forward package binds that source identity in `data/evidence_bindings.json` and the rendered numerator, denominator, rate, and derivation in `data/evaluator_metrics.json`.
 
 The affected-task lower bound is a set union, not a complement and not the mutation count alone. The witness-driven method had previously identified seven Defect-B tasks. The AST population implicated 19 tasks, including fourteen tasks outside that original seven-task set; one mutation from each of those fourteen was independently adjudicated as a genuine defect. The cross-method union is therefore:
 
@@ -767,7 +773,7 @@ The adapter itself should not be released as a model candidate. Releasing the au
 - Program directory: `p-breve-01-r2/`
 - Technical-report repository: `getsimpledirect/vinci-technical-reports` (public)
 - Report evidence cutoff: `7cdfb4b68b7265be7f6c7299b107ff9d924f2a2d`
-- Publication source commit: recorded in the release notes for tag `tr3-v1.0.0`
+- Published v1.0 source commit: `128dea8b4013cdb3398c98edab5dc930e24c51d2`, recorded by tag `tr3-v1.0.0`
 - Artifact digests: recorded in `CHECKSUMS.sha256` at the package root
 
 Per-artifact evidence bindings, including the blob SHA of each underlying record, are
@@ -777,7 +783,7 @@ granted access to that repository.
 
 ### 8.2 Recomputable analyses
 
-The core evaluator analyses are represented by committed scripts and content-addressed outputs. The final release manifest should bind at least the following:
+The core evaluator analyses were run from the following private implementations. Their evidence identities are fixed in `data/evidence_bindings.json`; the public aggregate values and derivations distributed with this report are fixed in `data/evaluator_metrics.json`, `data/headline_metrics.json`, and `data/serving_control.json`.
 
 | Analysis | Primary implementation | Required public output |
 |---|---|---|
@@ -789,7 +795,7 @@ The core evaluator analyses are represented by committed scripts and content-add
 | Cluster-aware power | `scripts/cluster_aware_power.py` | simulation configuration, seed, intervals, exact frozen assessor identity |
 | Claims reconciliation | `claims.jsonl` plus registry validator | complete tier history and supersession map |
 
-The original verifier audit was run with explicit zero-tolerance thresholds rather than hidden defaults. The batch-2 qualification similarly recorded the exact frozen authority hashes on every run. Publication scripts should refuse to render if a cited evidence digest is missing or if a table value differs from its machine-readable source.
+The original verifier audit was run with explicit zero-tolerance thresholds rather than hidden defaults. The batch-2 qualification similarly recorded the exact frozen authority hashes on every run. For this repository-forward candidate, the package inventory binds the distributed evidence records and rendered surfaces by SHA-256; the private-record commit and blob identities remain independently listed in `data/evidence_bindings.json`.
 
 ### 8.3 Protected and unavailable materials
 
@@ -803,9 +809,9 @@ Not every artifact can or should be public.
 
 A reproducibility statement should distinguish **computational reproduction of the published tables** from **independent replication on a fresh protected bank**. The former may be possible from released summaries and probes. The latter was not completed in this study.
 
-### 8.4 Recommended publication manifest
+### 8.4 Publication manifest standard
 
-The final report package should contain one machine-readable manifest with:
+At report cutoff, the program adopted the following archival-manifest standard. The public package records its distributed-file inventory in `MANIFEST.json` and `CHECKSUMS.sha256`; restricted research identities remain in the evidence register described in Section 8.1.
 
 - report title, version, date, and series number;
 - sole-author identity and contribution approval commit;
@@ -835,7 +841,7 @@ The study therefore supports a different research conclusion from the one it beg
 
 This is a negative intervention result, not a null research result. It redirects the next program toward controller-first baselines, evaluator admission before model training, semantic-family-aware statistics, censoring-aware endpoints, and strict separation between runtime feedback and certification authority.
 
-No model, evaluator bank, or product claim from P-BREVE-01-R2 is recommended for release. The report itself is the release candidate.
+No model, evaluator bank, or product claim from P-BREVE-01-R2 is recommended for release. The report was selected as the program's sole public release artifact.
 
 ## Author Contributions
 
@@ -891,11 +897,11 @@ The adversarial programs described here were designed to test correctness evalua
 
 ![Figure 6. Vinci Eval Integrity 0.1. Seven checks convert the study’s evaluator failures into a reusable admission record.](../figures/figure6_vinci_eval_integrity.png)
 
-This appendix will be machine-checked in a successor version. The “public sentence” column is deliberately narrower than the underlying internal record.
+This appendix is the final human-readable claim-to-evidence boundary for the v1.0 analysis. The “public sentence” column is deliberately narrower than the underlying internal record, and the distributed claim dispositions are machine-readable in `data/claim_dispositions.json`.
 
 ### A.1 Derived-quantity register
 
-A source hash proves which bytes were read; it does not by itself define how adjacent fields were assembled into a report-level ratio or union. The final manifest should encode the following derivations directly.
+A source hash proves which bytes were read; it does not by itself define how adjacent fields were assembled into a report-level ratio or union. The package records the following derivations directly in `data/evaluator_metrics.json`; this table is their report rendering.
 
 | Report rendering | Source fields | Deterministic derivation | Required qualifier |
 |---|---|---|---|
@@ -943,7 +949,7 @@ The two `21/40` renderings have opposite polarity and must never be cited withou
 | 23–26 August | Production-path, write-atomicity, bytecode, and authority-wiring audits | Reproducibility package strengthened; no model claim restored |
 | Report cutoff | Model intervention closed; evaluator work separated | No model, bank, or release candidate |
 
-The final version should replace approximate day-level entries with exact commits and artifact hashes generated mechanically from the repository history.
+This chronology intentionally remains day-level context rather than a commit ledger. Exact identities for the report source, evidence cutoff, underlying evidence blobs, and distributed artifacts are recorded in Section 8.1, `data/evidence_bindings.json`, `MANIFEST.json`, and `CHECKSUMS.sha256`.
 
 ## Appendix C. Vinci Eval Integrity 0.1 — Seven-Check Admission Record
 
@@ -1014,4 +1020,4 @@ Three columns:
 
 **Not performed.** External review by a person or group not responsible for the original analysis, and independent verifier and code review against the production path, were not performed. This report is internal development evidence and is labelled as such throughout.
 
-The publication source commit and release tag are recorded in the release notes rather than in this document, so that this text does not depend on identifiers assigned after the artifact is built.
+The published v1.0 source commit is `128dea8b4013cdb3398c98edab5dc930e24c51d2` and its release tag is `tr3-v1.0.0`; both are also recorded in the release metadata.

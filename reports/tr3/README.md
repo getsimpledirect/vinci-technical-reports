@@ -12,11 +12,12 @@
 **Report licence:** CC BY 4.0  
 **Build-script licence:** Apache-2.0
 
-This directory is the repository-forward package for the published Vinci Technical Report No. 3. It records corrections without changing the immutable GitHub and Zenodo v1.0 release. The report describes a negative reasoning-efficiency post-training result and a positive evaluator-audit result. The configured one-epoch SFT+DPO recipe did not establish a training-attributable efficiency gain. A stronger screened effect could not be attributed cleanly to trained weights after a serving-effort control. The original executable evaluator accepted trivial non-solutions; its replacement improved substantially but still failed independent qualification.
+This directory contains the frozen artifacts of the published Vinci Technical Report No. 3 and a separately identified, unpublished repository-forward correction candidate. It records corrections without changing the immutable GitHub and Zenodo v1.0 release. The report describes a negative reasoning-efficiency post-training result and a positive evaluator-audit result. The configured one-epoch SFT+DPO recipe did not establish a training-attributable efficiency gain. A stronger screened effect could not be attributed cleanly to trained weights after a serving-effort control. The original executable evaluator accepted trivial non-solutions; its replacement improved substantially but still failed independent qualification.
 
 ## Start here
 
-- `report/Vinci_Technical_Report_No_3_v1.0.pdf` — archival report.
+- `report/Vinci_Technical_Report_No_3_v1.0.pdf` — immutable historical v1.0 PDF; it retains the disclosed pre-finalization language and is not the corrected candidate.
+- `report/Vinci_Technical_Report_No_3_v1.0.3-candidate.pdf` — corrected, unpublished candidate built from the canonical manuscript.
 - `report/Vinci_Technical_Report_No_3.docx` — editable review copy.
 - `report/Vinci_Technical_Report_No_3.html` — self-contained web copy.
 - `source/report_body.md` — sole editable manuscript authority.
@@ -25,7 +26,7 @@ This directory is the repository-forward package for the published Vinci Technic
 - `release/DATA_AND_PROVENANCE.md` — source bindings and derived-quantity rules.
 - `release/PUBLICATION_CHECKLIST.md` — completed publication state and remaining optional actions.
 - `web/` — research page, blog, newsroom, newsletter, FAQ, and launch posts.
-- `arxiv/Vinci_TR3_arXiv_v1.0.3_source.zip` — corrected, deterministic arXiv-ready source archive; not submitted by this repair.
+- `arxiv/Vinci_TR3_arXiv_v1.0.3_candidate_source.zip` — corrected, deterministic arXiv source candidate; not submitted by this repair.
 
 ## Included
 
@@ -52,4 +53,4 @@ This directory is the repository-forward package for the published Vinci Technic
 - Intended public repository location: https://github.com/getsimpledirect/vinci-technical-reports/tree/main/reports/tr3
 - Release tag: `tr3-v1.0.0`
 
-Package revision 1.0.3 corrects the rebuild and source-package authority only; the scientific report remains Version 1.0. The accepted PDF is preserved byte-for-byte. Run `bash source/rebuild_all.sh --check` to verify the repository, or `bash source/rebuild_all.sh --write` to regenerate editable derivatives and inventories. Neither mode publishes, tags, uploads, or creates a Zenodo version.
+Package revision 1.0.3 corrects the repository-forward manuscript and package authority; it is not a new publication. The historical v1.0 PDF is preserved byte-for-byte and its known semantic divergence is recorded rather than concealed. Run `bash source/rebuild_all.sh --check` to verify both identities, or `bash source/rebuild_all.sh --write` to regenerate the corrected derivatives, candidate PDF, and inventories. Neither mode publishes, tags, uploads, or creates a Zenodo version.

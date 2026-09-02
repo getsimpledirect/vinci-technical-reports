@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "artifact": "report/Vinci_Technical_Report_No_3_v1.0.pdf",
+  "sha256": "054a4077193a797e8105224e710b0fc78741eb3f465ce1f994d9a1e960a32e1d",
+  "publication_record": "10.5281/zenodo.22241477",
+  "status": "immutable historical publication artifact; not semantically repaired",
+  "corrected_unpublished_derivative": "report/Vinci_Technical_Report_No_3_v1.0.3-candidate.pdf",
+  "known_residuals": [
+    {"page": 20, "marker": "The final publication manifest must rebind"},
+    {"page": 29, "marker": "The final release manifest should bind"},
+    {"page": 29, "marker": "Publication scripts should refuse to render"},
+    {"page": 38, "marker": "This appendix will be machine-checked in a successor version"},
+    {"page": 38, "marker": "The final manifest should encode the following derivations directly"},
+    {"page": 40, "marker": "The final version should replace approximate day-level entries"}
+  ]
+}

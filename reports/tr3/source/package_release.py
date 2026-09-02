@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and verify TR3 derivatives without mutating its accepted PDF.
+"""Build and verify TR3 derivatives without mutating its historical v1.0 PDF.
 
 The sole editable manuscript is source/report_body.md. Everything this script
 writes is derived from it or from committed frozen figures. It has no network,
@@ -116,6 +116,23 @@ def assert_contract_text(name: str, text: str, contract: dict, *, require_all: b
         for phrase in contract["required_on_every_report_surface"]:
             if normalized(phrase) not in value:
                 raise GateFailure(f"{name}: missing semantic-contract phrase: {phrase}")
+
+
+def verify_historical_pdf(path: Path, contract: dict) -> None:
+    """Verify the frozen artifact and its disclosed divergence; do not certify it."""
+    if sha256(path) != os.environ["HISTORICAL_PDF_SHA256"]:
+        raise GateFailure("historical v1.0 PDF bytes changed")
+    info = run(["pdfinfo", str(path)])
+    pages = re.search(r"^Pages:\s+(\d+)$", info, re.M)
+    if not pages or int(pages.group(1)) != contract["historical_v1_pdf_pages"]:
+        raise GateFailure("historical v1.0 PDF page count differs from its frozen record")
+    text = normalized(extract_surface("pdf", path))
+    for defect in contract["known_historical_v1_pdf_divergence"]:
+        if normalized(defect["marker"]) not in text:
+            raise GateFailure(
+                "historical v1.0 PDF no longer exhibits its disclosed divergence: "
+                f"page {defect['page']} / {defect['marker']}"
+            )
 
 
 def deterministic_zip(source: Path, target: Path, *, prefix: str = "") -> None:
@@ -279,12 +296,11 @@ def extract_surface(kind: str, path: Path) -> str:
     return run(["pandoc", str(path), f"--from={kind}", "--to=plain"])
 
 
-def verify_semantics(paths: dict[str, Path], contract: dict, pdf: Path) -> None:
+def verify_semantics(paths: dict[str, Path], contract: dict) -> None:
     assert_contract_text("canonical Markdown", SOURCE.read_text(encoding="utf-8"), contract, require_all=True)
     assert_contract_text("generated Markdown", paths["md"].read_text(encoding="utf-8"), contract, require_all=True)
     assert_contract_text("generated HTML", extract_surface("html", paths["html"]), contract, require_all=True)
     assert_contract_text("generated DOCX", extract_surface("docx", paths["docx"]), contract, require_all=True)
-    assert_contract_text("accepted PDF", extract_surface("pdf", pdf), contract, require_all=True)
     assert_contract_text("arXiv Markdown", (paths["arxiv"] / "body.md").read_text(), contract, require_all=True)
     assert_contract_text("arXiv TeX", (paths["arxiv"] / "main.tex").read_text(), contract, require_all=False)
 
@@ -297,7 +313,7 @@ def verify_semantics(paths: dict[str, Path], contract: dict, pdf: Path) -> None:
         raise GateFailure("HTML does not embed all six report figures")
 
 
-def verify_arxiv_compile(paths: dict[str, Path], contract: dict) -> int:
+def verify_arxiv_compile(paths: dict[str, Path], contract: dict) -> tuple[int, Path]:
     source = paths["arxiv"]
     xelatex = shutil.which("xelatex")
     tectonic = shutil.which("tectonic")
@@ -327,7 +343,7 @@ def verify_arxiv_compile(paths: dict[str, Path], contract: dict) -> int:
                 outside.append(f"page {page_number}: {word.text!r}")
     if outside:
         raise GateFailure(f"compiled arXiv PDF has text outside the page: {outside[:5]}")
-    return int(pages.group(1))
+    return int(pages.group(1)), pdf
 
 
 def compare_file(expected: Path, actual: Path, label: str) -> None:
@@ -343,7 +359,8 @@ def expected_receipt(arxiv_pages: int) -> dict:
         "generated_markdown": REPORT / "Vinci_Technical_Report_No_3.md",
         "html": REPORT / "Vinci_Technical_Report_No_3.html",
         "docx": REPORT / "Vinci_Technical_Report_No_3.docx",
-        "accepted_pdf": REPORT / os.environ["PDF_NAME"],
+        "historical_v1_pdf": REPORT / os.environ["HISTORICAL_PDF_NAME"],
+        "unpublished_candidate_pdf": REPORT / os.environ["CANDIDATE_PDF_NAME"],
         "arxiv_markdown": ARXIV / "source" / "body.md",
         "arxiv_tex": ARXIV / "source" / "main.tex",
         "arxiv_source_zip": ARXIV / os.environ["ARXIV_ZIP_NAME"],
@@ -356,9 +373,10 @@ def expected_receipt(arxiv_pages: int) -> dict:
         "source_authority": "source/report_body.md",
         "renderer": f"pandoc {PANDOC_VERSION}",
         "qa": {
-            "semantic_contract": "passed across Markdown, HTML, DOCX, accepted PDF, arXiv Markdown, and compiled arXiv PDF",
-            "accepted_pdf_pages": 43,
-            "accepted_pdf_preserved": True,
+            "semantic_contract": "passed across corrected Markdown, HTML, DOCX, arXiv Markdown, TeX, and unpublished candidate PDF",
+            "historical_v1_pdf_pages": 43,
+            "historical_v1_pdf_preserved": True,
+            "historical_v1_pdf_semantic_status": "known divergent; retained only as immutable publication evidence",
             "docx_embedded_figures": 6,
             "html_embedded_figures": 6,
             "arxiv_compile_pages": arxiv_pages,
@@ -390,7 +408,7 @@ def write_inventory(report_version: str, package_revision: str, package_name: st
         "publication_record": "10.5281/zenodo.22241477",
         "publication_source_commit": "128dea8b4013cdb3398c98edab5dc930e24c51d2",
         "source_authority": "source/report_body.md",
-        "accepted_pdf_sha256": os.environ["ACCEPTED_PDF_SHA256"],
+        "historical_pdf_sha256": os.environ["HISTORICAL_PDF_SHA256"],
         "inventory_excludes": sorted(excluded),
         "file_count": len(entries),
         "files": entries,
@@ -403,27 +421,101 @@ def write_inventory(report_version: str, package_revision: str, package_name: st
     )
 
 
-def verify_inventory(report_version: str, package_revision: str, package_name: str) -> None:
-    manifest_path = PACKAGE / "MANIFEST.json"
-    checksum_path = PACKAGE / "CHECKSUMS.sha256"
-    transient = [p.relative_to(PACKAGE).as_posix() for p in PACKAGE.rglob("*") if p.is_file() and is_transient(p)]
+def parse_manifest(data: object, expected_meta: dict[str, object]) -> dict[str, dict]:
+    if not isinstance(data, dict):
+        raise GateFailure("manifest root must be an object")
+    required = {
+        "schema_version",
+        "report_version",
+        "package_revision",
+        "package",
+        "publication_record",
+        "publication_source_commit",
+        "source_authority",
+        "historical_pdf_sha256",
+        "inventory_excludes",
+        "file_count",
+        "files",
+    }
+    missing = sorted(required - set(data))
+    if missing:
+        raise GateFailure(f"manifest missing required field(s): {missing}")
+    if type(data["schema_version"]) is not int or data["schema_version"] != 1:
+        raise GateFailure("manifest schema_version must be integer 1")
+    excludes = data["inventory_excludes"]
+    if not isinstance(excludes, list) or any(not isinstance(value, str) for value in excludes):
+        raise GateFailure("manifest inventory_excludes must be a list of strings")
+    if excludes != sorted(set(excludes)) or excludes != ["CHECKSUMS.sha256", "MANIFEST.json"]:
+        raise GateFailure("manifest inventory_excludes must name the two inventories exactly once")
+    if type(data["file_count"]) is not int or data["file_count"] < 0:
+        raise GateFailure("manifest file_count must be a non-negative integer")
+    if not isinstance(data["files"], list):
+        raise GateFailure("manifest files must be a list")
+    for key, value in expected_meta.items():
+        if data[key] != value:
+            raise GateFailure(f"manifest {key}={data[key]!r}, expected {value!r}")
+    listed: dict[str, dict] = {}
+    digest_re = re.compile(r"[0-9a-f]{64}\Z")
+    for index, entry in enumerate(data["files"]):
+        if not isinstance(entry, dict):
+            raise GateFailure(f"manifest file entry {index} must be an object")
+        if set(entry) != {"path", "size_bytes", "sha256"}:
+            raise GateFailure(f"manifest file entry {index} has invalid fields")
+        name = entry["path"]
+        if not isinstance(name, str) or not name or name.startswith("/") or ".." in Path(name).parts:
+            raise GateFailure(f"manifest file entry {index} has an invalid path")
+        if name in listed:
+            raise GateFailure(f"duplicate manifest path: {name}")
+        if type(entry["size_bytes"]) is not int or entry["size_bytes"] < 0:
+            raise GateFailure(f"manifest file entry {name} has invalid size_bytes")
+        if not isinstance(entry["sha256"], str) or not digest_re.fullmatch(entry["sha256"]):
+            raise GateFailure(f"manifest file entry {name} has invalid sha256")
+        listed[name] = entry
+    return listed
+
+
+def parse_checksums(text: str) -> dict[str, str]:
+    rows: dict[str, str] = {}
+    row_re = re.compile(r"([0-9a-f]{64})  (\S(?:.*\S)?)\Z")
+    for index, line in enumerate(text.splitlines(), 1):
+        match = row_re.fullmatch(line)
+        if not match:
+            raise GateFailure(f"malformed checksum row {index}")
+        digest, name = match.groups()
+        if name in rows:
+            raise GateFailure(f"duplicate checksum path: {name}")
+        rows[name] = digest
+    return rows
+
+
+def verify_inventory(
+    report_version: str,
+    package_revision: str,
+    package_name: str,
+    *,
+    package: Path = PACKAGE,
+) -> None:
+    manifest_path = package / "MANIFEST.json"
+    checksum_path = package / "CHECKSUMS.sha256"
+    transient = [p.relative_to(package).as_posix() for p in package.rglob("*") if p.is_file() and is_transient(p)]
     if transient:
         raise GateFailure(f"transient files must not enter a release package: {transient}")
     data = json.loads(manifest_path.read_text(encoding="utf-8"))
-    expected_meta = {
+    expected_meta: dict[str, object] = {
+        "schema_version": 1,
         "report_version": report_version,
         "package_revision": package_revision,
         "package": package_name,
+        "publication_record": "10.5281/zenodo.22241477",
+        "publication_source_commit": "128dea8b4013cdb3398c98edab5dc930e24c51d2",
         "source_authority": "source/report_body.md",
-        "accepted_pdf_sha256": os.environ["ACCEPTED_PDF_SHA256"],
+        "historical_pdf_sha256": os.environ["HISTORICAL_PDF_SHA256"],
+        "inventory_excludes": ["CHECKSUMS.sha256", "MANIFEST.json"],
     }
-    for key, value in expected_meta.items():
-        if data.get(key) != value:
-            raise GateFailure(f"manifest {key}={data.get(key)!r}, expected {value!r}")
-    listed = {entry["path"]: entry for entry in data["files"]}
+    listed = parse_manifest(data, expected_meta)
     actual = {
-        p.relative_to(PACKAGE).as_posix(): p
-        for p in PACKAGE.rglob("*")
+        p.relative_to(package).as_posix(): p
+        for p in package.rglob("*")
         if p.is_file() and p.name not in {manifest_path.name, checksum_path.name} and not is_transient(p)
     }
     if set(listed) != set(actual) or data.get("file_count") != len(actual):
@@ -435,13 +527,10 @@ def verify_inventory(report_version: str, package_revision: str, package_name: s
         entry = listed[name]
         if entry["size_bytes"] != path.stat().st_size or entry["sha256"] != sha256(path):
             raise GateFailure(f"manifest digest mismatch: {name}")
-    checksum_lines = {}
-    for line in checksum_path.read_text(encoding="utf-8").splitlines():
-        digest, name = line.split("  ", 1)
-        checksum_lines[name] = digest
+    checksum_lines = parse_checksums(checksum_path.read_text(encoding="utf-8"))
     expected_checksums = {
-        p.relative_to(PACKAGE).as_posix(): sha256(p)
-        for p in PACKAGE.rglob("*")
+        p.relative_to(package).as_posix(): sha256(p)
+        for p in package.rglob("*")
         if p.is_file() and p != checksum_path and not is_transient(p)
     }
     if checksum_lines != expected_checksums:
@@ -457,8 +546,9 @@ def main() -> int:
         "PACKAGE_REVISION",
         "PACKAGE_DIR_NAME",
         "ARXIV_ZIP_NAME",
-        "ACCEPTED_PDF_SHA256",
-        "PDF_NAME",
+        "HISTORICAL_PDF_SHA256",
+        "HISTORICAL_PDF_NAME",
+        "CANDIDATE_PDF_NAME",
         "ZIP_BASE",
     ]
     missing = [name for name in required_env if not os.environ.get(name)]
@@ -466,24 +556,21 @@ def main() -> int:
         raise GateFailure(f"release.conf did not provide: {', '.join(missing)}")
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
-    pdf = REPORT / os.environ["PDF_NAME"]
-    if sha256(pdf) != os.environ["ACCEPTED_PDF_SHA256"]:
-        raise GateFailure("accepted PDF bytes changed; this builder cannot replace them")
-    pages = run(["pdfinfo", str(pdf)])
-    page_match = re.search(r"^Pages:\s+(\d+)$", pages, re.M)
-    if not page_match or int(page_match.group(1)) != contract["accepted_pdf_pages"]:
-        raise GateFailure("accepted PDF page count differs from the semantic contract")
+    historical_pdf = REPORT / os.environ["HISTORICAL_PDF_NAME"]
+    verify_historical_pdf(historical_pdf, contract)
 
     with tempfile.TemporaryDirectory(prefix="tr3-build.") as temp_name:
         temp = Path(temp_name)
         built = render(temp, os.environ["ARXIV_ZIP_NAME"])
-        verify_semantics(built, contract, pdf)
-        arxiv_pages = verify_arxiv_compile(built, contract)
+        verify_semantics(built, contract)
+        arxiv_pages, compiled_pdf = verify_arxiv_compile(built, contract)
+        built["candidate_pdf"] = compiled_pdf
 
         generated = {
             built["md"]: REPORT / built["md"].name,
             built["html"]: REPORT / built["html"].name,
             built["docx"]: REPORT / built["docx"].name,
+            built["candidate_pdf"]: REPORT / os.environ["CANDIDATE_PDF_NAME"],
             built["arxiv"] / "body.md": ARXIV / "source" / "body.md",
             built["arxiv"] / "main.tex": ARXIV / "source" / "main.tex",
             built["arxiv"] / "README.md": ARXIV / "source" / "README.md",
@@ -494,7 +581,11 @@ def main() -> int:
             for source, target in generated.items():
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, target)
-            for old in [ARXIV / "Vinci_TR3_arXiv_v1.0.1_source.zip", PACKAGE / "source" / "tr3_fixed.tex"]:
+            for old in [
+                ARXIV / "Vinci_TR3_arXiv_v1.0.1_source.zip",
+                ARXIV / "Vinci_TR3_arXiv_v1.0.3_source.zip",
+                PACKAGE / "source" / "tr3_fixed.tex",
+            ]:
                 if old.exists():
                     old.unlink()
             receipt = PACKAGE / "release" / "Vinci_TR3_PACKAGE_RECEIPT_v1.0.3.json"
@@ -507,7 +598,11 @@ def main() -> int:
         else:
             for source, target in generated.items():
                 compare_file(source, target, target.relative_to(PACKAGE).as_posix())
-            for obsolete in [ARXIV / "Vinci_TR3_arXiv_v1.0.1_source.zip", PACKAGE / "source" / "tr3_fixed.tex"]:
+            for obsolete in [
+                ARXIV / "Vinci_TR3_arXiv_v1.0.1_source.zip",
+                ARXIV / "Vinci_TR3_arXiv_v1.0.3_source.zip",
+                PACKAGE / "source" / "tr3_fixed.tex",
+            ]:
                 if obsolete.exists():
                     raise GateFailure(f"obsolete parallel source remains: {obsolete.relative_to(PACKAGE)}")
             receipt = PACKAGE / "release" / "Vinci_TR3_PACKAGE_RECEIPT_v1.0.3.json"
@@ -523,7 +618,8 @@ def main() -> int:
         archive = Path(temp_name) / f"{os.environ['ZIP_BASE']}.zip"
         deterministic_zip(PACKAGE, archive, prefix=os.environ["PACKAGE_DIR_NAME"])
         print(f"package_sha256={sha256(archive)}")
-    print(f"accepted_pdf_sha256={sha256(pdf)}")
+    print(f"historical_v1_pdf_sha256={sha256(historical_pdf)}")
+    print(f"unpublished_candidate_pdf_sha256={sha256(REPORT / os.environ['CANDIDATE_PDF_NAME'])}")
     print(f"TR3 package authority: {args.mode} passed")
     return 0
 
