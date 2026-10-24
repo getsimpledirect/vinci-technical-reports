@@ -1,5 +1,15 @@
 # Vinci Research — Technical Reports
 
+Published manuscripts, aggregate evidence packages, provenance and release materials for Vinci technical reports.
+
+Each report states its own evidence tier, limitations and reproducibility boundary. Published archive bytes and the current repository are separate artifacts; verify the checksums belonging to the artifact being inspected.
+
+## Start here
+
+[Report catalogue](#reports) · [Evidence scope](#scope-of-the-evidence) · [Release verification](#verifying-a-release) · [Data access](docs/data_access.md) · [Licensing](#licensing) · [Citation](#citing)
+
+Report text and figures use CC BY 4.0; analysis/build code uses Apache 2.0. Neither license grants access to protected benchmark items or relicenses upstream models.
+
 Manuscripts, aggregate evidence packages, and release materials for Vinci Research
 technical reports.
 
