@@ -1,0 +1,279 @@
+{
+  "method": "Exact enumeration using floating-point arithmetic of the empirical paired bootstrap distribution: n independent draws of delta -1,0,+1 with observed cell probabilities; 2.5th and 97.5th percentiles. No random draws.",
+  "limits": "Not an exact-coverage interval; conditional on the chosen edit and sample. Does not account for edit selection, adaptive looks, contamination or multiple comparisons. Reported finite-draw intervals remain separate.",
+  "mcnemar_method": "Exact two-sided Binomial(discordant,0.5) tail doubled and capped at one. Secondary paired diagnostic, not adjusted for multiple comparisons.",
+  "rows": [
+    {
+      "id": "qwen-math-initial",
+      "n": 256,
+      "reference_accuracy_percent": 9.375,
+      "comparison_accuracy_percent": 49.21875,
+      "difference_pp": 39.84375,
+      "reported_95_percent_ci_pp": [
+        33.98,
+        46.09
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        33.984375,
+        45.703125
+      ],
+      "exact_two_sided_mcnemar_p": 3.944304526105059e-31,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-math-random-1",
+      "n": 256,
+      "reference_accuracy_percent": 7.03125,
+      "comparison_accuracy_percent": 49.21875,
+      "difference_pp": 42.1875,
+      "reported_95_percent_ci_pp": [
+        35.94,
+        48.44
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        36.328125,
+        48.4375
+      ],
+      "exact_two_sided_mcnemar_p": 6.162975822039155e-33,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-math-random-2",
+      "n": 256,
+      "reference_accuracy_percent": 7.421875,
+      "comparison_accuracy_percent": 49.21875,
+      "difference_pp": 41.796875,
+      "reported_95_percent_ci_pp": [
+        35.55,
+        48.05
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        35.9375,
+        48.046875
+      ],
+      "exact_two_sided_mcnemar_p": 1.232595164407831e-32,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-csqa-initial",
+      "n": 254,
+      "reference_accuracy_percent": 20.8661417323,
+      "comparison_accuracy_percent": 61.0236220472,
+      "difference_pp": 40.157480315,
+      "reported_95_percent_ci_pp": [
+        33.46,
+        46.85
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        33.4645669291,
+        46.8503937008
+      ],
+      "exact_two_sided_mcnemar_p": 5.415668049444863e-26,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-csqa-initial-random",
+      "n": 254,
+      "reference_accuracy_percent": 20.8661417323,
+      "comparison_accuracy_percent": 27.9527559055,
+      "difference_pp": 7.0866141732,
+      "reported_95_percent_ci_pp": [
+        1.18,
+        12.99
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        1.1811023622,
+        12.9921259843
+      ],
+      "exact_two_sided_mcnemar_p": 0.024746035842440797,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-csqa-random-versus-edited",
+      "n": 254,
+      "reference_accuracy_percent": 27.9527559055,
+      "comparison_accuracy_percent": 61.0236220472,
+      "difference_pp": 33.0708661417,
+      "reported_95_percent_ci_pp": [
+        26.77,
+        39.37
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        26.7716535433,
+        39.3700787402
+      ],
+      "exact_two_sided_mcnemar_p": 9.440274241692034e-20,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-arc-initial",
+      "n": 254,
+      "reference_accuracy_percent": 29.5275590551,
+      "comparison_accuracy_percent": 78.3464566929,
+      "difference_pp": 48.8188976378,
+      "reported_95_percent_ci_pp": [
+        42.52,
+        55.51
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        42.125984252,
+        55.1181102362
+      ],
+      "exact_two_sided_mcnemar_p": 4.579367465026631e-33,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-arc-initial-random",
+      "n": 254,
+      "reference_accuracy_percent": 29.5275590551,
+      "comparison_accuracy_percent": 31.1023622047,
+      "difference_pp": 1.5748031496,
+      "reported_95_percent_ci_pp": [
+        -4.33,
+        7.48
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        -4.3307086614,
+        7.4803149606
+      ],
+      "exact_two_sided_mcnemar_p": 0.6940040940761316,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-arc-random-versus-edited",
+      "n": 254,
+      "reference_accuracy_percent": 31.1023622047,
+      "comparison_accuracy_percent": 78.3464566929,
+      "difference_pp": 47.2440944882,
+      "reported_95_percent_ci_pp": [
+        40.55,
+        53.94
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        40.5511811024,
+        53.937007874
+      ],
+      "exact_two_sided_mcnemar_p": 4.378259953581879e-31,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-csqa-completion",
+      "n": 254,
+      "reference_accuracy_percent": 60.2362204724,
+      "comparison_accuracy_percent": 59.0551181102,
+      "difference_pp": -1.1811023622,
+      "reported_95_percent_ci_pp": [
+        -6.69,
+        4.72
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        -7.0866141732,
+        4.7244094488
+      ],
+      "exact_two_sided_mcnemar_p": 0.7877061896700435,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-arc-completion",
+      "n": 254,
+      "reference_accuracy_percent": 82.2834645669,
+      "comparison_accuracy_percent": 82.6771653543,
+      "difference_pp": 0.3937007874,
+      "reported_95_percent_ci_pp": [
+        -4.33,
+        4.72
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        -4.3307086614,
+        5.1181102362
+      ],
+      "exact_two_sided_mcnemar_p": 1.0,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "piccolo-gsm8k-holdout",
+      "n": 239,
+      "reference_accuracy_percent": 65.2719665272,
+      "comparison_accuracy_percent": 84.5188284519,
+      "difference_pp": 19.2468619247,
+      "reported_95_percent_ci_pp": [
+        12.97,
+        25.52
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        12.9707112971,
+        25.5230125523
+      ],
+      "exact_two_sided_mcnemar_p": 1.2750032374450517e-08,
+      "selected_after_observed_outcomes": false
+    },
+    {
+      "id": "qwen-csqa-initial-uncut",
+      "n": 68,
+      "reference_accuracy_percent": 69.1176470588,
+      "comparison_accuracy_percent": 67.6470588235,
+      "difference_pp": -1.4705882353,
+      "reported_95_percent_ci_pp": [
+        -10.29,
+        7.35
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        -10.2941176471,
+        7.3529411765
+      ],
+      "exact_two_sided_mcnemar_p": 1.0,
+      "selected_after_observed_outcomes": true
+    },
+    {
+      "id": "qwen-arc-initial-uncut",
+      "n": 76,
+      "reference_accuracy_percent": 88.1578947368,
+      "comparison_accuracy_percent": 85.5263157895,
+      "difference_pp": -2.6315789474,
+      "reported_95_percent_ci_pp": [
+        -9.21,
+        3.95
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        -9.2105263158,
+        3.9473684211
+      ],
+      "exact_two_sided_mcnemar_p": 0.6875,
+      "selected_after_observed_outcomes": true
+    },
+    {
+      "id": "qwen-csqa-completion-uncut",
+      "n": 247,
+      "reference_accuracy_percent": 60.7287449393,
+      "comparison_accuracy_percent": 59.1093117409,
+      "difference_pp": -1.6194331984,
+      "reported_95_percent_ci_pp": [
+        -7.29,
+        4.45
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        -7.2874493927,
+        4.048582996
+      ],
+      "exact_two_sided_mcnemar_p": 0.6834892282353375,
+      "selected_after_observed_outcomes": true
+    },
+    {
+      "id": "qwen-arc-completion-uncut",
+      "n": 236,
+      "reference_accuracy_percent": 83.0508474576,
+      "comparison_accuracy_percent": 83.8983050847,
+      "difference_pp": 0.8474576271,
+      "reported_95_percent_ci_pp": [
+        -3.81,
+        5.51
+      ],
+      "recomputed_empirical_bootstrap_95_percentiles_pp": [
+        -3.813559322,
+        5.5084745763
+      ],
+      "exact_two_sided_mcnemar_p": 0.855535551905632,
+      "selected_after_observed_outcomes": true
+    }
+  ]
+}

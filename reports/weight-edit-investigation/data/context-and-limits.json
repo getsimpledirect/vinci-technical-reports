@@ -1,0 +1,64 @@
+{
+  "scope": "Newly authored summary of already article-reported context; unknown data remain null.",
+  "local_evidence_origin": "Transcribed partial private reader evidence and secondary private audit summaries; not original complete run records.",
+  "local_settings": {
+    "configured_max_new_tokens": null,
+    "thinking_mode": null,
+    "effective_model_tokenizer_template_configuration": null,
+    "evaluated_artifact_identity_verified": false
+  },
+  "cross_stage_item_identity_verified": false,
+  "original_training_overlap_checked": false,
+  "direct_math_completion_control_available": false,
+  "qwen_recorded_reconstruction": {
+    "evidence_basis": "secondary private audit summary; original complete reconstruction reader absent",
+    "reported_edited_tensors": 2,
+    "reported_other_tensors_unchanged": 486,
+    "touched_entries_reported": 131072,
+    "changed_bf16_entries_reported": 130188,
+    "evaluated_artifact_identity_verified": false,
+    "public_citations": [
+      "qwen-protocol",
+      "qwen-edit-manifest"
+    ]
+  },
+  "qwen_recipe_reconstruction": {
+    "evidence_basis": "secondary private dossier summary; original trace absent",
+    "classification_reported": "exact recipe not reproduced in the recorded attempt",
+    "layer19_selected_column_overlap_reported": [
+      63,
+      64
+    ],
+    "layer19_delta_cosine_reported": 0.996733359076816,
+    "layer19_bf16_byte_equal_reported": false,
+    "limit": "One recorded attempt, not proof of impossibility or evidence that the original authors are false. The closer alternative used a different precision/reference comparison."
+  },
+  "piccolo_selection": {
+    "evidence_basis": "partial private reader aggregate summary; selection trace absent",
+    "candidate_count_reported": 8,
+    "selected_dev_n_reported": 250,
+    "selected_dev_accuracy_reported": 0.896,
+    "baseline_dev_n_reported": 500,
+    "baseline_dev_accuracy_reported": 0.746,
+    "paired_dev_gain_established": false,
+    "evidence_excerpt_ids": [
+      "piccolo-holdout-summary"
+    ],
+    "limit": "Different item populations and best-of-eight selection; the development percentages are not a valid paired gain or independent holdout result."
+  },
+  "piccolo_500_item_test": {
+    "n_reported": 500,
+    "classification_reported": "inconclusive under its reported rule",
+    "decision_threshold_pp_reported": 10.0,
+    "decision_rule_timing_verified": false,
+    "base_correct": null,
+    "edited_correct": null,
+    "random_correct": null,
+    "reported_difference_pp": null,
+    "reported_95_percent_ci_pp": null,
+    "configured_max_new_tokens": null,
+    "thinking_mode": null,
+    "evaluated_artifact_identity_verified": false,
+    "limit": "Separate earlier test, different decision rule; missing results are unknown, not zero or a negative finding. Do not pool with the selection holdout."
+  }
+}

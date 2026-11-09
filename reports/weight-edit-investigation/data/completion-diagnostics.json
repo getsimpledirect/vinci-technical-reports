@@ -1,0 +1,253 @@
+{
+  "scope": "Reader-reported diagnostics; configured token limits are unknown. Null means unavailable in this normalized aggregate source, not zero.",
+  "rows": [
+    {
+      "comparison_id": "qwen-math-initial",
+      "arm": "base",
+      "n": 256,
+      "cap_hit": 232,
+      "mean_tokens": 30225.9,
+      "median_tokens": 32768,
+      "no_boxed": 209,
+      "unparseable": null,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "math-initial-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-math-initial",
+      "arm": "edited",
+      "n": 256,
+      "cap_hit": 77,
+      "mean_tokens": 22396.0,
+      "median_tokens": 24211,
+      "no_boxed": 96,
+      "unparseable": null,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "math-initial-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-math-random-1",
+      "arm": "random edit 1",
+      "n": 256,
+      "cap_hit": 239,
+      "mean_tokens": 30969.9,
+      "median_tokens": null,
+      "no_boxed": 207,
+      "unparseable": null,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "secondary_private_audit_summary",
+      "evidence_excerpt_ids": [],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-math-random-2",
+      "arm": "random edit 2",
+      "n": 256,
+      "cap_hit": 238,
+      "mean_tokens": 30870.6,
+      "median_tokens": null,
+      "no_boxed": 208,
+      "unparseable": null,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "secondary_private_audit_summary",
+      "evidence_excerpt_ids": [],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-csqa-initial",
+      "arm": "base",
+      "n": 254,
+      "cap_hit": 186,
+      "mean_tokens": null,
+      "median_tokens": null,
+      "no_boxed": null,
+      "unparseable": null,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "csqa-initial-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-csqa-initial",
+      "arm": "edited",
+      "n": 254,
+      "cap_hit": 0,
+      "mean_tokens": 6690.3,
+      "median_tokens": 6061,
+      "no_boxed": null,
+      "unparseable": null,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "csqa-initial-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-csqa-initial",
+      "arm": "random edit",
+      "n": 254,
+      "cap_hit": 168,
+      "mean_tokens": 23300.4,
+      "median_tokens": 32768,
+      "no_boxed": 145,
+      "unparseable": 157,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "csqa-initial-summary"
+      ],
+      "normalization_note": "These two diagnostic counts were null in the normalized private aggregate source; restored from the explicitly printed random-arm aggregate summary excerpt."
+    },
+    {
+      "comparison_id": "qwen-arc-initial",
+      "arm": "base",
+      "n": 254,
+      "cap_hit": 178,
+      "mean_tokens": null,
+      "median_tokens": null,
+      "no_boxed": null,
+      "unparseable": null,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "arc-initial-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-arc-initial",
+      "arm": "edited",
+      "n": 254,
+      "cap_hit": 2,
+      "mean_tokens": 7340.1,
+      "median_tokens": 6172,
+      "no_boxed": null,
+      "unparseable": null,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "arc-initial-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-arc-initial",
+      "arm": "random edit",
+      "n": 254,
+      "cap_hit": 173,
+      "mean_tokens": 23866.5,
+      "median_tokens": 32768,
+      "no_boxed": 149,
+      "unparseable": 164,
+      "continued_rows": null,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "arc-initial-summary"
+      ],
+      "normalization_note": "These two diagnostic counts were null in the normalized private aggregate source; restored from the explicitly printed random-arm aggregate summary excerpt."
+    },
+    {
+      "comparison_id": "qwen-csqa-completion",
+      "arm": "base with continuation",
+      "n": 254,
+      "cap_hit": 7,
+      "mean_tokens": 6465.5,
+      "median_tokens": null,
+      "no_boxed": null,
+      "unparseable": null,
+      "continued_rows": 192,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "csqa-completion-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-csqa-completion",
+      "arm": "edited",
+      "n": 254,
+      "cap_hit": 0,
+      "mean_tokens": 6343.3,
+      "median_tokens": 5322,
+      "no_boxed": 0,
+      "unparseable": 0,
+      "continued_rows": 0,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "csqa-completion-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-arc-completion",
+      "arm": "base with continuation",
+      "n": 254,
+      "cap_hit": 18,
+      "mean_tokens": 7017.3,
+      "median_tokens": null,
+      "no_boxed": null,
+      "unparseable": null,
+      "continued_rows": 174,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "arc-completion-summary"
+      ],
+      "normalization_note": null
+    },
+    {
+      "comparison_id": "qwen-arc-completion",
+      "arm": "edited",
+      "n": 254,
+      "cap_hit": 0,
+      "mean_tokens": 6676.0,
+      "median_tokens": null,
+      "no_boxed": null,
+      "unparseable": null,
+      "continued_rows": 0,
+      "configured_max_new_tokens": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_basis": "partial_private_reader_excerpt",
+      "evidence_excerpt_ids": [
+        "arc-completion-summary"
+      ],
+      "normalization_note": null
+    }
+  ]
+}
