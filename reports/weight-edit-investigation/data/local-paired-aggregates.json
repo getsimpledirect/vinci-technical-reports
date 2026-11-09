@@ -1,0 +1,529 @@
+{
+  "scope": "Reported local aggregate evidence; independently checkable arithmetic only, not independent model-run reproduction.",
+  "comparisons": [
+    {
+      "id": "qwen-math-initial",
+      "model": "qwen",
+      "dataset": "MATH-500",
+      "stage": "initial",
+      "reference_arm": "unedited",
+      "comparison_arm": "edited",
+      "n": 256,
+      "reference_correct": 24,
+      "comparison_correct": 126,
+      "counts": {
+        "both_correct": 24,
+        "reference_only_correct": 0,
+        "comparison_only_correct": 102,
+        "both_wrong": 130
+      },
+      "reported_difference_pp": 39.84,
+      "reported_95_percent_ci_pp": [
+        33.98,
+        46.09
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "margins uniquely derived from n and rounded accuracy; discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "math-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-math-random-1",
+      "model": "qwen",
+      "dataset": "MATH-500",
+      "stage": "random control",
+      "reference_arm": "random edit 1",
+      "comparison_arm": "edited",
+      "n": 256,
+      "reference_correct": 18,
+      "comparison_correct": 126,
+      "counts": {
+        "both_correct": 18,
+        "reference_only_correct": 0,
+        "comparison_only_correct": 108,
+        "both_wrong": 130
+      },
+      "reported_difference_pp": 42.19,
+      "reported_95_percent_ci_pp": [
+        35.94,
+        48.44
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "margins uniquely derived from n and rounded accuracy; discordances in verified dossier/audit",
+      "evidence_basis": "secondary_private_audit_summary",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": []
+    },
+    {
+      "id": "qwen-math-random-2",
+      "model": "qwen",
+      "dataset": "MATH-500",
+      "stage": "random control",
+      "reference_arm": "random edit 2",
+      "comparison_arm": "edited",
+      "n": 256,
+      "reference_correct": 19,
+      "comparison_correct": 126,
+      "counts": {
+        "both_correct": 19,
+        "reference_only_correct": 0,
+        "comparison_only_correct": 107,
+        "both_wrong": 130
+      },
+      "reported_difference_pp": 41.8,
+      "reported_95_percent_ci_pp": [
+        35.55,
+        48.05
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "margins uniquely derived from n and rounded accuracy; discordances in verified dossier/audit",
+      "evidence_basis": "secondary_private_audit_summary",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": []
+    },
+    {
+      "id": "qwen-csqa-initial",
+      "model": "qwen",
+      "dataset": "CommonsenseQA",
+      "stage": "initial",
+      "reference_arm": "unedited",
+      "comparison_arm": "edited",
+      "n": 254,
+      "reference_correct": 53,
+      "comparison_correct": 155,
+      "counts": {
+        "both_correct": 48,
+        "reference_only_correct": 5,
+        "comparison_only_correct": 107,
+        "both_wrong": 94
+      },
+      "reported_difference_pp": 40.16,
+      "reported_95_percent_ci_pp": [
+        33.46,
+        46.85
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "base margin uniquely derived from n and rounded score; edit margin and discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "csqa-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-csqa-initial-random",
+      "model": "qwen",
+      "dataset": "CommonsenseQA",
+      "stage": "initial",
+      "reference_arm": "unedited",
+      "comparison_arm": "random edit",
+      "n": 254,
+      "reference_correct": 53,
+      "comparison_correct": 71,
+      "counts": {
+        "both_correct": 33,
+        "reference_only_correct": 20,
+        "comparison_only_correct": 38,
+        "both_wrong": 163
+      },
+      "reported_difference_pp": 7.09,
+      "reported_95_percent_ci_pp": [
+        1.18,
+        12.99
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "base margin uniquely derived from rounded score; random margin and discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "csqa-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-csqa-random-versus-edited",
+      "model": "qwen",
+      "dataset": "CommonsenseQA",
+      "stage": "initial",
+      "reference_arm": "random edit",
+      "comparison_arm": "edited",
+      "n": 254,
+      "reference_correct": 71,
+      "comparison_correct": 155,
+      "counts": {
+        "both_correct": 64,
+        "reference_only_correct": 7,
+        "comparison_only_correct": 91,
+        "both_wrong": 92
+      },
+      "reported_difference_pp": 33.07,
+      "reported_95_percent_ci_pp": [
+        26.77,
+        39.37
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "margins and discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "csqa-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-arc-initial",
+      "model": "qwen",
+      "dataset": "ARC-Challenge",
+      "stage": "initial",
+      "reference_arm": "unedited",
+      "comparison_arm": "edited",
+      "n": 254,
+      "reference_correct": 75,
+      "comparison_correct": 199,
+      "counts": {
+        "both_correct": 71,
+        "reference_only_correct": 4,
+        "comparison_only_correct": 128,
+        "both_wrong": 51
+      },
+      "reported_difference_pp": 48.82,
+      "reported_95_percent_ci_pp": [
+        42.52,
+        55.51
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "base margin uniquely derived from rounded score; edit margin and discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "arc-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-arc-initial-random",
+      "model": "qwen",
+      "dataset": "ARC-Challenge",
+      "stage": "initial",
+      "reference_arm": "unedited",
+      "comparison_arm": "random edit",
+      "n": 254,
+      "reference_correct": 75,
+      "comparison_correct": 79,
+      "counts": {
+        "both_correct": 48,
+        "reference_only_correct": 27,
+        "comparison_only_correct": 31,
+        "both_wrong": 148
+      },
+      "reported_difference_pp": 1.57,
+      "reported_95_percent_ci_pp": [
+        -4.33,
+        7.48
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "base margin uniquely derived from rounded score; random margin and discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "arc-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-arc-random-versus-edited",
+      "model": "qwen",
+      "dataset": "ARC-Challenge",
+      "stage": "initial",
+      "reference_arm": "random edit",
+      "comparison_arm": "edited",
+      "n": 254,
+      "reference_correct": 79,
+      "comparison_correct": 199,
+      "counts": {
+        "both_correct": 74,
+        "reference_only_correct": 5,
+        "comparison_only_correct": 125,
+        "both_wrong": 50
+      },
+      "reported_difference_pp": 47.24,
+      "reported_95_percent_ci_pp": [
+        40.55,
+        53.94
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "margins and discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "arc-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-csqa-completion",
+      "model": "qwen",
+      "dataset": "CommonsenseQA",
+      "stage": "completion control",
+      "reference_arm": "unedited with continuation",
+      "comparison_arm": "edited",
+      "n": 254,
+      "reference_correct": 153,
+      "comparison_correct": 150,
+      "counts": {
+        "both_correct": 124,
+        "reference_only_correct": 29,
+        "comparison_only_correct": 26,
+        "both_wrong": 75
+      },
+      "reported_difference_pp": -1.18,
+      "reported_95_percent_ci_pp": [
+        -6.69,
+        4.72
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "base margin uniquely derived from rounded score; edit margin and discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "csqa-completion-summary"
+      ]
+    },
+    {
+      "id": "qwen-arc-completion",
+      "model": "qwen",
+      "dataset": "ARC-Challenge",
+      "stage": "completion control",
+      "reference_arm": "unedited with continuation",
+      "comparison_arm": "edited",
+      "n": 254,
+      "reference_correct": 209,
+      "comparison_correct": 210,
+      "counts": {
+        "both_correct": 192,
+        "reference_only_correct": 17,
+        "comparison_only_correct": 18,
+        "both_wrong": 27
+      },
+      "reported_difference_pp": 0.39,
+      "reported_95_percent_ci_pp": [
+        -4.33,
+        4.72
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "base margin uniquely derived from rounded score; edit margin and discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "arc-completion-summary"
+      ]
+    },
+    {
+      "id": "piccolo-gsm8k-holdout",
+      "model": "piccolo",
+      "dataset": "GSM8K train split",
+      "stage": "selection holdout",
+      "reference_arm": "unedited",
+      "comparison_arm": "edited",
+      "n": 239,
+      "reference_correct": 156,
+      "comparison_correct": 202,
+      "counts": {
+        "both_correct": 145,
+        "reference_only_correct": 11,
+        "comparison_only_correct": 57,
+        "both_wrong": 26
+      },
+      "reported_difference_pp": 19.25,
+      "reported_95_percent_ci_pp": [
+        12.97,
+        25.52
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": false,
+      "count_provenance": "n, both_correct, margins and discordances printed; both_wrong derived",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "piccolo-holdout-summary"
+      ]
+    },
+    {
+      "id": "qwen-csqa-initial-uncut",
+      "model": "qwen",
+      "dataset": "CommonsenseQA",
+      "stage": "selected both-uncut diagnostic",
+      "reference_arm": "unedited",
+      "comparison_arm": "edited",
+      "n": 68,
+      "reference_correct": 47,
+      "comparison_correct": 46,
+      "counts": {
+        "both_correct": 42,
+        "reference_only_correct": 5,
+        "comparison_only_correct": 4,
+        "both_wrong": 17
+      },
+      "reported_difference_pp": -1.47,
+      "reported_95_percent_ci_pp": [
+        -10.29,
+        7.35
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": true,
+      "count_provenance": "margins uniquely derived from rounded accuracy; discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "csqa-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-arc-initial-uncut",
+      "model": "qwen",
+      "dataset": "ARC-Challenge",
+      "stage": "selected both-uncut diagnostic",
+      "reference_arm": "unedited",
+      "comparison_arm": "edited",
+      "n": 76,
+      "reference_correct": 67,
+      "comparison_correct": 65,
+      "counts": {
+        "both_correct": 63,
+        "reference_only_correct": 4,
+        "comparison_only_correct": 2,
+        "both_wrong": 7
+      },
+      "reported_difference_pp": -2.63,
+      "reported_95_percent_ci_pp": [
+        -9.21,
+        3.95
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": true,
+      "count_provenance": "margins uniquely derived from rounded accuracy; discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "arc-initial-summary"
+      ]
+    },
+    {
+      "id": "qwen-csqa-completion-uncut",
+      "model": "qwen",
+      "dataset": "CommonsenseQA",
+      "stage": "selected both-uncut diagnostic",
+      "reference_arm": "unedited with continuation",
+      "comparison_arm": "edited",
+      "n": 247,
+      "reference_correct": 150,
+      "comparison_correct": 146,
+      "counts": {
+        "both_correct": 121,
+        "reference_only_correct": 29,
+        "comparison_only_correct": 25,
+        "both_wrong": 72
+      },
+      "reported_difference_pp": -1.62,
+      "reported_95_percent_ci_pp": [
+        -7.29,
+        4.45
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": true,
+      "count_provenance": "margins uniquely derived from rounded accuracy; discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "csqa-completion-summary"
+      ]
+    },
+    {
+      "id": "qwen-arc-completion-uncut",
+      "model": "qwen",
+      "dataset": "ARC-Challenge",
+      "stage": "selected both-uncut diagnostic",
+      "reference_arm": "unedited with continuation",
+      "comparison_arm": "edited",
+      "n": 236,
+      "reference_correct": 196,
+      "comparison_correct": 198,
+      "counts": {
+        "both_correct": 182,
+        "reference_only_correct": 14,
+        "comparison_only_correct": 16,
+        "both_wrong": 24
+      },
+      "reported_difference_pp": 0.85,
+      "reported_95_percent_ci_pp": [
+        -3.81,
+        5.51
+      ],
+      "reported_interval_method": "reported paired percentile bootstrap",
+      "reported_resamples": 10000,
+      "selected_after_observed_outcomes": true,
+      "count_provenance": "margins uniquely derived from rounded accuracy; discordances printed",
+      "evidence_basis": "partial_private_reader_excerpt",
+      "configured_max_new_tokens": null,
+      "thinking_mode": null,
+      "evaluated_artifact_identity_verified": false,
+      "evidence_excerpt_ids": [
+        "arc-completion-summary"
+      ]
+    }
+  ]
+}

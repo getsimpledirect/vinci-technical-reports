@@ -1,0 +1,41 @@
+{
+  "pinned_repository_commit": "4d09ba6d6a7e891dd8063974dfe81b3d78e3494f",
+  "sources": [
+    {
+      "id": "original-author-post",
+      "title": "Sparks of Weight-Space Programming",
+      "url": "https://rikiyat.github.io/blog/weight-space-programming/",
+      "scope": "Original authors: Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab. Public author report; not our experiment."
+    },
+    {
+      "id": "qwen-protocol",
+      "title": "Public Qwen Experiment 8 protocol and result tables",
+      "url": "https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/README.md",
+      "scope": "Pinned public protocol; separate editing runs and author-reported sample-mean accuracy."
+    },
+    {
+      "id": "qwen-base-results",
+      "title": "Public unedited Qwen benchmark aggregates",
+      "url": "https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/eval/unedited/merged.json",
+      "scope": "Pinned public aggregate file."
+    },
+    {
+      "id": "qwen-p50c-results",
+      "title": "Public 50-call Qwen edit benchmark aggregates",
+      "url": "https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/eval/p50c/merged.json",
+      "scope": "Pinned public aggregate file."
+    },
+    {
+      "id": "qwen-edit-manifest",
+      "title": "Public Qwen edit manifest",
+      "url": "https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/runs/p50c/edit/manifest.json",
+      "scope": "Recorded released-tensor identities; does not bind a local evaluation to a loaded artifact."
+    },
+    {
+      "id": "gemma-followup",
+      "title": "Public Gemma follow-up protocol and results",
+      "url": "https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/gemma_followup/README.md",
+      "scope": "Different model, sampling, cap and format-agnostic grader; do not pool with Qwen."
+    }
+  ]
+}

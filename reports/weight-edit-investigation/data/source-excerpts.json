@@ -1,0 +1,112 @@
+{
+  "scope": "Whitelisted aggregate-only summary excerpts; not complete receipts, raw outputs or independent run verification.",
+  "excerpts": [
+    {
+      "id": "piccolo-500-decision-summary",
+      "evidence_basis": "Partial private reader aggregate transcript; authenticity and complete run not independently verified.",
+      "summary_lines": [
+        "Classification: UNDECIDED AT THIS BAR (bar 10.0 pp)."
+      ],
+      "redactions": [
+        "Notification headers, identities, timestamps, paths and URLs excluded by selecting summary lines only.",
+        "Original summary prefixes normalized; unnecessary answer-letter histograms omitted.",
+        "Internal experiment label and decision-record identifiers omitted; retained classification and threshold unchanged."
+      ]
+    },
+    {
+      "id": "piccolo-holdout-summary",
+      "evidence_basis": "Partial private reader aggregate transcript; authenticity and complete run not independently verified.",
+      "summary_lines": [
+        "PAIRED n 239 A_correct 156 EDIT_correct 202 both_correct 145 A_only 11 EDIT_only 57",
+        "DIFF +19.25 pp (edit minus A) interval95 [+12.97, +25.52] pp paired percentile bootstrap B 10000 seed 20261103; exact McNemar two-sided p 1.275e-08 (beside, not classed)",
+        "RULE HOLDS iff diff >= +2.0 pp AND interval95 excludes 0; else DOES NOT HOLD; NO READING on any cut, delta mismatch, missing line, nonzero exit",
+        "CLASS HOLDS",
+        "Selection diagnostic: selected development accuracy 0.8960 on 250 items, chosen from 8 candidates; baseline development accuracy 0.7460 on all 500 development items. Different item sets and selection bias; not a paired gain."
+      ],
+      "redactions": [
+        "Notification headers, identities, timestamps, paths and URLs excluded by selecting summary lines only.",
+        "Original summary prefixes normalized; unnecessary answer-letter histograms omitted.",
+        "The selection-diagnostic sentence is a paraphrase of the source aggregate; its values and unequal-population/selection-bias qualification are retained."
+      ]
+    },
+    {
+      "id": "csqa-initial-summary",
+      "evidence_basis": "Partial private reader aggregate transcript; authenticity and complete run not independently verified.",
+      "summary_lines": [
+        "ARM random errored 0 cap_hit 168 (share 0.6614) unparseable 157 (no_boxed 145, boxed_not_letter 12, error 0) letter_from_cut 11 [answer-letter histogram omitted] mean_tokens 23300.4 median_tokens 32768",
+        "DIFF edited minus base n 254: base 0.2087 edited 0.6102 diff_pp 40.16 paired_bootstrap_95ci_pp [33.46, 46.85] (10000 resamples, seed 20261102) edited_only 107 base_only 5",
+        "BESIDE random minus base n 254: base 0.2087 random 0.2795 diff_pp 7.09 paired_bootstrap_95ci_pp [1.18, 12.99] (10000 resamples, seed 20261102) random_only 38 base_only 20",
+        "BESIDE edited minus random n 254: random 0.2795 edited 0.6102 diff_pp 33.07 paired_bootstrap_95ci_pp [26.77, 39.37] (10000 resamples, seed 20261102) edited_only 91 random_only 7",
+        "BESIDE edited minus base both_uncut n 68: base 0.6912 edited 0.6765 diff_pp -1.47 paired_bootstrap_95ci_pp [-10.29, 7.35] (10000 resamples, seed 20261102) edited_only 4 base_only 5",
+        "BESIDE cap_hit of 254: base 186 edited 0 random 168"
+      ],
+      "redactions": [
+        "Notification headers, identities, timestamps, paths and URLs excluded by selecting summary lines only.",
+        "Original summary prefixes normalized; unnecessary answer-letter histograms omitted."
+      ]
+    },
+    {
+      "id": "arc-initial-summary",
+      "evidence_basis": "Partial private reader aggregate transcript; authenticity and complete run not independently verified.",
+      "summary_lines": [
+        "ARM random errored 0 cap_hit 173 (share 0.6811) unparseable 164 (no_boxed 149, boxed_not_letter 15, letter_not_offered 0, error 0) letter_from_cut 9 [answer-letter histogram omitted] mean_tokens 23866.5 median_tokens 32768",
+        "DIFF edited minus base n 254: base 0.2953 edited 0.7835 diff_pp 48.82 paired_bootstrap_95ci_pp [42.52, 55.51] (10000 resamples, seed 20261102) edited_only 128 base_only 4",
+        "BESIDE random minus base n 254: base 0.2953 random 0.3110 diff_pp 1.57 paired_bootstrap_95ci_pp [-4.33, 7.48] (10000 resamples, seed 20261102) random_only 31 base_only 27",
+        "BESIDE edited minus random n 254: random 0.3110 edited 0.7835 diff_pp 47.24 paired_bootstrap_95ci_pp [40.55, 53.94] (10000 resamples, seed 20261102) edited_only 125 random_only 5",
+        "BESIDE edited minus base both_uncut n 76: base 0.8816 edited 0.8553 diff_pp -2.63 paired_bootstrap_95ci_pp [-9.21, 3.95] (10000 resamples, seed 20261102) edited_only 2 base_only 4",
+        "BESIDE cap_hit of 254: base 178 edited 2 random 173"
+      ],
+      "redactions": [
+        "Notification headers, identities, timestamps, paths and URLs excluded by selecting summary lines only.",
+        "Original summary prefixes normalized; unnecessary answer-letter histograms omitted."
+      ]
+    },
+    {
+      "id": "csqa-completion-summary",
+      "evidence_basis": "Partial private reader aggregate transcript; authenticity and complete run not independently verified.",
+      "summary_lines": [
+        "ARM edited errored 0 cap_hit 0 (share 0.0000) unparseable 0 (no_boxed 0, boxed_not_letter 0, error 0) letter_from_cut 0 [answer-letter histogram omitted] mean_tokens 6343.3 median_tokens 5322",
+        "ARM edited attempts1 254 attempts2 0 (share_continued 0.0000) mean_total_tokens 6343.3 mean_tokens_first 6343.3 mean_tokens_cont 0.0",
+        "SCORE edited 150 of 254 correct = 0.5906",
+        "DIFF edited minus base n 254: base 0.6024 edited 0.5906 diff_pp -1.18 paired_bootstrap_95ci_pp [-6.69, 4.72] (10000 resamples, seed 20261102) edited_only 26 base_only 29",
+        "BUDGET realized_mean_tokens base 6465.5 edited 6343.3 abs_B_minus_C_over_C 0.0193",
+        "BESIDE edited minus base both_uncut n 247: base 0.6073 edited 0.5911 diff_pp -1.62 paired_bootstrap_95ci_pp [-7.29, 4.45] (10000 resamples, seed 20261102) edited_only 25 base_only 29",
+        "BESIDE cap_hit of 254: base 7 edited 0"
+      ],
+      "redactions": [
+        "Notification headers, identities, timestamps, paths and URLs excluded by selecting summary lines only.",
+        "Original summary prefixes normalized; unnecessary answer-letter histograms omitted."
+      ]
+    },
+    {
+      "id": "arc-completion-summary",
+      "evidence_basis": "Partial private reader aggregate transcript; authenticity and complete run not independently verified.",
+      "summary_lines": [
+        "ARM edited attempts1 254 attempts2 0 (share_continued 0.0000) mean_total_tokens 6676.0 mean_tokens_first 6676.0 mean_tokens_cont 0.0",
+        "SCORE edited 210 of 254 correct = 0.8268",
+        "DIFF edited minus base n 254: base 0.8228 edited 0.8268 diff_pp 0.39 paired_bootstrap_95ci_pp [-4.33, 4.72] (10000 resamples, seed 20261102) edited_only 18 base_only 17",
+        "BUDGET realized_mean_tokens base 7017.3 edited 6676.0 abs_B_minus_C_over_C 0.0511",
+        "BESIDE edited minus base both_uncut n 236: base 0.8305 edited 0.8390 diff_pp 0.85 paired_bootstrap_95ci_pp [-3.81, 5.51] (10000 resamples, seed 20261102) edited_only 16 base_only 14",
+        "BESIDE cap_hit of 254: base 18 edited 0"
+      ],
+      "redactions": [
+        "Notification headers, identities, timestamps, paths and URLs excluded by selecting summary lines only.",
+        "Original summary prefixes normalized; unnecessary answer-letter histograms omitted."
+      ]
+    },
+    {
+      "id": "math-initial-summary",
+      "evidence_basis": "Partial private reader aggregate transcript; authenticity and complete run not independently verified.",
+      "summary_lines": [
+        "ARM original errored 0 cap_hit 232 (share 0.9062) no_boxed 209 mean_tokens 30225.9 median_tokens 32768",
+        "ARM edited errored 0 cap_hit 77 (share 0.3008) no_boxed 96 mean_tokens 22396.0 median_tokens 24211",
+        "OUR_GRADER original 0.0938 edited 0.4922 diff_pp 39.84 paired_bootstrap_95ci_pp [33.98, 46.09] (10000 resamples, seed 20261102) edited_only 102 original_only 0",
+        "both_not_cut n 24 original 0.9167 edited 0.9583"
+      ],
+      "redactions": [
+        "Notification headers, identities, timestamps, paths and URLs excluded by selecting summary lines only.",
+        "Original summary prefixes normalized; unnecessary answer-letter histograms omitted."
+      ]
+    }
+  ]
+}

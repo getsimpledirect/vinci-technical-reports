@@ -13,6 +13,10 @@ Report text and figures use CC BY 4.0; analysis/build code uses Apache 2.0. Neit
 Manuscripts, aggregate evidence packages, and release materials for Vinci Research
 technical reports.
 
+## Weight-edit investigation evidence
+
+[Public aggregate evidence](reports/weight-edit-investigation/) for the Qwen and Vinci Piccolo weight-edit investigation: reported counts, completion diagnostics, public citations and reproducible arithmetic checks. Local results are transcribed from partial private records; full evaluation runs cannot be independently reproduced from this subset. Unknown generation settings, evaluated-artifact linkage and other limitations are documented with the data. This evidence does not establish that the original authors' reported results are false.
+
 ## Reports
 
 | No. | Title | Version | Published | DOI |

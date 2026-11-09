@@ -9,6 +9,10 @@ the thing they approved existed. None of that is visible from a list of items to
 
 Read this alongside the checklist, not instead of it.
 
+## Aggregate checks on pull requests
+
+The `.github/workflows/weight-edit-evidence.yml` workflow checks changes to the weight-edit evidence record with `calculations.py --check`. It verifies aggregate arithmetic, explicit unknowns, adversarial controls and complete manifest coverage. This check does not authenticate experimental runs or replace publication review.
+
 ---
 
 ## The order that matters
@@ -386,4 +390,3 @@ Two further findings were phantoms from over-broad greps — hyphens that a seco
 showed were present, and a "missing locale" that was a different report matching the pattern.
 Both were disproved before reaching anyone. When a sweep reports a defect, reproduce it a second
 way before it costs someone a rebuild.
-
