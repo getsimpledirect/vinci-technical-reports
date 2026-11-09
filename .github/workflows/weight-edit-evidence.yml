@@ -1,0 +1,29 @@
+name: Weight-edit evidence verification
+
+on:
+  pull_request:
+    paths:
+      - reports/weight-edit-investigation/**
+      - .github/workflows/weight-edit-evidence.yml
+      - PUBLISHING.md
+  push:
+    branches: [main]
+    paths:
+      - reports/weight-edit-investigation/**
+      - .github/workflows/weight-edit-evidence.yml
+      - PUBLISHING.md
+
+permissions:
+  contents: read
+
+jobs:
+  aggregate-evidence:
+    name: Aggregate evidence and manifest
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Check aggregates, uncertainty and file coverage
+        run: python3 -B reports/weight-edit-investigation/calculations.py --check
